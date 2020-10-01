@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             x:Class="SeparationTrainer.Views.SaveActivityPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="How did it go?"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="Stress Level"/>
+            <Picker ItemsSource="{Binding StressLevels}"
+                    SelectedItem="{Binding SelectedStressLevel}"/>
+
+            <Label Text="Notes"/>
+            <Entry Text="{Binding Notes}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
