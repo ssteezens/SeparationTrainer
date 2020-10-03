@@ -1,8 +1,15 @@
-﻿using SeparationTrainer.Services;
-using SeparationTrainer.Views;
+﻿using SeparationTrainer.Views;
 using System;
+using System.IO;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using SeparationTrainer.Data;
+using SeparationTrainer.Data.Entities;
+using SeparationTrainer.Data.Repositories;
+using SeparationTrainer.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
 
 namespace SeparationTrainer
 {
@@ -12,9 +19,31 @@ namespace SeparationTrainer
         public App()
         {
             InitializeComponent();
+            
+            RegisterServices();
 
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+        }
+
+        public void RegisterServices()
+        {
+            var mapperInstance = CreateMapper();
+            var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
+            var activityDatabase = new ActivityRepository(databasePath);
+
+            DependencyService.RegisterSingleton(activityDatabase);
+            DependencyService.RegisterSingleton(mapperInstance);
+        }
+
+        public static IMapper CreateMapper()
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<Activity, ActivityModel>().ReverseMap();
+                    cfg.CreateMap<Session, SessionModel>().ReverseMap();
+                });
+
+            return mapperConfiguration.CreateMapper();
         }
 
         protected override void OnStart()

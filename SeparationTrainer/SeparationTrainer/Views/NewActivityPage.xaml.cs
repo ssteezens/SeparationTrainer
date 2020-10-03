@@ -15,7 +15,18 @@ namespace SeparationTrainer.Views
         public NewActivityPage()
         {
             InitializeComponent();
-            this.BindingContext = new NewActivityViewModel();
+            ViewModel = new NewActivityViewModel();
+
+            this.BindingContext = ViewModel;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            ViewModel?.Refresh();
+        }
+
+        public NewActivityViewModel ViewModel { get; set; }
     }
 }

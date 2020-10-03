@@ -1,16 +1,20 @@
 ﻿using SeparationTrainer.Models;
-using SeparationTrainer.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AutoMapper;
+using SeparationTrainer.Data.Repositories;
 using Xamarin.Forms;
+using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
 
 namespace SeparationTrainer.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IMapper Mapper => DependencyService.Get<IMapper>();
+
+        public ActivityRepository ActivityRepository => DependencyService.Get<ActivityRepository>();
 
         bool isBusy = false;
         public bool IsBusy

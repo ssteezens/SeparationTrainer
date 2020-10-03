@@ -82,11 +82,8 @@
     <FlyoutItem Title="New Activity" Icon="icon_feed.png">
         <ShellContent Route="NewActivityPage" ContentTemplate="{DataTemplate local:NewActivityPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="About" Icon="icon_about.png">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-    </FlyoutItem>
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Route="ActivitiesPage" ContentTemplate="{DataTemplate local:ActivitiesPage}" />
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->

@@ -1,26 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Timers;
-using System.Threading.Tasks;
+﻿using SeparationTrainer.Data.Entities;
 using SeparationTrainer.Models;
+using SeparationTrainer.Views;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
 
 namespace SeparationTrainer.ViewModels
 {
     public class NewActivityViewModel : BaseViewModel
     {
-        private string _timerText;
+        private string _timerText = "0:00:00.00";
         private bool _stopWatchIsRunning;
+        private string _notes;
+        private string _selectedStressLevel = "1";
 
         public NewActivityViewModel()
         {
             StartStopStopWatchCommand = new Command(StartStopStopWatch);
-            SaveActivityCommand = new Command(SaveActivity);
+            SaveActivityCommand = new Command(async () => await SaveActivity());
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
             StopWatchTimer.Elapsed +=  OnStopWatchTimerOnElapsed;
+        }
+
+        public void Refresh()
+        {
+            TimerText = "0:00:00.00";
+            TimerStart = DateTime.MinValue;
+            Notes = string.Empty;
+            SelectedStressLevel = "1";
+            OnPropertyChanged(nameof(StartStopButtonText));
         }
 
         public string TimerText
@@ -41,17 +52,25 @@ namespace SeparationTrainer.ViewModels
 
         public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 
-        public string SelectedStressLevel { get; set; }
+        public string SelectedStressLevel
+        {
+            get => _selectedStressLevel;
+            set => SetProperty(ref _selectedStressLevel, value, nameof(SelectedStressLevel));
+        }
 
-        public string Notes { get; set; }
+        public string Notes
+        {
+            get => _notes;
+            set => SetProperty(ref _notes, value, nameof(Notes));
+        }
+
+        public DateTime TimerStart { get; set; } = DateTime.MinValue;
 
         public Timer StopWatchTimer { get; set; }
 
         public Command StartStopStopWatchCommand { get; }
 
         public Command SaveActivityCommand { get; }
-
-        public DateTime TimerStart { get; set; } = DateTime.MinValue;
 
         private void StartStopStopWatch()
         {
@@ -65,7 +84,7 @@ namespace SeparationTrainer.ViewModels
             OnPropertyChanged(nameof(StartStopButtonText));
         }
 
-        private void SaveActivity()
+        private async Task SaveActivity()
         {
             var activity = new ActivityModel()
             {
@@ -75,13 +94,16 @@ namespace SeparationTrainer.ViewModels
                 ElapsedTime = ElapsedTime
             };
 
-            // todo: save activity in database
+            var entity = Mapper.Map<Activity>(activity);
+
+            await ActivityRepository.Add(entity);
+            await Shell.Current.GoToAsync($"//{nameof(ActivitiesPage)}");
         }
 
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             ElapsedTime = e.SignalTime - TimerStart;
-            TimerText = ElapsedTime.ToString("g");
+            TimerText = ElapsedTime.ToString(@"hh\:mm\:ss\.ff");
         }
     }
 }

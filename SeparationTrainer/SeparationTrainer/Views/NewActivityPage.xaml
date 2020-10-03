@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SeparationTrainer.Views.NewActivityPage">
+             x:Class="SeparationTrainer.Views.NewActivityPage"
+             Visual="Material">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="15">
             <Label Text="{Binding TimerText}"
+                   FontSize="Large"
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />
 

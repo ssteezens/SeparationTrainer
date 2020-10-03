@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeparationTrainer.Views.ActivitiesPage">
+    <ContentPage.Content>
+        <RefreshView Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+            <StackLayout>
+                <Label Text="Activities"
+                       FontSize="Large"
+                       Margin="10"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" />
+                <CollectionView x:Name="ActivityCollectionView" ItemsSource="{Binding Activities}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="4"
+                                         Margin="4"
+                                         HorizontalOptions="Center">
+                                <Label FontAttributes="Bold" Text="{Binding Created, StringFormat='{0:MM/dd/yy H:mm}'}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Stress Level: "/>
+                                    <Label Text="{Binding AnxietyLevel}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Elapsed Time:"/>
+                                    <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Notes:"/>
+                                    <Label Text="{Binding Notes}"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

@@ -8,6 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="PrimaryTextColor">Black</Color>
+
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -26,6 +28,18 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
         </ResourceDictionary>        
     </Application.Resources>
