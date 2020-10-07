@@ -20,13 +20,6 @@ namespace SeparationTrainer.Views
             this.BindingContext = ViewModel;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            ViewModel?.Refresh();
-        }
-
         public NewActivityViewModel ViewModel { get; set; }
     }
 }

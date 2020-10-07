@@ -19,20 +19,22 @@ namespace SeparationTrainer.ViewModels
         public NewActivityViewModel()
         {
             StartStopStopWatchCommand = new Command(StartStopStopWatch);
-            SaveActivityCommand = new Command(async () => await SaveActivity());
+            ResetTimerCommand = new Command(ResetTimer);
+            CancelCommand = new Command(async() => await Cancel());
+            SaveActivityCommand = new Command(async () => await SaveActivity(), () => !StopWatchIsRunning);
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
             StopWatchTimer.Elapsed +=  OnStopWatchTimerOnElapsed;
         }
 
-        public void Refresh()
+        public void ResetPage()
         {
-            TimerText = "0:00:00.00";
-            TimerStart = DateTime.MinValue;
-            Notes = string.Empty;
+            ResetTimer();
             SelectedStressLevel = "1";
-            OnPropertyChanged(nameof(StartStopButtonText));
+            Notes = string.Empty;
         }
+
+        #region Properties
 
         public string TimerText
         {
@@ -48,7 +50,7 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _stopWatchIsRunning, value, nameof(StopWatchIsRunning));
         }
 
-        public TimeSpan ElapsedTime { get; set; }
+        public TimeSpan ElapsedTime { get; set; } = TimeSpan.MinValue;
 
         public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 
@@ -64,11 +66,21 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _notes, value, nameof(Notes));
         }
 
+        public bool ResetTimerIsEnabled => StopWatchIsRunning || ElapsedTime != TimeSpan.MinValue;
+
         public DateTime TimerStart { get; set; } = DateTime.MinValue;
 
         public Timer StopWatchTimer { get; set; }
 
+        #endregion
+
+        #region Commands
+
         public Command StartStopStopWatchCommand { get; }
+
+        public Command ResetTimerCommand { get; }
+
+        public Command CancelCommand { get; }
 
         public Command SaveActivityCommand { get; }
 
@@ -81,7 +93,36 @@ namespace SeparationTrainer.ViewModels
             StopWatchIsRunning = !StopWatchIsRunning;
             StopWatchTimer.Enabled = StopWatchIsRunning;
 
+            OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
+        }
+
+        private void ResetTimer()
+        {
+            StopWatchTimer.Elapsed -= OnStopWatchTimerOnElapsed;
+            StopWatchTimer = new Timer(100) { Enabled = false };
+            StopWatchTimer.Elapsed += OnStopWatchTimerOnElapsed;
+
+            StopWatchIsRunning = false;
+            StopWatchTimer.Enabled = false;
+            ElapsedTime = TimeSpan.MinValue;
+            TimerStart = DateTime.MinValue;
+            TimerText = "0:00:00.00";
+
+            OnPropertyChanged(nameof(ResetTimerIsEnabled));
+            OnPropertyChanged(nameof(StartStopButtonText));
+        }
+
+        private async Task Cancel()
+        {
+            var result = await DialogService.ShowAlert("Cancel?", "Are you sure you would like to cancel this activity?");
+
+            if (!result)
+                return;
+
+            await Shell.Current.GoToAsync($"//{nameof(ViewActivitiesPage)}");
+
+            ResetPage();
         }
 
         private async Task SaveActivity()
@@ -97,7 +138,10 @@ namespace SeparationTrainer.ViewModels
             var entity = Mapper.Map<Activity>(activity);
 
             await ActivityRepository.Add(entity);
-            await Shell.Current.GoToAsync($"//{nameof(ActivitiesPage)}");
+
+            ResetPage();
+
+            await Shell.Current.GoToAsync($"//{nameof(ViewActivitiesPage)}");
         }
 
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)
@@ -105,5 +149,7 @@ namespace SeparationTrainer.ViewModels
             ElapsedTime = e.SignalTime - TimerStart;
             TimerText = ElapsedTime.ToString(@"hh\:mm\:ss\.ff");
         }
+
+        #endregion
     }
 }

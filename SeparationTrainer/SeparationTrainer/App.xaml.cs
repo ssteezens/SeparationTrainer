@@ -7,6 +7,7 @@ using SeparationTrainer.Data;
 using SeparationTrainer.Data.Entities;
 using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Models;
+using SeparationTrainer.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
@@ -33,6 +34,7 @@ namespace SeparationTrainer
 
             DependencyService.RegisterSingleton(activityDatabase);
             DependencyService.RegisterSingleton(mapperInstance);
+            DependencyService.Register<IDialogService, DialogService>();
         }
 
         public static IMapper CreateMapper()

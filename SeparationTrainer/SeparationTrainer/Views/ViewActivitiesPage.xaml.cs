@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SeparationTrainer.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ActivitiesPage : ContentPage
+    public partial class ViewActivitiesPage : ContentPage
     {
-        public ActivitiesPage()
+        public ViewActivitiesPage()
         {
             InitializeComponent();
 

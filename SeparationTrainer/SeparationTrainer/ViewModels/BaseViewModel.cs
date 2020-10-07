@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AutoMapper;
 using SeparationTrainer.Data.Repositories;
+using SeparationTrainer.Services;
 using Xamarin.Forms;
 using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
 
@@ -15,6 +16,8 @@ namespace SeparationTrainer.ViewModels
         public IMapper Mapper => DependencyService.Get<IMapper>();
 
         public ActivityRepository ActivityRepository => DependencyService.Get<ActivityRepository>();
+
+        public IDialogService DialogService => DependencyService.Get<IDialogService>();
 
         bool isBusy = false;
         public bool IsBusy

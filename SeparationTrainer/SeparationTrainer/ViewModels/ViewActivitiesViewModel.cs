@@ -2,6 +2,8 @@
 using SeparationTrainer.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using SeparationTrainer.Views;
 using Xamarin.Forms;
 
 namespace SeparationTrainer.ViewModels
@@ -14,6 +16,7 @@ namespace SeparationTrainer.ViewModels
         public ViewActivitiesViewModel()
         {
             RefreshCommand = new Command(GetActivities);
+            GoToAddActivityCommand = new Command(async () => await GoToAddActivity());
 
             GetActivities();
         }
@@ -32,6 +35,8 @@ namespace SeparationTrainer.ViewModels
 
         public Command RefreshCommand { get; }
 
+        public Command GoToAddActivityCommand { get; }
+
         public void GetActivities()
         {
             IsRefreshing = true;
@@ -42,6 +47,11 @@ namespace SeparationTrainer.ViewModels
             Activities = new ObservableCollection<ActivityModel>(activityModels);
 
             IsRefreshing = false;
+        }
+
+        public async Task GoToAddActivity()
+        {
+            await Shell.Current.GoToAsync($"//{nameof(NewActivityPage)}");
         }
     }
 }

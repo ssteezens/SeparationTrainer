@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SeparationTrainer.Views.ActivitiesPage">
+             x:Class="SeparationTrainer.Views.ViewActivitiesPage"
+             Title="Activities">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding GoToAddActivityCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <RefreshView Command="{Binding RefreshCommand}"
                      IsRefreshing="{Binding IsRefreshing}">
             <StackLayout>
-                <Label Text="Activities"
-                       FontSize="Large"
-                       Margin="10"
-                       VerticalOptions="CenterAndExpand" 
-                       HorizontalOptions="CenterAndExpand" />
-                <CollectionView x:Name="ActivityCollectionView" ItemsSource="{Binding Activities}">
+                <CollectionView x:Name="ActivityCollectionView" 
+                                ItemsSource="{Binding Activities}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="4"

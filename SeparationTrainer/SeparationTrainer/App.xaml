@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SeparationTrainer.Converters;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -41,6 +42,14 @@
             <Style TargetType="Picker">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Material Design Icons" />
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+            </OnPlatform>
         </ResourceDictionary>        
+
+        <!-- Converters -->
+        <converters:BoolToStartStopGlyphConverter x:Key="BoolToStartStopGlyphConverter" />
     </Application.Resources>
 </Application>
