@@ -48,9 +48,9 @@
                             VerticalOptions="Center"/>
 
                     <ImageButton Grid.Column="1"
-                                 HeightRequest="40"
-                                 WidthRequest="40"
-                                 CornerRadius="20"
+                                 HeightRequest="50"
+                                 WidthRequest="50"
+                                 CornerRadius="25"
                                  Padding="4"
                                  VerticalOptions="Center"
                                  BackgroundColor="{StaticResource Primary}"
@@ -58,6 +58,7 @@
                                  HorizontalOptions="Center">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Size="Small"
                                              Glyph="{Binding StopWatchIsRunning, Converter={StaticResource BoolToStartStopGlyphConverter}}">
                             </FontImageSource>
                         </ImageButton.Source>
@@ -72,7 +73,10 @@
                     SelectedItem="{Binding SelectedStressLevel}"/>
 
             <Label Text="Notes"/>
-            <Entry Text="{Binding Notes}" Placeholder="Add Notes Here"/>
+            <Entry Text="{Binding Notes}" 
+                   Placeholder="Add Notes Here"/>
+
+            <BoxView Color="Black" WidthRequest="100" HeightRequest="1" />
 
             <Button Text="Save" Command="{Binding SaveActivityCommand}" />
         </StackLayout>

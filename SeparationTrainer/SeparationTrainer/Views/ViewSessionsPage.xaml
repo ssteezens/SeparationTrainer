@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeparationTrainer.Views.ViewSessionsPage"
+             IsBusy="{Binding IsBusy}"
+             Visual="Material"
+             Title="Training Sessions">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding GoToAddActivityCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <CarouselView x:Name="SessionsCarouselView" 
+                      ItemsSource="{Binding Sessions}"
+                      CurrentItem="{Binding CurrentSession}">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Title}"
+                               Margin="4,4,0,0"
+                               FontAttributes="Bold"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="8,0">
+                            <Label Text="Total Activity Time: "/>
+                            <Label Text="{Binding TotalTimeDisplay}"/>
+                        </StackLayout>
+
+                        <CollectionView ItemsSource="{Binding Activities}"
+                                        SelectionMode="Single"
+                                        Margin="8,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="4"
+                                                 Margin="8"
+                                                 HorizontalOptions="Center">
+                                        <Label FontAttributes="Bold"
+                                                   Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Stress Level: " />
+                                            <Label Text="{Binding AnxietyLevel}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Elapsed Time:" />
+                                            <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Notes:" />
+                                            <Label Text="{Binding Notes}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </ContentPage.Content>
+</ContentPage>

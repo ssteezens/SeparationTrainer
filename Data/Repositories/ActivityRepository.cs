@@ -45,5 +45,10 @@ namespace SeparationTrainer.Data.Repositories
         {
             return _database.Table<Activity>().ToListAsync().Result;
         }
+
+        public async Task<IEnumerable<Activity>> GetAllAsync()
+        {
+            return await _database.Table<Activity>().ToListAsync();
+        }
     }
 }

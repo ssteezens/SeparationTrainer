@@ -17,7 +17,7 @@
                             <StackLayout Padding="4"
                                          Margin="4"
                                          HorizontalOptions="Center">
-                                <Label FontAttributes="Bold" Text="{Binding Created, StringFormat='{0:MM/dd/yy H:mm}'}"/>
+                                <Label FontAttributes="Bold" Text="{Binding Created, StringFormat='{0:MM/dd/yy hh:mm tt}'}"/>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Stress Level: "/>
                                     <Label Text="{Binding AnxietyLevel}"/>

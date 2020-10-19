@@ -120,7 +120,7 @@ namespace SeparationTrainer.ViewModels
             if (!result)
                 return;
 
-            await Shell.Current.GoToAsync($"//{nameof(ViewActivitiesPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
 
             ResetPage();
         }
@@ -141,7 +141,7 @@ namespace SeparationTrainer.ViewModels
 
             ResetPage();
 
-            await Shell.Current.GoToAsync($"//{nameof(ViewActivitiesPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
         }
 
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)

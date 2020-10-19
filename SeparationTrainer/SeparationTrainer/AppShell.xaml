@@ -82,9 +82,12 @@
     <FlyoutItem Title="Record Activity">
         <ShellContent Route="NewActivityPage" ContentTemplate="{DataTemplate local:NewActivityPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="View Activities">
-        <ShellContent Route="ViewActivitiesPage" ContentTemplate="{DataTemplate local:ViewActivitiesPage}" />
+    <FlyoutItem Title="View Sessions">
+        <ShellContent Route="ViewSessionsPage" ContentTemplate="{DataTemplate local:ViewSessionsPage}" />
     </FlyoutItem>
+    <!--<FlyoutItem Title="View Activities">
+        <ShellContent Route="ViewActivitiesPage" ContentTemplate="{DataTemplate local:ViewActivitiesPage}" />
+    </FlyoutItem>-->
 
     <!--
         This defines content that won't show up in a flyout menu. When this content is active the flyout menu won't be available.

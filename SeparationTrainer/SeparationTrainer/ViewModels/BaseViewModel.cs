@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using AutoMapper;
 using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Services;
@@ -31,6 +32,11 @@ namespace SeparationTrainer.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        public virtual async Task LoadData()
+        {
+
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

@@ -20,19 +20,22 @@ namespace SeparationTrainer.Views
             this.BindingContext = ViewModel;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            
-            ViewModel?.GetActivities();
 
-            // scroll to the last activity
-            if (ViewModel?.Activities.Count > 0)
+            if (ViewModel != null)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                await ViewModel?.LoadData();
+
+                // scroll to the last activity
+                if (ViewModel?.Activities.Count > 0)
                 {
-                    ActivityCollectionView.ScrollTo(ViewModel.Activities.Last(), ScrollToPosition.End);
-                });
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        ActivityCollectionView.ScrollTo(ViewModel.Activities.Last(), ScrollToPosition.End);
+                    });
+                }
             }
         }
 
