@@ -12,9 +12,9 @@ namespace SeparationTrainer.Models
         
         public int AnxietyLevel { get; set; }
 
-        public TimeSpan ElapsedTime { get; set; }
+        public TimeSpan ElapsedTime { get; set; } = new TimeSpan(0, 0, 0, 1);
 
-        public string Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
 
         public DateTime Created { get; set; }
     }

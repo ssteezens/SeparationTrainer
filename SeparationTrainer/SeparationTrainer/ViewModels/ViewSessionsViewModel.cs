@@ -86,10 +86,7 @@ namespace SeparationTrainer.ViewModels
 
         public async Task GetNewActivitiesForSession()
         {
-            // todo: add repo method for getting activities for a date
-            var activities = await ActivityRepository.GetAllAsync();
-
-            var activitiesForDay = activities.Where(i => i.Created.Date == CurrentSession.Created.Date);
+            var activitiesForDay = await ActivityRepository.GetForDayAsync(CurrentSession.Created.Date);
 
             var newActivities = activitiesForDay.Where(activity => !CurrentSession.Activities.Select(i => i.Id).Contains(activity.Id));
             var models = Mapper.Map<List<ActivityModel>>(newActivities);
