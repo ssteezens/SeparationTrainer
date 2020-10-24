@@ -11,7 +11,7 @@ namespace SeparationTrainer.ViewModels
 {
     public class NewActivityViewModel : BaseViewModel
     {
-        private string _timerText = "0:00:00.00";
+        private string _timerText = "00:00.00";
         private bool _stopWatchIsRunning;
         private string _notes;
         private string _selectedStressLevel = "1";
@@ -21,7 +21,7 @@ namespace SeparationTrainer.ViewModels
             StartStopStopWatchCommand = new Command(StartStopStopWatch);
             ResetTimerCommand = new Command(ResetTimer);
             CancelCommand = new Command(async() => await Cancel());
-            SaveActivityCommand = new Command(async () => await SaveActivity(), () => !StopWatchIsRunning);
+            SaveActivityCommand = new Command(async () => await SaveActivity(), () => CanSaveActivity);
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
             StopWatchTimer.Elapsed +=  OnStopWatchTimerOnElapsed;
@@ -49,6 +49,8 @@ namespace SeparationTrainer.ViewModels
             get => _stopWatchIsRunning;
             set => SetProperty(ref _stopWatchIsRunning, value, nameof(StopWatchIsRunning));
         }
+
+        public bool CanSaveActivity => !StopWatchIsRunning && !string.IsNullOrEmpty(SelectedStressLevel) && ElapsedTime > TimeSpan.MinValue;
 
         public TimeSpan ElapsedTime { get; set; } = TimeSpan.MinValue;
 
@@ -95,6 +97,7 @@ namespace SeparationTrainer.ViewModels
 
             OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
+            SaveActivityCommand.ChangeCanExecute();
         }
 
         private void ResetTimer()
@@ -107,10 +110,11 @@ namespace SeparationTrainer.ViewModels
             StopWatchTimer.Enabled = false;
             ElapsedTime = TimeSpan.MinValue;
             TimerStart = DateTime.MinValue;
-            TimerText = "0:00:00.00";
+            TimerText = "00:00.00";
 
             OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
+            SaveActivityCommand.ChangeCanExecute();
         }
 
         private async Task Cancel()

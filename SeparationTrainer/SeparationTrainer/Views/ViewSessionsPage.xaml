@@ -10,6 +10,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <CarouselView x:Name="SessionsCarouselView" 
+                      IsScrollAnimated="False"
                       ItemsSource="{Binding Sessions}"
                       CurrentItem="{Binding CurrentSession}">
             <CarouselView.ItemTemplate>
@@ -27,26 +28,34 @@
                         </StackLayout>
 
                         <CollectionView ItemsSource="{Binding Activities}"
+                                        SelectedItem="{Binding SelectedActivity}"
                                         SelectionMode="Single"
                                         Margin="8,0">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Padding="4"
-                                                 Margin="8"
+                                                 Margin="8,0"
+                                                 Spacing="0"
                                                  HorizontalOptions="Center">
+                                        <!-- Created Time stamp -->
                                         <Label FontAttributes="Bold"
-                                                   Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
-                                        <StackLayout Orientation="Horizontal">
+                                               Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
+
+                                        <!-- Anxiety Level -->
+                                        <StackLayout Orientation="Horizontal"
+                                                     Margin="0">
                                             <Label Text="Stress Level: " />
                                             <Label Text="{Binding AnxietyLevel}" />
                                         </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
+                                        <!-- Elapsed Time -->
+                                        <StackLayout Orientation="Horizontal" Margin="0">
                                             <Label Text="Elapsed Time:" />
                                             <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
                                         </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Notes:" />
-                                            <Label Text="{Binding Notes}" />
+                                        <!-- Notes -->
+                                        <StackLayout Orientation="Horizontal" Margin="0">
+                                            <Label Text="Notes:" Padding="0" Margin="0" />
+                                            <Label Text="{Binding Notes}" Padding="0" Margin="0" />
                                         </StackLayout>
                                     </StackLayout>
                                 </DataTemplate>

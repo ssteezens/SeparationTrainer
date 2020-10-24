@@ -76,7 +76,7 @@
             <Entry Text="{Binding Notes}" 
                    Placeholder="Add Notes Here"/>
 
-            <BoxView Color="Black" WidthRequest="100" HeightRequest="1" />
+                <!--<BoxView Color="Black" WidthRequest="100" HeightRequest="1" />-->
 
             <Button Text="Save" Command="{Binding SaveActivityCommand}" />
         </StackLayout>

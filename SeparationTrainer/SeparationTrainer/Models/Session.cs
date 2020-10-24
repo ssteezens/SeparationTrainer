@@ -33,6 +33,6 @@ namespace SeparationTrainer.Models
 
         public string TotalTimeDisplay => TotalActivityTime.ToShortForm();
 
-        public TimeSpan TotalActivityTime => new TimeSpan(Activities.Sum(i => i.ElapsedTime.Ticks));
+        public TimeSpan TotalActivityTime => new TimeSpan(Activities.Where(i => i.ElapsedTime > TimeSpan.MinValue).Sum(i => i.ElapsedTime.Ticks));
     }
 }

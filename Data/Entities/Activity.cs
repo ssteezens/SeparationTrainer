@@ -19,5 +19,9 @@ namespace SeparationTrainer.Data.Entities
         public string Notes { get; set; }
 
         public DateTime Created { get; set; }
+
+        public bool OutOfSight { get; set; }
+
+        public bool ExitDoorUsed { get; set; }
     }
 }

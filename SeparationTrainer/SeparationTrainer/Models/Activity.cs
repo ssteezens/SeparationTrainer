@@ -17,5 +17,9 @@ namespace SeparationTrainer.Models
         public string Notes { get; set; } = string.Empty;
 
         public DateTime Created { get; set; }
+
+        public bool UsedExitDoor { get; set; }
+
+        public bool InSightSeparation { get; set; }
     }
 }
