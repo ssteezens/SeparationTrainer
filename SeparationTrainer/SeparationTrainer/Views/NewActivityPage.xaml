@@ -2,83 +2,79 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
+             xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Views.NewActivityPage"
              Visual="Material"
-             Title="Record Activity">
+             Title="Record Activity"
+             BackgroundColor="{DynamicResource Surface}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Padding="15">
+        <ScrollView>
+            <StackLayout Padding="15">
+                <Grid HorizontalOptions="CenterAndExpand"
+                      VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Grid HorizontalOptions="CenterAndExpand"
-                  VerticalOptions="CenterAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Button WidthRequest="300"
-                        HeightRequest="300"
-                        CornerRadius="150"
-                        HorizontalOptions="Center"
-                        VerticalOptions="CenterAndExpand"
-                        BorderColor="{StaticResource Primary}"
-                        BorderWidth="2"
-                        BackgroundColor="Transparent"
-                        Text="{Binding TimerText}" 
-                        TextColor="Black"
-                        FontSize="Large"
-                        Command="{Binding StartStopStopWatchCommand}" />
+                    <controls:TimerButton Grid.Row="0"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="Center"
+                                          ElapsedTime="{Binding ElapsedTime}"
+                                          ButtonCommand="{Binding StartStopStopWatchCommand}"/>
 
-                <Grid Grid.Row="1" 
-                      Margin="0,40,0,0"
-                      HorizontalOptions="CenterAndExpand">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1"
+                          Margin="0,40,0,0"
+                          HorizontalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Button Text="Reset" 
-                            HorizontalOptions="Start" 
-                            BackgroundColor="White"
-                            TextColor="Black"
-                            Command="{Binding ResetTimerCommand}"
-                            IsVisible="{Binding ResetTimerIsEnabled}"
-                            VerticalOptions="Center"/>
+                        <Button Text="Reset"
+                                HorizontalOptions="Start"
+                                BackgroundColor="{DynamicResource Surface}"
+                                TextColor="{DynamicResource OnSurface}"
+                                Command="{Binding ResetTimerCommand}"
+                                IsVisible="{Binding ResetTimerIsEnabled}"
+                                VerticalOptions="Center" />
 
-                    <ImageButton Grid.Column="1"
-                                 HeightRequest="50"
-                                 WidthRequest="50"
-                                 CornerRadius="25"
-                                 Padding="4"
-                                 VerticalOptions="Center"
-                                 BackgroundColor="{StaticResource Primary}"
-                                 Command="{Binding StartStopStopWatchCommand}"
-                                 HorizontalOptions="Center">
-                        <ImageButton.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Size="Small"
-                                             Glyph="{Binding StopWatchIsRunning, Converter={StaticResource BoolToStartStopGlyphConverter}}">
-                            </FontImageSource>
-                        </ImageButton.Source>
-                    </ImageButton>
+                        <ImageButton Grid.Column="1"
+                                     HeightRequest="50"
+                                     WidthRequest="50"
+                                     CornerRadius="25"
+                                     Padding="4"
+                                     VerticalOptions="Center"
+                                     BackgroundColor="{DynamicResource Primary}"
+                                     Command="{Binding StartStopStopWatchCommand}"
+                                     HorizontalOptions="Center">
+                            <ImageButton.Source>
+                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                 Size="Small"
+                                                 Glyph="{Binding StopWatchIsRunning, Converter={StaticResource BoolToStartStopGlyphConverter}}" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </Grid>
+
                 </Grid>
-                
-            </Grid>
-            
 
-            <Label Text="Stress Level"/>
-            <Picker ItemsSource="{Binding StressLevels}"
-                    SelectedItem="{Binding SelectedStressLevel}"/>
 
-            <Label Text="Notes"/>
-            <Entry Text="{Binding Notes}" 
-                   Placeholder="Add Notes Here"/>
+                <Label Text="Stress Level" />
+                <Picker ItemsSource="{Binding StressLevels}"
+                        SelectedItem="{Binding SelectedStressLevel}" />
 
-                <!--<BoxView Color="Black" WidthRequest="100" HeightRequest="1" />-->
+                <Label Text="Notes" />
+                <Editor Text="{Binding Notes}"
+                        AutoSize="TextChanges"
+                        Placeholder="Add Notes Here"/>
 
-            <Button Text="Save" Command="{Binding SaveActivityCommand}" />
-        </StackLayout>
+                <Button Text="Save" Command="{Binding SaveActivityCommand}" />
+            </StackLayout>
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>

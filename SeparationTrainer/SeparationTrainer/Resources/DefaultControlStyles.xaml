@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeparationTrainer.Resources.DefaultControlStyles">
+    <!--  Default Button Style -->
+    <Style TargetType="Button">
+        <Setter Property="TextColor" Value="{DynamicResource OnSurface}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryDisabled}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!-- Default Label Style -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
+    </Style>
+
+    <!-- Default Entry Style -->
+    <Style TargetType="Entry">
+        <Setter Property="PlaceholderColor" Value="{DynamicResource OnBackground}"/>
+        <Setter Property="TextColor" Value="{DynamicResource OnBackgroundColor}"/>
+    </Style>
+
+    <Style TargetType="Editor">
+        <Setter Property="PlaceholderColor" Value="{DynamicResource OnBackground}"/>
+        <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
+    </Style>
+
+    <!-- Default Picker Style -->
+    <Style TargetType="Picker">
+        <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
+    </Style>
+
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{DynamicResource Surface}"/>
+    </Style>
+
+    <!-- Material Fonts -->
+    <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+        <On Platform="iOS" Value="Material Design Icons" />
+        <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+    </OnPlatform>
+</ResourceDictionary>

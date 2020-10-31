@@ -4,7 +4,8 @@
              x:Class="SeparationTrainer.Views.ViewSessionsPage"
              IsBusy="{Binding IsBusy}"
              Visual="Material"
-             Title="Training Sessions">
+             Title="Training Sessions"
+             BackgroundColor="{DynamicResource Surface}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding GoToAddActivityCommand}"/>
     </ContentPage.ToolbarItems>
@@ -42,20 +43,19 @@
                                                Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
 
                                         <!-- Anxiety Level -->
-                                        <StackLayout Orientation="Horizontal"
-                                                     Margin="0">
+                                        <StackLayout Orientation="Horizontal">
                                             <Label Text="Stress Level: " />
                                             <Label Text="{Binding AnxietyLevel}" />
                                         </StackLayout>
                                         <!-- Elapsed Time -->
-                                        <StackLayout Orientation="Horizontal" Margin="0">
+                                        <StackLayout Orientation="Horizontal">
                                             <Label Text="Elapsed Time:" />
                                             <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
                                         </StackLayout>
                                         <!-- Notes -->
-                                        <StackLayout Orientation="Horizontal" Margin="0">
-                                            <Label Text="Notes:" Padding="0" Margin="0" />
-                                            <Label Text="{Binding Notes}" Padding="0" Margin="0" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Notes:" />
+                                            <Label Text="{Binding Notes}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </DataTemplate>

@@ -2,54 +2,16 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:SeparationTrainer.Converters;assembly=SeparationTrainer"
+             xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
+             xmlns:separationTrainer="clr-namespace:SeparationTrainer;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
-            <Color x:Key="PrimaryTextColor">Black</Color>
-
-            <Color x:Key="DarkSurface">#121212</Color>
-
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Disabled">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#332196F3" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-
-            <Style TargetType="Entry">
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-
-            <Style TargetType="Picker">
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-
-            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
-                <On Platform="iOS" Value="Material Design Icons" />
-                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
-            </OnPlatform>
-        </ResourceDictionary>        
+            <ResourceDictionary Source="Themes/DarkTheme.xaml"/>
+        </ResourceDictionary>
 
         <!-- Converters -->
         <converters:BoolToStartStopGlyphConverter x:Key="BoolToStartStopGlyphConverter" />

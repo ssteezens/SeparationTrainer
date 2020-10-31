@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="SeparationTrainer.Themes.DarkTheme">
+
+    <Color x:Key="Background">#000000</Color>
+    <Color x:Key="Surface">#1F1B24</Color>
+
+    <!--<Color x:Key="Primary">#6200EE</Color>
+    <Color x:Key="PrimaryVariant">#3700B3</Color>
+    <Color x:Key="PrimaryLight">#9061e2</Color>
+    <Color x:Key="PrimaryDark">#27057f</Color>-->
+
+    <Color x:Key="Primary">#03DAC6</Color>
+    <Color x:Key="PrimaryVariant">#018786</Color>
+    <Color x:Key="PrimaryLight">#66fff9</Color>
+    <Color x:Key="PrimaryDisabled">#66fff9</Color>
+    <Color x:Key="PrimaryDark">#00a896</Color>
+
+    <Color x:Key="Secondary">#03DAC6</Color>
+    <Color x:Key="SecondaryVariant">#018786</Color>
+
+    <Color x:Key="OnPrimary">#FFFFFF</Color>
+    <Color x:Key="OnSecondary">#FFFFFF</Color>
+    <Color x:Key="OnBackground">#FFFFFF</Color>
+    <Color x:Key="OnSurface">#FFFFFF</Color>
+    <Color x:Key="OnError">#FFFFFF</Color>
+
+    <Color x:Key="Transparent">Transparent</Color>
+    
+    <Color x:Key="Error">#B00020</Color>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Resources/DefaultControlStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeparationTrainer.Controls.TimerButton"
+             HeightRequest="300"
+             WidthRequest="300"
+             x:Name="TimerButtonContentView"
+             BackgroundColor="{DynamicResource Surface}">
+    <ContentView.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+            <Frame HeightRequest="300"
+                   WidthRequest="300"
+                   CornerRadius="150"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"
+                   BackgroundColor="Transparent"
+                   BorderColor="{DynamicResource Primary}"/>
+            
+            <!-- Timer Text -->
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand"
+                         Spacing="0"
+                         Orientation="Horizontal">
+
+                <Label FontSize="Large" Text="{Binding TimerText, Mode=OneWay, Source={x:Reference TimerButtonContentView}}" />
+            </StackLayout>
+
+            <Button CornerRadius="150"
+                    HeightRequest="300"
+                    WidthRequest="300"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BorderColor="{DynamicResource Primary}"
+                    BorderWidth="2"
+                    BackgroundColor="{DynamicResource Transparent}"
+                    Command="{Binding ButtonCommand, Source={x:Reference TimerButtonContentView}}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -2,8 +2,11 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:SeparationTrainer.Views"
+       xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
        Title="SeparationTrainer"
-       x:Class="SeparationTrainer.AppShell">
+       x:Class="SeparationTrainer.AppShell"
+       FlyoutBackgroundColor="{DynamicResource Surface}"
+       BackgroundColor="{DynamicResource Surface}">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -13,17 +16,20 @@
 
     <Shell.Resources>
         <ResourceDictionary>
+
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.BackgroundColor" Value="{DynamicResource Primary}" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
                 <Setter Property="Shell.TitleColor" Value="White" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource Primary}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.FlyoutBackgroundColor" Value="{DynamicResource Surface}"/>
             </Style>
+
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
@@ -32,22 +38,22 @@
             https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="TextColor" Value="{DynamicResource OnPrimary}"></Setter>
             </Style>
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="LightBlue"></Setter>
+                <Setter Property="BackgroundColor" Value="Black"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="White" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Surface}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource OnSurface}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -73,6 +79,33 @@
             </Style>
         </ResourceDictionary>
     </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <ContentView HeightRequest="100">
+            <Grid>
+                <Label Text="Separation Trainer" 
+                       FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       TextColor="{DynamicResource OnPrimary}"
+                       Margin="10"/>
+                <ImageButton HorizontalOptions="End" 
+                             VerticalOptions="Start"
+                             HeightRequest="25"
+                             WidthRequest="25"
+                             Clicked="OnToggleTheme"
+                             BackgroundColor="{DynamicResource PrimaryDark}">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                         Size="Medium"
+                                         Color="{DynamicResource OnPrimary}"
+                                         Glyph="{x:Static helpers:IconFont.WeatherNight}"/>
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+        </ContentView>
+    </Shell.FlyoutHeader>
 
     <!-- 
         When the Flyout is visible this defines the content to display in the flyout.

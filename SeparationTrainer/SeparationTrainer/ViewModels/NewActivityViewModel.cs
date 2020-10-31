@@ -15,6 +15,11 @@ namespace SeparationTrainer.ViewModels
         private bool _stopWatchIsRunning;
         private string _notes;
         private string _selectedStressLevel = "1";
+        private string _timerHours;
+        private string _timerMinutes;
+        private string _timerSeconds;
+        private string _timerMilliseconds;
+        private TimeSpan _elapsedTime = TimeSpan.MinValue;
 
         public NewActivityViewModel()
         {
@@ -42,6 +47,30 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _timerText, value, nameof(TimerText));
         }
 
+        public string TimerHours
+        {
+            get => _timerHours;
+            set => SetProperty(ref _timerHours, value, nameof(TimerHours));
+        }
+
+        public string TimerMinutes
+        {
+            get => _timerMinutes;
+            set => SetProperty(ref _timerMinutes, value, nameof(TimerMinutes));
+        }
+
+        public string TimerSeconds
+        {
+            get => _timerSeconds;
+            set => SetProperty(ref _timerSeconds, value, nameof(TimerSeconds));
+        }
+
+        public string TimerMilliseconds
+        {
+            get => _timerMilliseconds;
+            set => SetProperty(ref _timerMilliseconds, value, nameof(TimerMilliseconds));
+        }
+
         public string StartStopButtonText => StopWatchIsRunning ? "Stop" : "Start";
 
         public bool StopWatchIsRunning
@@ -52,7 +81,11 @@ namespace SeparationTrainer.ViewModels
 
         public bool CanSaveActivity => !StopWatchIsRunning && !string.IsNullOrEmpty(SelectedStressLevel) && ElapsedTime > TimeSpan.MinValue;
 
-        public TimeSpan ElapsedTime { get; set; } = TimeSpan.MinValue;
+        public TimeSpan ElapsedTime
+        {
+            get => _elapsedTime;
+            set => SetProperty(ref _elapsedTime, value, nameof(ElapsedTime));
+        }
 
         public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 

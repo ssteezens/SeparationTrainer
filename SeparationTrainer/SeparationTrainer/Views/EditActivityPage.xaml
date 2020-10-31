@@ -12,10 +12,10 @@
                     SelectedItem="{Binding SelectedStressLevel}"/>
 
             <Label Text="Notes"/>
-            <Entry Text="{Binding Notes}" 
+            <Entry Text="{Binding ActivityToEdit.Notes}" 
                    Placeholder="Add Notes Here"/>
 
-            <Button Text="Save" Command="{Binding SaveActivityCommand}" />
+            <Button Text="Save" Command="{Binding UpdateActivityCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
