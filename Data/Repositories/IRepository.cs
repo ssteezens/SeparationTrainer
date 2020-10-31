@@ -8,14 +8,14 @@ namespace SeparationTrainer.Data.Repositories
 {
     public interface IRepository<T>
     {
-        T Add(T entity);
+        Task<T> AddAsync(T entity);
 
-        T Update(T entity);
+       Task<T> UpdateAsync(T entity);
 
-        T Delete(T entity);
+        Task<T> DeleteAsync(T entity);
 
-        T Get(int id);
+        Task<T> GetAsync(int id);
 
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
     }
 }

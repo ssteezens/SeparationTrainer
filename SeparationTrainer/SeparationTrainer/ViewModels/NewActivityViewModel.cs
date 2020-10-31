@@ -37,12 +37,6 @@ namespace SeparationTrainer.ViewModels
 
         #region Properties
 
-        public string TimerText
-        {
-            get => _timerText;
-            set => SetProperty(ref _timerText, value, nameof(TimerText));
-        }
-
         public string StartStopButtonText => StopWatchIsRunning ? "Stop" : "Start";
 
         public bool StopWatchIsRunning
@@ -113,7 +107,6 @@ namespace SeparationTrainer.ViewModels
             StopWatchTimer.Enabled = false;
             ElapsedTime = TimeSpan.MinValue;
             TimerStart = DateTime.MinValue;
-            TimerText = "00:00.00";
 
             OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
@@ -144,7 +137,7 @@ namespace SeparationTrainer.ViewModels
 
             var entity = Mapper.Map<Activity>(activity);
 
-            await ActivityRepository.Add(entity);
+            await ActivityRepository.AddAsync(entity);
 
             ResetPage();
 
@@ -154,7 +147,6 @@ namespace SeparationTrainer.ViewModels
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             ElapsedTime = e.SignalTime - TimerStart;
-            TimerText = ElapsedTime.ToString(@"hh\:mm\:ss\.ff");
         }
 
         #endregion

@@ -36,14 +36,14 @@ namespace SeparationTrainer.ViewModels
 
         private async Task UpdateActivity()
         {
-            var entity = await ActivityRepository.Get(ActivityToEdit.Id);
+            var entity = await ActivityRepository.GetAsync(ActivityToEdit.Id);
             if (entity == null)
                 return;
 
             entity.AnxietyLevel = int.Parse(SelectedStressLevel);
             entity.Notes = ActivityToEdit.Notes;
 
-            await ActivityRepository.Update(entity);
+            await ActivityRepository.UpdateAsync(entity);
         }
     }
 }

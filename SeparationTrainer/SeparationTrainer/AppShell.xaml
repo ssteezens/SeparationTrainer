@@ -91,9 +91,10 @@
                        TextColor="{DynamicResource OnPrimary}"
                        Margin="10"/>
                 <ImageButton HorizontalOptions="End" 
-                             VerticalOptions="Start"
+                             VerticalOptions="End"
                              HeightRequest="25"
                              WidthRequest="25"
+                             Margin="10"
                              Clicked="OnToggleTheme"
                              BackgroundColor="{DynamicResource PrimaryDark}">
                     <ImageButton.Source>

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SeparationTrainer.Data;
 using SeparationTrainer.Data.Entities;
 using SeparationTrainer.Data.Repositories;
+using SeparationTrainer.Data.Services;
 using SeparationTrainer.Models;
 using SeparationTrainer.Services;
 using Xamarin.Forms;
@@ -30,11 +31,18 @@ namespace SeparationTrainer
         {
             var mapperInstance = CreateMapper();
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
-            var activityDatabase = new ActivityRepository(databasePath);
+            var activityRepository = new ActivityRepository(databasePath);
+            var activityTagRepository = new ActivityTagRepository(databasePath);
 
-            DependencyService.RegisterSingleton(activityDatabase);
+            // register activity repository
+            DependencyService.RegisterSingleton(activityRepository);
+            DependencyService.RegisterSingleton(activityTagRepository);
+            // register mapper 
             DependencyService.RegisterSingleton(mapperInstance);
+            // register dialog service
             DependencyService.Register<IDialogService, DialogService>();
+            // register activity service
+            DependencyService.Register<IActivityService, ActivityService>();
         }
 
         public static IMapper CreateMapper()

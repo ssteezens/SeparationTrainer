@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeparationTrainer", "Separa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeparationTrainer.Data", "Data\SeparationTrainer.Data.csproj", "{E4B0DDEA-BA4C-40A6-915E-F138F6B7F9A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparationTrainer.Models", "SeparationTrainer.Models\SeparationTrainer.Models.csproj", "{8A4E9266-143F-4715-807F-540EDFE9086D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparationTrainer.Shared", "SeparationTrainer.Models\SeparationTrainer.Shared.csproj", "{8A4E9266-143F-4715-807F-540EDFE9086D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
