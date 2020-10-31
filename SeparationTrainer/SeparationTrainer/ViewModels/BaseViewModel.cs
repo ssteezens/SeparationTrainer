@@ -19,8 +19,11 @@ namespace SeparationTrainer.ViewModels
 
         public ActivityRepository ActivityRepository => DependencyService.Get<ActivityRepository>();
 
+        public TagRepository TagRepository => DependencyService.Get<TagRepository>();
+
         public ActivityService ActivityService => DependencyService.Get<ActivityService>();
 
+        
         public IDialogService DialogService => DependencyService.Get<IDialogService>();
 
         bool isBusy = false;

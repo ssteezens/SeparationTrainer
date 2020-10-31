@@ -34,11 +34,13 @@ namespace SeparationTrainer
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
             var activityRepository = new ActivityRepository(databasePath);
             var activityTagRepository = new ActivityTagRepository(databasePath);
+            var tagRepository = new TagRepository(databasePath);
             var activityService = new ActivityService(activityRepository, activityTagRepository, mapperInstance);
 
             // register activity repository
             DependencyService.RegisterSingleton(activityRepository);
             DependencyService.RegisterSingleton(activityTagRepository);
+            DependencyService.RegisterSingleton(tagRepository);
             // register mapper 
             DependencyService.RegisterSingleton(mapperInstance);
             // register dialog service

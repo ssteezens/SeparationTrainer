@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
+using Tag = SeparationTrainer.Data.Entities.Tag;
 
 namespace SeparationTrainer.ViewModels
 {
