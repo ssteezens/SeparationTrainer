@@ -16,14 +16,14 @@
                       CurrentItem="{Binding CurrentSession}">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout>
+                    <StackLayout Spacing="2">
                         <Label Text="{Binding Title}"
                                Margin="4,4,0,0"
                                FontAttributes="Bold"
                                VerticalOptions="CenterAndExpand" />
 
                         <StackLayout Orientation="Horizontal"
-                                     Margin="8,0">
+                                     Margin="4,0">
                             <Label Text="Total Activity Time: "/>
                             <Label Text="{Binding TotalTimeDisplay}"/>
                         </StackLayout>

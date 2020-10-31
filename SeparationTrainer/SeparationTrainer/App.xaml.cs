@@ -12,6 +12,7 @@ using SeparationTrainer.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
+using Shared_ActivityModel = SeparationTrainer.Shared.ActivityModel;
 
 namespace SeparationTrainer
 {
@@ -33,6 +34,7 @@ namespace SeparationTrainer
             var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
             var activityRepository = new ActivityRepository(databasePath);
             var activityTagRepository = new ActivityTagRepository(databasePath);
+            var activityService = new ActivityService(activityRepository, activityTagRepository, mapperInstance);
 
             // register activity repository
             DependencyService.RegisterSingleton(activityRepository);
@@ -42,7 +44,7 @@ namespace SeparationTrainer
             // register dialog service
             DependencyService.Register<IDialogService, DialogService>();
             // register activity service
-            DependencyService.Register<IActivityService, ActivityService>();
+            DependencyService.RegisterSingleton(activityService);
         }
 
         public static IMapper CreateMapper()
@@ -51,6 +53,9 @@ namespace SeparationTrainer
                 {
                     cfg.CreateMap<Activity, ActivityModel>().ReverseMap();
                     cfg.CreateMap<Session, SessionModel>().ReverseMap();
+
+                    cfg.CreateMap<ActivityModel, Shared_ActivityModel>().ReverseMap();
+                    cfg.CreateMap<Activity, Shared_ActivityModel>().ReverseMap();
                 });
 
             return mapperConfiguration.CreateMapper();

@@ -134,10 +134,9 @@ namespace SeparationTrainer.ViewModels
                 Notes = Notes,
                 ElapsedTime = ElapsedTime
             };
+            var sharedModel = Mapper.Map<Shared.ActivityModel>(activity);
 
-            var entity = Mapper.Map<Activity>(activity);
-
-            await ActivityRepository.AddAsync(entity);
+            await ActivityService.AddAsync(sharedModel);
 
             ResetPage();
 
