@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeparationTrainer.Models
 {
@@ -18,8 +15,6 @@ namespace SeparationTrainer.Models
 
         public DateTime Created { get; set; }
 
-        public bool UsedExitDoor { get; set; }
-
-        public bool InSightSeparation { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }

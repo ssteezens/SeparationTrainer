@@ -1,12 +1,13 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SeparationTrainer.Data.Entities
+namespace SeparationTrainer.Models
 {
-    public class Activity
+    public class ActivityModel
     {
-        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
         public int AnxietyLevel { get; set; }
@@ -16,5 +17,7 @@ namespace SeparationTrainer.Data.Entities
         public string Notes { get; set; }
 
         public DateTime Created { get; set; }
+
+        public List<ActivityTagModel> Tags { get; set; }
     }
 }
