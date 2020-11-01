@@ -13,5 +13,11 @@ namespace SeparationTrainer.Services
         {
             return await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
         }
+
+        public async Task<string> DisplayPrompt(string title, string message, string accept = "Ok", string cancel = "Cancel", string placeholder = "", 
+            int maxLength = -1, Keyboard keyboard = null, string initialValue = "")
+        {
+            return await Application.Current.MainPage.DisplayPromptAsync(title, message, accept, cancel, placeholder, maxLength, keyboard, initialValue);
+        }
     }
 }

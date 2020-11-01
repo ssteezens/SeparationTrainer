@@ -1,22 +1,26 @@
 ﻿using SeparationTrainer.Data.Entities;
-using SeparationTrainer.Models;
 using SeparationTrainer.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Timers;
+using SeparationTrainer.Models;
+using SeparationTrainer.Shared;
 using Xamarin.Forms;
+using ActivityModel = SeparationTrainer.Models.ActivityModel;
 using Tag = SeparationTrainer.Data.Entities.Tag;
 
 namespace SeparationTrainer.ViewModels
 {
     public class NewActivityViewModel : BaseViewModel
     {
-        private string _timerText = "00:00.00";
         private bool _stopWatchIsRunning;
         private string _notes;
         private int _selectedStressLevel = 1;
         private TimeSpan _elapsedTime = TimeSpan.MinValue;
+        private ObservableCollection<TagModel> _availableTags = new ObservableCollection<TagModel>();
+        private ObservableCollection<ActivityTag> _appliedTags = new ObservableCollection<ActivityTag>();
 
         public NewActivityViewModel()
         {
@@ -24,6 +28,8 @@ namespace SeparationTrainer.ViewModels
             ResetTimerCommand = new Command(ResetTimer);
             CancelCommand = new Command(async() => await Cancel());
             SaveActivityCommand = new Command(async () => await SaveActivity(), () => CanSaveActivity);
+            AddNewTagCommand = new Command(async () => await  AddNewTag());
+            ShowMoreTagsCommand = new Command(async () => await ShowMoreTags());
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
             StopWatchTimer.Elapsed +=  OnStopWatchTimerOnElapsed;
@@ -72,6 +78,18 @@ namespace SeparationTrainer.ViewModels
 
         public Timer StopWatchTimer { get; set; }
 
+        public ObservableCollection<TagModel> AvailableTags
+        {
+            get => _availableTags;
+            set => SetProperty(ref _availableTags, value, nameof(AvailableTags));
+        }
+
+        public ObservableCollection<ActivityTag> AppliedTags
+        {
+            get => _appliedTags;
+            set => SetProperty(ref _appliedTags, value, nameof(AppliedTags));
+        }
+
         #endregion
 
         #region Commands
@@ -83,6 +101,10 @@ namespace SeparationTrainer.ViewModels
         public Command CancelCommand { get; }
 
         public Command SaveActivityCommand { get; }
+
+        public Command AddNewTagCommand { get; }
+
+        public Command ShowMoreTagsCommand { get; }
 
         private void StartStopStopWatch()
         {
@@ -142,6 +164,36 @@ namespace SeparationTrainer.ViewModels
             ResetPage();
 
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
+        }
+
+        private async Task AddNewTag()
+        {
+            var result = await DialogService.DisplayPrompt("Add Tag", 
+                "Enter a new tag for this activity", 
+                "Ok",
+                "Cancel", 
+                "New Tag Here", 
+                100);
+
+            if (result == null)
+                return;
+
+            var tag = new Models.Tag { Name = result };
+
+            // todo: call tag service to create tag or get tag id
+
+            var activityTag = new ActivityTag()
+            {
+                Tag = tag,
+                AppliedOn = DateTime.Now
+            };
+
+            AppliedTags.Add(activityTag);
+        }
+
+        private async Task ShowMoreTags()
+        {
+
         }
 
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)

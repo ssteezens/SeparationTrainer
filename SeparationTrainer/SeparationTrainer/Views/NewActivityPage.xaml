@@ -74,6 +74,44 @@
                                         Minimum="1" 
                                         Value="{Binding SelectedStressLevel}" />
 
+                <Label Text="Tags"/>
+
+                <StackLayout HorizontalOptions="StartAndExpand" 
+                             Orientation="Horizontal"
+                             HeightRequest="25">
+
+                    <!-- Add New Tag -->
+                    <Button Text="New"
+                            FontSize="Small"
+                            HorizontalOptions="End"
+                            Padding="0"
+                            WidthRequest="50"
+                            BackgroundColor="{DynamicResource Surface}"
+                            TextColor="{DynamicResource OnSurface}"
+                            Command="{Binding AddNewTagCommand}"
+                            BorderColor="{DynamicResource OnSurface}"
+                            BorderWidth="0"
+                            VerticalOptions="Center" />
+
+                    <CollectionView ItemsSource="{Binding AppliedTags}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Frame BorderColor="{DynamicResource OnSurface}"
+                                           BackgroundColor="{DynamicResource Transparent}"
+                                           VerticalOptions="Center"
+                                           Padding="2"
+                                           Margin="0,2,0,0"
+                                           HorizontalOptions="Start">
+                                        <Label Text="{Binding Tag.Name}" 
+                                               Padding="4,0"/>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+
                 <Label Text="Notes:" />
                 <Editor Text="{Binding Notes}"
                         AutoSize="TextChanges"
