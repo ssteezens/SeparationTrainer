@@ -11,6 +11,8 @@ namespace SeparationTrainer.Models
         private TagModel _tagModel;
         private DateTime _appliedOn;
 
+        public int TagId { get; set; }
+
         public TagModel TagModel
         {
             get => _tagModel;

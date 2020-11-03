@@ -60,25 +60,22 @@ namespace SeparationTrainer.Services.Data
         public async Task<IEnumerable<ActivityModel>> GetAllAsync()
         {
             var activityEntities = await _activityRepository.GetAllAsync();
-            var activityModels = new List<ActivityModel>();
+            var activityModels = _mapper.Map<List<ActivityModel>>(activityEntities);
 
-            foreach (var activityEntity in activityEntities)
+            foreach (var activityModel in activityModels)
             {
-                var model = _mapper.Map<ActivityModel>(activityEntity);
-                var activityTags = await _activityTagRepository.GetByActivityId(activityEntity.Id);
+                var activityTags = await _activityTagRepository.GetByActivityId(activityModel.Id);
+                var activityTagModels = _mapper.Map<List<ActivityTagModel>>(activityTags);
 
-                model.Tags = new List<ActivityTagModel>();
-                foreach (var activityTag in activityTags)
+                foreach (var activityTagModel in activityTagModels)
                 {
-                    var tag = await _tagRepository.GetAsync(activityTag.TagId);
-                    var tagModel = _mapper.Map<TagModel>(tag);
+                    var tagDefinitionEntity = await _tagRepository.GetAsync(activityTagModel.TagId);
+                    var tagDefinitionModel = _mapper.Map<TagModel>(tagDefinitionEntity);
 
-                    var activityTagModel = _mapper.Map<ActivityTagModel>(activityTag);
-                    activityTagModel.TagModel = tagModel;
-
-                    model.Tags.Add(activityTagModel);
+                    activityTagModel.TagModel = tagDefinitionModel;
                 }
-                activityModels.Add(model);
+
+                activityModel.Tags = activityTagModels;
             }
 
             return activityModels;
@@ -87,25 +84,22 @@ namespace SeparationTrainer.Services.Data
         public async Task<IEnumerable<ActivityModel>> GetForDayAsync(DateTime day)
         {
             var activityEntities = await _activityRepository.GetForDayAsync(day);
-            var activityModels = new List<ActivityModel>();
+            var activityModels = _mapper.Map<List<ActivityModel>>(activityEntities);
 
-            foreach (var activityEntity in activityEntities)
+            foreach (var activityModel in activityModels)
             {
-                var model = _mapper.Map<ActivityModel>(activityEntity);
-                var activityTags = await _activityTagRepository.GetByActivityId(activityEntity.Id);
+                var activityTags = await _activityTagRepository.GetByActivityId(activityModel.Id);
+                var activityTagModels = _mapper.Map<List<ActivityTagModel>>(activityTags);
 
-                model.Tags = new List<ActivityTagModel>();
-                foreach (var activityTag in activityTags)
+                foreach (var activityTagModel in activityTagModels)
                 {
-                    var tag = await _tagRepository.GetAsync(activityTag.TagId);
-                    var tagModel = _mapper.Map<TagModel>(tag);
+                    var tagDefinitionEntity = await _tagRepository.GetAsync(activityTagModel.TagId);
+                    var tagDefinitionModel = _mapper.Map<TagModel>(tagDefinitionEntity);
 
-                    var activityTagModel = _mapper.Map<ActivityTagModel>(activityTag);
-                    activityTagModel.TagModel = tagModel;
-
-                    model.Tags.Add(activityTagModel);
+                    activityTagModel.TagModel = tagDefinitionModel;
                 }
-                activityModels.Add(model);
+
+                activityModel.Tags = activityTagModels;
             }
 
             return activityModels;
