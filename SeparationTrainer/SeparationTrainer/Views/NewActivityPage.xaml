@@ -94,6 +94,9 @@
                             VerticalOptions="Center" />
 
                     <CollectionView ItemsSource="{Binding AppliedTags}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"/>
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -101,7 +104,7 @@
                                            BackgroundColor="{DynamicResource Transparent}"
                                            VerticalOptions="Center"
                                            Padding="2"
-                                           Margin="0,2,0,0"
+                                           Margin="0,2,4,0"
                                            HorizontalOptions="Start">
                                         <Label Text="{Binding TagModel.Name}" 
                                                Padding="4,0"/>
