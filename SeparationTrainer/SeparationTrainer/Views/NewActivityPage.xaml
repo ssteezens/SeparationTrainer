@@ -103,7 +103,7 @@
                                            Padding="2"
                                            Margin="0,2,0,0"
                                            HorizontalOptions="Start">
-                                        <Label Text="{Binding Tag.Name}" 
+                                        <Label Text="{Binding TagModel.Name}" 
                                                Padding="4,0"/>
                                     </Frame>
                                 </Grid>

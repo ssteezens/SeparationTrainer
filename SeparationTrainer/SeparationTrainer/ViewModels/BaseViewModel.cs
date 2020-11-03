@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using SeparationTrainer.Data.Repositories;
-using SeparationTrainer.Data.Services;
 using SeparationTrainer.Services;
+using SeparationTrainer.Services.Data;
 using Xamarin.Forms;
 using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
 
@@ -23,6 +23,7 @@ namespace SeparationTrainer.ViewModels
 
         public ActivityService ActivityService => DependencyService.Get<ActivityService>();
 
+        public TagService TagService => DependencyService.Get<TagService>();
         
         public IDialogService DialogService => DependencyService.Get<IDialogService>();
 

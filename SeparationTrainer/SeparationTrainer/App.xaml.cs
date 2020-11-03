@@ -1,18 +1,14 @@
-﻿using SeparationTrainer.Views;
-using System;
-using System.IO;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using SeparationTrainer.Data;
+﻿using AutoMapper;
 using SeparationTrainer.Data.Entities;
 using SeparationTrainer.Data.Repositories;
-using SeparationTrainer.Data.Services;
 using SeparationTrainer.Models;
 using SeparationTrainer.Services;
+using SeparationTrainer.Services.Data;
+using System;
+using System.IO;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
-using Shared_ActivityModel = SeparationTrainer.Shared.ActivityModel;
+using Tag = SeparationTrainer.Data.Entities.Tag;
 
 namespace SeparationTrainer
 {
@@ -35,12 +31,14 @@ namespace SeparationTrainer
             var activityRepository = new ActivityRepository(databasePath);
             var activityTagRepository = new ActivityTagRepository(databasePath);
             var tagRepository = new TagRepository(databasePath);
-            var activityService = new ActivityService(activityRepository, activityTagRepository, mapperInstance);
+            var activityService = new ActivityService(activityRepository, activityTagRepository, tagRepository, mapperInstance);
+            var tagService = new TagService(tagRepository, mapperInstance);
 
             // register activity repository
             DependencyService.RegisterSingleton(activityRepository);
             DependencyService.RegisterSingleton(activityTagRepository);
             DependencyService.RegisterSingleton(tagRepository);
+            DependencyService.RegisterSingleton(tagService);
             // register mapper 
             DependencyService.RegisterSingleton(mapperInstance);
             // register dialog service
@@ -54,10 +52,9 @@ namespace SeparationTrainer
             var mapperConfiguration = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<Activity, ActivityModel>().ReverseMap();
+                    cfg.CreateMap<Tag, TagModel>().ReverseMap();
+                    cfg.CreateMap<ActivityTags, ActivityTagModel>().ReverseMap();
                     cfg.CreateMap<Session, SessionModel>().ReverseMap();
-
-                    cfg.CreateMap<ActivityModel, Shared_ActivityModel>().ReverseMap();
-                    cfg.CreateMap<Activity, Shared_ActivityModel>().ReverseMap();
                 });
 
             return mapperConfiguration.CreateMapper();

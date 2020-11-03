@@ -1,15 +1,13 @@
-﻿using SeparationTrainer.Data.Entities;
-using SeparationTrainer.Views;
+﻿using SeparationTrainer.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using SeparationTrainer.Models;
-using SeparationTrainer.Shared;
 using Xamarin.Forms;
 using ActivityModel = SeparationTrainer.Models.ActivityModel;
-using Tag = SeparationTrainer.Data.Entities.Tag;
+using ActivityTagModel = SeparationTrainer.Models.ActivityTagModel;
 
 namespace SeparationTrainer.ViewModels
 {
@@ -20,7 +18,7 @@ namespace SeparationTrainer.ViewModels
         private int _selectedStressLevel = 1;
         private TimeSpan _elapsedTime = TimeSpan.MinValue;
         private ObservableCollection<TagModel> _availableTags = new ObservableCollection<TagModel>();
-        private ObservableCollection<ActivityTag> _appliedTags = new ObservableCollection<ActivityTag>();
+        private ObservableCollection<ActivityTagModel> _appliedTags = new ObservableCollection<ActivityTagModel>();
 
         public NewActivityViewModel()
         {
@@ -84,7 +82,7 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _availableTags, value, nameof(AvailableTags));
         }
 
-        public ObservableCollection<ActivityTag> AppliedTags
+        public ObservableCollection<ActivityTagModel> AppliedTags
         {
             get => _appliedTags;
             set => SetProperty(ref _appliedTags, value, nameof(AppliedTags));
@@ -155,11 +153,11 @@ namespace SeparationTrainer.ViewModels
                 AnxietyLevel = SelectedStressLevel,
                 Created = DateTime.Now,
                 Notes = Notes,
-                ElapsedTime = ElapsedTime
+                ElapsedTime = ElapsedTime,
+                Tags = AppliedTags.ToList()
             };
-            var sharedModel = Mapper.Map<Shared.ActivityModel>(activity);
-
-            await ActivityService.AddAsync(sharedModel);
+            
+            await ActivityService.AddAsync(activity);
 
             ResetPage();
 
@@ -178,13 +176,14 @@ namespace SeparationTrainer.ViewModels
             if (result == null)
                 return;
 
-            var tag = new Models.Tag { Name = result };
+            var tagModel = new TagModel { Name = result };
+            var returnedTagModel = await TagService.AddAsync(tagModel);
 
-            // todo: call tag service to create tag or get tag id
+            tagModel.Id = returnedTagModel.Id;
 
-            var activityTag = new ActivityTag()
+            var activityTag = new ActivityTagModel()
             {
-                Tag = tag,
+                TagModel = tagModel,
                 AppliedOn = DateTime.Now
             };
 

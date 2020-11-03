@@ -6,7 +6,7 @@ using SeparationTrainer.Data.Entities;
 
 namespace SeparationTrainer.Data.Repositories
 {
-    public class ActivityTagRepository : RepositoryBase<ActivityTags>
+    public class ActivityTagRepository : RepositoryBase<ActivityTags>, IActivityTagRepository
     {
         public ActivityTagRepository(string dbPath) : base(dbPath)
         {
@@ -21,6 +21,13 @@ namespace SeparationTrainer.Data.Repositories
         public override async Task<IEnumerable<ActivityTags>> GetAllAsync()
         {
             return await Database.Table<ActivityTags>().ToListAsync();
+        }
+
+        public async Task<IEnumerable<ActivityTags>> GetByActivityId(int activityId)
+        {
+            var activityTags = await Database.Table<ActivityTags>().Where(tag => tag.ActivityId == activityId).ToListAsync();
+
+            return activityTags;
         }
     }
 }

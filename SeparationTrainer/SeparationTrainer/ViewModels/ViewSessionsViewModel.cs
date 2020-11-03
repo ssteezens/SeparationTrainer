@@ -1,12 +1,10 @@
-﻿using System;
+﻿using SeparationTrainer.Models;
+using SeparationTrainer.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using SeparationTrainer.Models;
-using SeparationTrainer.Views;
 using Xamarin.Forms;
 
 namespace SeparationTrainer.ViewModels
@@ -66,8 +64,7 @@ namespace SeparationTrainer.ViewModels
 
         public async Task LoadSessionActivities()
         {
-            var activities = await ActivityRepository.GetAllAsync();
-            var activityModels = Mapper.Map<List<ActivityModel>>(activities);
+            var activityModels = await ActivityService.GetAllAsync();
             var activityGroups = activityModels.GroupBy(i => i.Created.Date).ToList();
 
             if (!Sessions.Any())
@@ -86,12 +83,10 @@ namespace SeparationTrainer.ViewModels
 
         public async Task GetNewActivitiesForSession()
         {
-            var activitiesForDay = await ActivityRepository.GetForDayAsync(CurrentSession.Created.Date);
-
+            var activitiesForDay = await ActivityService.GetForDayAsync(CurrentSession.Created.Date);
             var newActivities = activitiesForDay.Where(activity => !CurrentSession.Activities.Select(i => i.Id).Contains(activity.Id));
-            var models = Mapper.Map<List<ActivityModel>>(newActivities);
 
-            CurrentSession.Activities.AddRange(models);
+            CurrentSession.Activities.AddRange(newActivities);
         }
 
         public ObservableCollection<SessionModel> Sessions
