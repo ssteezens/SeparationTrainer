@@ -41,5 +41,7 @@ namespace SeparationTrainer.Models
             get => _tags;
             set => SetProperty(ref _tags, value, nameof(Tags));
         }
+
+        public bool HasTags => Tags != null && Tags.Count > 0;
     }
 }

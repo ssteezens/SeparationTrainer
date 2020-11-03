@@ -52,8 +52,14 @@
                                             <Label Text="Elapsed Time:" />
                                             <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
                                         </StackLayout>
+                                        <!-- Notes -->
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Notes:" />
+                                            <Label Text="{Binding Notes}" />
+                                        </StackLayout>
                                         <!-- Tags -->
                                         <CollectionView ItemsSource="{Binding Tags}"
+                                                        IsVisible="{Binding HasTags}"
                                                         HorizontalOptions="StartAndExpand"
                                                         VerticalOptions="Start"
                                                         HeightRequest="25">
@@ -76,11 +82,6 @@
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
-                                        <!-- Notes -->
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Notes:" />
-                                            <Label Text="{Binding Notes}" />
-                                        </StackLayout>
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
