@@ -128,6 +128,7 @@ namespace SeparationTrainer.ViewModels
             StopWatchTimer.Enabled = false;
             ElapsedTime = TimeSpan.MinValue;
             TimerStart = DateTime.MinValue;
+            AppliedTags = new ObservableCollection<ActivityTagModel>();
 
             OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
