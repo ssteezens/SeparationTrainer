@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Class="SeparationTrainer.Views.ViewSessionsPage"
              IsBusy="{Binding IsBusy}"
              Visual="Material"
@@ -27,6 +28,8 @@
                             <Label Text="Total Activity Time: "/>
                             <Label Text="{Binding TotalTimeDisplay}"/>
                         </StackLayout>
+
+                        <BoxView HorizontalOptions="Fill" BackgroundColor="Black" HeightRequest="1" Margin="2"></BoxView>
 
                         <CollectionView ItemsSource="{Binding Activities}"
                                         SelectedItem="{Binding SelectedActivity}"

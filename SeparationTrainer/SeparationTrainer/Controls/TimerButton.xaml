@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Class="SeparationTrainer.Controls.TimerButton"
              HeightRequest="300"
              WidthRequest="300"
@@ -22,6 +23,7 @@
             <StackLayout HorizontalOptions="CenterAndExpand"
                          VerticalOptions="CenterAndExpand"
                          Spacing="0"
+                         android:VisualElement.Elevation="10"
                          Orientation="Horizontal">
 
                 <Label FontSize="Large" Text="{Binding TimerText, Mode=OneWay, Source={x:Reference TimerButtonContentView}}" />
@@ -34,7 +36,7 @@
                     VerticalOptions="Center"
                     BorderColor="{DynamicResource Primary}"
                     BorderWidth="2"
-                    BackgroundColor="{DynamicResource Transparent}"
+                    BackgroundColor="{DynamicResource Surface}"
                     Command="{Binding ButtonCommand, Source={x:Reference TimerButtonContentView}}"/>
         </Grid>
     </ContentView.Content>
