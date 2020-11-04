@@ -18,6 +18,13 @@ namespace SeparationTrainer.Data.Repositories
             return Database.Table<Activity>().ToListAsync().Result;
         }
 
+        public override async Task<Activity> GetAsync(int id)
+        {
+            var activity = await Database.Table<Activity>().FirstOrDefaultAsync(i => i.Id == id);
+
+            return activity;
+        }
+
         public override async Task<IEnumerable<Activity>> GetAllAsync()
         {
             var activities = await Database.Table<Activity>().ToListAsync();

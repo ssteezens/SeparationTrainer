@@ -1,19 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SeparationTrainer.Views.EditActivityPage">
+             xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
+             x:Class="SeparationTrainer.Views.EditActivityPage"
+             BackgroundColor="{DynamicResource Surface}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Padding="15">
-            <Label Text="Stress Level"/>
-            <Picker ItemsSource="{Binding StressLevels}"
-                    SelectedItem="{Binding SelectedStressLevel}"/>
+
+            <TimePicker Time="{Binding ActivityToEdit.ElapsedTime}" TextColor="{DynamicResource OnSurface}"/>
+
+            <!-- Stress Level -->
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Fill">
+                <Label Text="Stress Level:" HorizontalOptions="Start" />
+                <Label Text="{Binding SelectedStressLevel}" HorizontalOptions="End"/>
+            </StackLayout>
+
+            <controls:IntegerSlider MinimumTrackColor="{DynamicResource OnSurface}" 
+                                    MaximumTrackColor="{DynamicResource OnSurface}"
+                                    Maximum="7" 
+                                    Minimum="1" 
+                                    Value="{Binding ActivityToEdit.AnxietyLevel}" />
+
+            <!-- Tags -->
+            <Label Text="Tags"/>
+            <StackLayout HorizontalOptions="StartAndExpand" 
+                             Orientation="Horizontal"
+                             HeightRequest="25">
+
+                <!-- Applied Tags -->
+                <StackLayout BindableLayout.ItemsSource="{Binding ActivityToEdit.Tags}" 
+                             Orientation="Horizontal"
+                             Spacing="2">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Frame BorderColor="{DynamicResource OnSurface}"
+                                           BackgroundColor="{DynamicResource Transparent}"
+                                           VerticalOptions="Center"
+                                           Padding="2"
+                                           Margin="0,2,4,0"
+                                           HorizontalOptions="Start">
+                                    <Label Text="{Binding TagModel.Name}" 
+                                               Padding="4,0"/>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <!-- Add New Tag -->
+                <Button Text="New"
+                        FontSize="Small"
+                        HorizontalOptions="End"
+                        Padding="0"
+                        WidthRequest="50"
+                        BackgroundColor="{DynamicResource Primary}"
+                        TextColor="{DynamicResource OnPrimary}"
+                        Command="{Binding AddNewTagCommand}"
+                        BorderColor="{DynamicResource OnSurface}"
+                        BorderWidth="0"
+                        VerticalOptions="Center" />
+            </StackLayout>
 
             <Label Text="Notes"/>
-            <Entry Text="{Binding ActivityToEdit.Notes}" 
-                   Placeholder="Add Notes Here"/>
+            <Editor Text="{Binding ActivityToEdit.Notes}" 
+                    Placeholder="Add Notes Here"/>
 
             <Button Text="Save" Command="{Binding UpdateActivityCommand}" />
         </StackLayout>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              x:Class="SeparationTrainer.Views.ViewSessionsPage"
+             x:Name="ViewSessionContentPage"
              IsBusy="{Binding IsBusy}"
              Visual="Material"
              Title="Training Sessions"
@@ -31,64 +32,75 @@
 
                         <BoxView HorizontalOptions="Fill" BackgroundColor=" #cccccc" HeightRequest="1" Margin="2"/>
 
-                        <CollectionView ItemsSource="{Binding Activities}"
-                                        SelectedItem="{Binding SelectedActivity}"
-                                        SelectionMode="Single"
-                                        Margin="8,0">
-                            <CollectionView.ItemTemplate>
+                        <ListView ItemsSource="{Binding Activities}"
+                                  SelectedItem="{Binding SelectedActivity}"
+                                  SelectionMode="Single"
+                                  HasUnevenRows="True"
+                                  Margin="0,0">
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackLayout Padding="4"
+                                    <ViewCell>
+                                        <ViewCell.ContextActions>
+                                            <MenuItem Text="Edit" 
+                                                      Command="{Binding Source={x:Reference ViewSessionContentPage}, Path=BindingContext.GoToEditActivityCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                                            <MenuItem Text="Delete" 
+                                                      Command="{Binding Source={x:Reference ViewSessionContentPage}, Path=BindingContext.DeleteActivityCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                                        </ViewCell.ContextActions>
+                                        <StackLayout Padding="4"
                                                  Margin="8,0"
                                                  Spacing="0"
                                                  HorizontalOptions="Center">
-                                        <!-- Created Time stamp -->
-                                        <Label FontAttributes="Bold"
+                                            <!-- Created Time stamp -->
+                                            <Label FontAttributes="Bold"
                                                Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
 
-                                        <!-- Anxiety Level -->
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Stress Level: " />
-                                            <Label Text="{Binding AnxietyLevel}" />
-                                        </StackLayout>
-                                        <!-- Elapsed Time -->
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Elapsed Time:" />
-                                            <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
-                                        </StackLayout>
-                                        <!-- Notes -->
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Notes:" />
-                                            <Label Text="{Binding Notes}" />
-                                        </StackLayout>
-                                        <!-- Tags -->
-                                        <CollectionView ItemsSource="{Binding Tags}"
+                                            <!-- Anxiety Level -->
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Stress Level: " />
+                                                <Label Text="{Binding AnxietyLevel}" />
+                                            </StackLayout>
+                                            <!-- Elapsed Time -->
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Elapsed Time:" />
+                                                <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
+                                            </StackLayout>
+                                            <!-- Notes -->
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Notes:" />
+                                                <Label Text="{Binding Notes}" />
+                                            </StackLayout>
+                                            <!-- Tags -->
+                                            <CollectionView ItemsSource="{Binding Tags}"
                                                         IsVisible="{Binding HasTags}"
                                                         HorizontalOptions="StartAndExpand"
                                                         VerticalOptions="Start"
                                                         HeightRequest="25">
-                                            <CollectionView.ItemsLayout>
-                                                <LinearItemsLayout Orientation="Horizontal"/>
-                                            </CollectionView.ItemsLayout>
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Frame BorderColor="{DynamicResource OnSurface}"
+                                                <CollectionView.ItemsLayout>
+                                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Frame BorderColor="{DynamicResource OnSurface}"
                                                                BackgroundColor="{DynamicResource Transparent}"
                                                                VerticalOptions="Center"
                                                                Padding="2"
                                                                Margin="0,2,4,0"
                                                                HorizontalOptions="Start">
-                                                            <Label Text="{Binding TagModel.Name}" 
+                                                                <Label Text="{Binding TagModel.Name}" 
                                                                    Padding="4,0"/>
-                                                        </Frame>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                    </StackLayout>
+                                                            </Frame>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                    </ViewCell>
                                 </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackLayout>
                 </DataTemplate>
             </CarouselView.ItemTemplate>

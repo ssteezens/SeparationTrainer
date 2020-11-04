@@ -18,6 +18,18 @@ namespace SeparationTrainer.ViewModels
             UpdateActivityCommand = new Command(async () => await UpdateActivity());
         }
 
+        public override async Task LoadData()
+        {
+            if (ActivityToEditId > 0)
+            {
+                var activity = await ActivityService.GetAsync(ActivityToEditId);
+
+                ActivityToEdit = activity;
+            }
+        }
+
+        public int ActivityToEditId { get; set; }
+
         public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 
         public string SelectedStressLevel
