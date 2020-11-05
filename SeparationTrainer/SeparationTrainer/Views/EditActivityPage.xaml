@@ -10,7 +10,19 @@
     <ContentPage.Content>
         <StackLayout Padding="15">
 
-            <TimePicker Time="{Binding ActivityToEdit.ElapsedTime}" TextColor="{DynamicResource OnSurface}"/>
+            <Label Text="Elapsed Time" />
+            <StackLayout Spacing="0" 
+                         HorizontalOptions="StartAndExpand"
+                         Orientation="Horizontal">
+                <!-- Hours Text -->
+                <Entry Text="{Binding HoursText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                <Label Text=":" VerticalOptions="Center"/>
+                <!-- Minutes Text -->
+                <Entry Text="{Binding MinutesText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                <Label Text=":" VerticalOptions="Center"/>
+                <!-- Seconds Text -->
+                <Entry Text="{Binding SecondsText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+            </StackLayout>
 
             <!-- Stress Level -->
             <StackLayout Orientation="Horizontal"

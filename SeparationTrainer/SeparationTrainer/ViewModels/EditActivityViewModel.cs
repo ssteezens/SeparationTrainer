@@ -12,6 +12,9 @@ namespace SeparationTrainer.ViewModels
     {
         private ActivityModel _activityToEdit = new ActivityModel();
         private string _selectedStressLevel = "1";
+        private string _hoursText;
+        private string _minutesText;
+        private string _secondsText;
 
         public EditActivityViewModel()
         {
@@ -25,12 +28,34 @@ namespace SeparationTrainer.ViewModels
                 var activity = await ActivityService.GetAsync(ActivityToEditId);
 
                 ActivityToEdit = activity;
+
+                HoursText = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0');
+                MinutesText = ActivityToEdit.ElapsedTime.Minutes.ToString().PadLeft(2, '0');
+                SecondsText = ActivityToEdit.ElapsedTime.Seconds.ToString().PadLeft(2, '0');
             }
         }
 
         public int ActivityToEditId { get; set; }
 
         public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
+
+        public string HoursText
+        {
+            get => _hoursText;
+            set => SetProperty(ref _hoursText, value, nameof(HoursText));
+        }
+
+        public string MinutesText
+        {
+            get => _minutesText;
+            set => SetProperty(ref _minutesText, value, nameof(MinutesText));
+        }
+
+        public string SecondsText
+        {
+            get => _secondsText;
+            set => SetProperty(ref _secondsText, value, nameof(SecondsText));
+        }
 
         public string SelectedStressLevel
         {

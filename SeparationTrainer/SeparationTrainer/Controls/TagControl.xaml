@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
+             x:Class="SeparationTrainer.Controls.TagControl">
+    <ContentView.Content>
+        <Grid>
+            <Frame BorderColor="{DynamicResource OnSurface}"
+                   BackgroundColor="{DynamicResource Transparent}"
+                   VerticalOptions="Center"
+                   Padding="2"
+                   Margin="0,2,4,0"
+                   HorizontalOptions="Start">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding TagModel.Name}" 
+                           Padding="4,0"/>
+
+                    <ImageButton Grid.Column="1" 
+                                 HeightRequest="50"
+                                 WidthRequest="50"
+                                 CornerRadius="25"
+                                 Padding="4"
+                                 VerticalOptions="Center">
+                        <ImageButton.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Size="Small"
+                                             Glyph="{x:Static helpers:IconFont.Close}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
