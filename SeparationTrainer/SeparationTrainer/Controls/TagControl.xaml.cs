@@ -17,17 +17,29 @@ namespace SeparationTrainer.Controls
             InitializeComponent();
         }
 
-        public static BindableProperty ActivityTagModelProperty = BindableProperty.Create("TagModel",
+        public static BindableProperty TagModelProperty = BindableProperty.Create("TagModel",
             typeof(TagModel),
             typeof(ContentView),
-            TimeSpan.MinValue,
+            null,
             BindingMode.TwoWay,
             propertyChanged: ActivityTagModelPropertyChanged);
 
+        public static BindableProperty RemoveTagCommandProperty = BindableProperty.Create("RemoveTagCommandProperty",
+            typeof(Command<TagModel>),
+            typeof(ContentView),
+            null,
+            BindingMode.TwoWay);
+
         public TagModel TagModel
         {
-            get => (TagModel) GetValue(ActivityTagModelProperty);
-            set => SetValue(ActivityTagModelProperty, value);
+            get => (TagModel) GetValue(TagModelProperty);
+            set => SetValue(TagModelProperty, value);
+        }
+
+        public Command<TagModel> RemoveTagCommand
+        {
+            get => (Command<TagModel>) GetValue(RemoveTagCommandProperty);
+            set => SetValue(RemoveTagCommandProperty, value);
         }
 
         public static void ActivityTagModelPropertyChanged(BindableObject bindableObject, object oldValue,

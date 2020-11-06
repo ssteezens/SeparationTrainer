@@ -116,6 +116,7 @@ namespace SeparationTrainer.ViewModels
 
         public async Task GoToEditActivity(ActivityModel activity)
         {
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
             await Shell.Current.GoToAsync($"//{nameof(EditActivityPage)}?activityId={activity.Id}");
         }
 

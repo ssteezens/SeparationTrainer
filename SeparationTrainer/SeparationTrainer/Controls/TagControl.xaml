@@ -20,11 +20,11 @@
                            Padding="4,0"/>
 
                     <ImageButton Grid.Column="1" 
-                                 HeightRequest="50"
-                                 WidthRequest="50"
-                                 CornerRadius="25"
-                                 Padding="4"
-                                 VerticalOptions="Center">
+                                 BackgroundColor="{DynamicResource Primary}"
+                                 VerticalOptions="Center"
+                                 Command="{Binding RemoveTagCommand}"
+                                 CommandParameter="{Binding TagModel}"
+                                 Margin="0,2,2,2">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Size="Small"

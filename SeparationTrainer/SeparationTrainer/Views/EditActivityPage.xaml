@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Views.EditActivityPage"
-             BackgroundColor="{DynamicResource Surface}">
+             BackgroundColor="{DynamicResource Surface}"
+             Title="Edit Activity">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
@@ -49,17 +50,8 @@
                              Spacing="2">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Frame BorderColor="{DynamicResource OnSurface}"
-                                           BackgroundColor="{DynamicResource Transparent}"
-                                           VerticalOptions="Center"
-                                           Padding="2"
-                                           Margin="0,2,4,0"
-                                           HorizontalOptions="Start">
-                                    <Label Text="{Binding TagModel.Name}" 
-                                               Padding="4,0"/>
-                                </Frame>
-                            </Grid>
+                            <controls:TagControl TagModel="{Binding TagModel}"
+                                                 RemoveTagCommand="{Binding RemoveTagCommand}"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
