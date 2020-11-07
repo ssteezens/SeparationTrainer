@@ -2,7 +2,8 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
-             x:Class="SeparationTrainer.Controls.TagControl">
+             x:Class="SeparationTrainer.Controls.TagControl"
+             x:Name="TagControlContentView">
     <ContentView.Content>
         <Grid>
             <Frame BorderColor="{DynamicResource OnSurface}"
@@ -22,7 +23,7 @@
                     <ImageButton Grid.Column="1" 
                                  BackgroundColor="{DynamicResource Primary}"
                                  VerticalOptions="Center"
-                                 Command="{Binding RemoveTagCommand}"
+                                 Command="{Binding RemoveTagCommand, Source={x:Reference TagControlContentView}}"
                                  CommandParameter="{Binding TagModel}"
                                  Margin="0,2,2,2">
                         <ImageButton.Source>

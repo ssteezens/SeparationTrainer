@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SeparationTrainer.Models
 {
@@ -9,7 +10,7 @@ namespace SeparationTrainer.Models
         private TimeSpan _elapsedTime = new TimeSpan(0, 0, 0, 1);
         private string _notes = string.Empty;
         private DateTime _created;
-        private List<ActivityTagModel> _tags;
+        private ObservableCollection<ActivityTagModel> _tags;
         public int Id { get; set; }
 
         public int AnxietyLevel
@@ -36,7 +37,7 @@ namespace SeparationTrainer.Models
             set => SetProperty(ref _created, value, nameof(Created));
         }
 
-        public List<ActivityTagModel> Tags
+        public ObservableCollection<ActivityTagModel> Tags
         {
             get => _tags;
             set => SetProperty(ref _tags, value, nameof(Tags));

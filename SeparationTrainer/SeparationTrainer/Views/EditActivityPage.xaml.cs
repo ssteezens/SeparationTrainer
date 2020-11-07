@@ -19,8 +19,6 @@ namespace SeparationTrainer.Views
         public EditActivityPage()
         {
             InitializeComponent();
-
-            //Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
         }
 
         protected override async void OnBindingContextChanged()

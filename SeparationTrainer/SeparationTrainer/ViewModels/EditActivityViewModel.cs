@@ -20,6 +20,7 @@ namespace SeparationTrainer.ViewModels
         public EditActivityViewModel()
         {
             UpdateActivityCommand = new Command(async () => await UpdateActivity());
+            CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
         }
 
@@ -38,8 +39,6 @@ namespace SeparationTrainer.ViewModels
         }
 
         public int ActivityToEditId { get; set; }
-
-        public List<string> StressLevels => new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 
         public string HoursText
         {
@@ -73,6 +72,8 @@ namespace SeparationTrainer.ViewModels
 
         public Command UpdateActivityCommand { get; }
 
+        public Command CancelCommand { get; }
+
         public Command<TagModel> RemoveTagCommand { get; }
 
         private void RemoveTag(TagModel tagToRemove)
@@ -81,6 +82,14 @@ namespace SeparationTrainer.ViewModels
 
             if(activityTagToRemove != null)
                 ActivityToEdit.Tags.Remove(activityTagToRemove);
+
+            ActivityToEdit.OnPropertyChanged(nameof(ActivityToEdit.Tags));
+        }
+
+        private async Task Cancel()
+        {
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+            await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
         }
 
         private async Task UpdateActivity()

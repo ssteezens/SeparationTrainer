@@ -155,7 +155,7 @@ namespace SeparationTrainer.ViewModels
                 Created = DateTime.Now,
                 Notes = Notes,
                 ElapsedTime = ElapsedTime,
-                Tags = AppliedTags.ToList()
+                Tags = new ObservableCollection<ActivityTagModel>(AppliedTags.ToList())
             };
             
             await ActivityService.AddAsync(activity);

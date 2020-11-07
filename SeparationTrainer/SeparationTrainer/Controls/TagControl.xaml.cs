@@ -24,10 +24,10 @@ namespace SeparationTrainer.Controls
             BindingMode.TwoWay,
             propertyChanged: ActivityTagModelPropertyChanged);
 
-        public static BindableProperty RemoveTagCommandProperty = BindableProperty.Create("RemoveTagCommandProperty",
+        public static BindableProperty RemoveTagCommandProperty = BindableProperty.Create("RemoveTagCommand",
             typeof(Command<TagModel>),
             typeof(ContentView),
-            null,
+            default(Command<TagModel>),
             BindingMode.TwoWay);
 
         public TagModel TagModel

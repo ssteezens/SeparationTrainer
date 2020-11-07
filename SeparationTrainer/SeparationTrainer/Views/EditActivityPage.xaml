@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Views.EditActivityPage"
+             x:Name="EditActivityContentPage"
              BackgroundColor="{DynamicResource Surface}"
              Title="Edit Activity">
     <ContentPage.ToolbarItems>
@@ -51,7 +52,7 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <controls:TagControl TagModel="{Binding TagModel}"
-                                                 RemoveTagCommand="{Binding RemoveTagCommand}"/>
+                                                 RemoveTagCommand="{Binding Source={x:Reference EditActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>

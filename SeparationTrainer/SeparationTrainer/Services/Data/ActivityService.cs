@@ -4,6 +4,7 @@ using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace SeparationTrainer.Services.Data
@@ -65,7 +66,7 @@ namespace SeparationTrainer.Services.Data
                 activityTagModel.TagModel = tagDefinitionModel;
             }
 
-            model.Tags = activityTagModels;
+            model.Tags = new ObservableCollection<ActivityTagModel>(activityTagModels);
 
             return model;
         }
@@ -96,7 +97,7 @@ namespace SeparationTrainer.Services.Data
                     activityTagModel.TagModel = tagDefinitionModel;
                 }
 
-                activityModel.Tags = activityTagModels;
+                activityModel.Tags = new ObservableCollection<ActivityTagModel>(activityTagModels);
             }
 
             return activityModels;
@@ -120,7 +121,7 @@ namespace SeparationTrainer.Services.Data
                     activityTagModel.TagModel = tagDefinitionModel;
                 }
 
-                activityModel.Tags = activityTagModels;
+                activityModel.Tags = new ObservableCollection<ActivityTagModel>(activityTagModels);
             }
 
             return activityModels;
