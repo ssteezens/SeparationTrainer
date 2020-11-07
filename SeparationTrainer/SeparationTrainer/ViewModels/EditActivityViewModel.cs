@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Models;
 using SeparationTrainer.Views;
 using Xamarin.Forms;
@@ -81,7 +82,9 @@ namespace SeparationTrainer.ViewModels
             var activityTagToRemove = ActivityToEdit.Tags.SingleOrDefault(tag => tag.TagModel == tagToRemove);
 
             if(activityTagToRemove != null)
+            {
                 ActivityToEdit.Tags.Remove(activityTagToRemove);
+            }
 
             ActivityToEdit.OnPropertyChanged(nameof(ActivityToEdit.Tags));
         }
@@ -94,14 +97,7 @@ namespace SeparationTrainer.ViewModels
 
         private async Task UpdateActivity()
         {
-            var entity = await ActivityRepository.GetAsync(ActivityToEdit.Id);
-            if (entity == null)
-                return;
-
-            entity.AnxietyLevel = int.Parse(SelectedStressLevel);
-            entity.Notes = ActivityToEdit.Notes;
-
-            await ActivityRepository.UpdateAsync(entity);
+            await ActivityService.UpdateAsync(ActivityToEdit);
 
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");

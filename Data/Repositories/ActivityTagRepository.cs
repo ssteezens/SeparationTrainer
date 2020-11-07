@@ -18,6 +18,14 @@ namespace SeparationTrainer.Data.Repositories
             return await Database.GetAsync<ActivityTags>(id);
         }
 
+        public override async Task<ActivityTags> DeleteAsync(ActivityTags entity)
+        {
+            await Database.Table<ActivityTags>()
+                .DeleteAsync(i => i.ActivityId == entity.ActivityId && i.TagId == entity.TagId);
+
+            return entity;
+        }
+
         public override async Task<IEnumerable<ActivityTags>> GetAllAsync()
         {
             return await Database.Table<ActivityTags>().ToListAsync();

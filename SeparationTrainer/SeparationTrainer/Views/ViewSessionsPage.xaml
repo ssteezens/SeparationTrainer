@@ -51,7 +51,7 @@
                                         <StackLayout Padding="4"
                                                  Margin="8,0"
                                                  Spacing="0"
-                                                 HorizontalOptions="Center">
+                                                 HorizontalOptions="StartAndExpand">
                                             <!-- Created Time stamp -->
                                             <Label FontAttributes="Bold"
                                                Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />

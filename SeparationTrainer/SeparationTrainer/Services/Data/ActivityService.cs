@@ -50,6 +50,25 @@ namespace SeparationTrainer.Services.Data
             return activity;
         }
 
+        public async Task<ActivityModel> UpdateAsync(ActivityModel activity)
+        {
+            var entity = _mapper.Map<Activity>(activity);
+            var returnedEntity = await _activityRepository.UpdateAsync(entity);
+
+            // remove current tags
+            var tags = await _activityTagRepository.GetByActivityId(entity.Id);
+            foreach (var tag in tags)
+                await _activityTagRepository.DeleteAsync(tag);
+
+            foreach (var tag in activity.Tags)
+            {
+                var tagEntity = _mapper.Map<ActivityTags>(tag);
+                await _activityTagRepository.AddAsync(tagEntity);
+            }
+
+            return activity;
+        }
+
         public async Task<ActivityModel> GetAsync(int id)
         {
             var activity = await _activityRepository.GetAsync(id);

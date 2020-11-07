@@ -8,6 +8,7 @@ namespace SeparationTrainer.Services.Data
     public interface IActivityService
     {
         Task<ActivityModel> AddAsync(ActivityModel activity);
+        Task<ActivityModel> UpdateAsync(ActivityModel activity);
         Task<ActivityModel> GetAsync(int id);
         IEnumerable<ActivityModel> GetAll();
         Task<IEnumerable<ActivityModel>> GetAllAsync();
