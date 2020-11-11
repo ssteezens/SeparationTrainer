@@ -8,6 +8,11 @@ namespace SeparationTrainer.Models.Validation
 {
     public class HourTextIsValidRule<T> : IValidationRule<T>
     {
+        public HourTextIsValidRule(string validationMessage = "")
+        {
+            ValidationMessage = validationMessage;
+        }
+
         public string ValidationMessage { get; set; }
 
         public bool Check<T>(T value)

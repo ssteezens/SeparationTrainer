@@ -20,6 +20,8 @@ namespace SeparationTrainer.ViewModels
         private string _minutesText;
         private string _secondsText;
         private ValidatableObject<string> _hoursTextInput = new ValidatableObject<string> { Value = "01" };
+        private ValidatableObject<string> _minutesTextInput;
+        private ValidatableObject<string> _secondsTextInput;
 
         public EditActivityViewModel()
         {
@@ -27,11 +29,14 @@ namespace SeparationTrainer.ViewModels
             CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
 
-            HoursTextInput = new ValidatableObject<string>() { Value = "01" };
-            HoursTextInput.Validations.Add(new HourTextIsValidRule<string>()
-            {
-                ValidationMessage = "Hours must be a number between 0 and 24"
-            });
+            HoursTextInput = new ValidatableObject<string>() { Value = "00" };
+            HoursTextInput.Validations.Add(new HourTextIsValidRule<string>("Hours must be a number between 0 and 24"));
+
+            MinutesTextInput = new ValidatableObject<string>() { Value = "00" };
+            MinutesTextInput.Validations.Add(new MinuteTextIsValidRule<string>("Minutes must be a number between 0 and 59"));
+
+            SecondsTextInput = new ValidatableObject<string>() { Value = "00" };
+            SecondsTextInput.Validations.Add(new SecondsTextIsValidRule<string>("Seconds must be a number between 0 and 59"));
         }
 
         public override async Task LoadData()
@@ -43,9 +48,8 @@ namespace SeparationTrainer.ViewModels
                 ActivityToEdit = activity;
 
                 HoursTextInput.Value = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0') ;
-                HoursText = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0');
-                MinutesText = ActivityToEdit.ElapsedTime.Minutes.ToString().PadLeft(2, '0');
-                SecondsText = ActivityToEdit.ElapsedTime.Seconds.ToString().PadLeft(2, '0');
+                MinutesTextInput.Value = ActivityToEdit.ElapsedTime.Minutes.ToString().PadLeft(2, '0');
+                SecondsTextInput.Value = ActivityToEdit.ElapsedTime.Seconds.ToString().PadLeft(2, '0');
             }
         }
 
@@ -57,22 +61,16 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _hoursTextInput, value, nameof(HoursTextInput));
         }
 
-        public string HoursText
+        public ValidatableObject<string> MinutesTextInput
         {
-            get => _hoursText;
-            set => SetProperty(ref _hoursText, value, nameof(HoursText));
+            get => _minutesTextInput;
+            set => SetProperty(ref _minutesTextInput, value, nameof(MinutesTextInput));
         }
 
-        public string MinutesText
+        public ValidatableObject<string> SecondsTextInput
         {
-            get => _minutesText;
-            set => SetProperty(ref _minutesText, value, nameof(MinutesText));
-        }
-
-        public string SecondsText
-        {
-            get => _secondsText;
-            set => SetProperty(ref _secondsText, value, nameof(SecondsText));
+            get => _secondsTextInput;
+            set => SetProperty(ref _secondsTextInput, value, nameof(SecondsTextInput));
         }
 
         public string SelectedStressLevel
@@ -115,9 +113,9 @@ namespace SeparationTrainer.ViewModels
         {
             try
             {
-                var elapsedHours = int.Parse(HoursText);
-                var elapsedMinutes = int.Parse(MinutesText);
-                var elapsedSeconds = int.Parse(SecondsText);
+                var elapsedHours = int.Parse(HoursTextInput.Value);
+                var elapsedMinutes = int.Parse(MinutesTextInput.Value);
+                var elapsedSeconds = int.Parse(SecondsTextInput.Value);
                 var elapsedTime = new TimeSpan(0, elapsedHours, elapsedMinutes, elapsedSeconds);
 
                 ActivityToEdit.ElapsedTime = elapsedTime;
