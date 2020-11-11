@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Models;
+using SeparationTrainer.Models.Validation;
 using SeparationTrainer.Views;
 using Xamarin.Forms;
 
@@ -17,12 +19,19 @@ namespace SeparationTrainer.ViewModels
         private string _hoursText;
         private string _minutesText;
         private string _secondsText;
+        private ValidatableObject<string> _hoursTextInput = new ValidatableObject<string> { Value = "01" };
 
         public EditActivityViewModel()
         {
             UpdateActivityCommand = new Command(async () => await UpdateActivity());
             CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
+
+            HoursTextInput = new ValidatableObject<string>() { Value = "01" };
+            HoursTextInput.Validations.Add(new HourTextIsValidRule<string>()
+            {
+                ValidationMessage = "Hours must be a number between 0 and 24"
+            });
         }
 
         public override async Task LoadData()
@@ -33,6 +42,7 @@ namespace SeparationTrainer.ViewModels
 
                 ActivityToEdit = activity;
 
+                HoursTextInput.Value = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0') ;
                 HoursText = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0');
                 MinutesText = ActivityToEdit.ElapsedTime.Minutes.ToString().PadLeft(2, '0');
                 SecondsText = ActivityToEdit.ElapsedTime.Seconds.ToString().PadLeft(2, '0');
@@ -40,6 +50,12 @@ namespace SeparationTrainer.ViewModels
         }
 
         public int ActivityToEditId { get; set; }
+
+        public ValidatableObject<string> HoursTextInput
+        {
+            get => _hoursTextInput;
+            set => SetProperty(ref _hoursTextInput, value, nameof(HoursTextInput));
+        }
 
         public string HoursText
         {
@@ -97,7 +113,21 @@ namespace SeparationTrainer.ViewModels
 
         private async Task UpdateActivity()
         {
-            await ActivityService.UpdateAsync(ActivityToEdit);
+            try
+            {
+                var elapsedHours = int.Parse(HoursText);
+                var elapsedMinutes = int.Parse(MinutesText);
+                var elapsedSeconds = int.Parse(SecondsText);
+                var elapsedTime = new TimeSpan(0, elapsedHours, elapsedMinutes, elapsedSeconds);
+
+                ActivityToEdit.ElapsedTime = elapsedTime;
+
+                await ActivityService.UpdateAsync(ActivityToEdit);
+            }
+            catch (Exception e)
+            {
+                await DialogService.ShowError("Error", "An unexpected error occurred.", "Ok");
+            }
 
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");

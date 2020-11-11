@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace SeparationTrainer.Controls
 {
-    public class DefaultEntry : Entry
+    public class AutoSelectEntry : Entry
     {
     }
 }

@@ -15,5 +15,7 @@
 
         <!-- Converters -->
         <converters:BoolToStartStopGlyphConverter x:Key="BoolToStartStopGlyphConverter" />
+        <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Application.Resources>
 </Application>

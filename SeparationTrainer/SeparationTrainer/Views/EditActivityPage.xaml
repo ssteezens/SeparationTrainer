@@ -12,19 +12,22 @@
     <ContentPage.Content>
         <StackLayout Padding="15">
 
-            <Label Text="Elapsed Time" />
+            <Label Text="Elapsed Time (hh:mm:ss)" />
             <StackLayout Spacing="0" 
                          HorizontalOptions="StartAndExpand"
                          Orientation="Horizontal">
                 <!-- Hours Text -->
-                <Entry Text="{Binding HoursText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                <controls:AutoSelectEntry Text="{Binding HoursTextInput.Value, Mode=TwoWay}" MinimumWidthRequest="40" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
                 <Label Text=":" VerticalOptions="Center"/>
                 <!-- Minutes Text -->
-                <Entry Text="{Binding MinutesText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                <controls:AutoSelectEntry Text="{Binding MinutesText}" MinimumWidthRequest="25" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
                 <Label Text=":" VerticalOptions="Center"/>
                 <!-- Seconds Text -->
-                <Entry Text="{Binding SecondsText}" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                <controls:AutoSelectEntry Text="{Binding SecondsText}" MinimumWidthRequest="25" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
             </StackLayout>
+            <Label TextColor="{DynamicResource Error}" 
+                   Text="{Binding HoursTextInput.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   IsVisible="{Binding HoursTextInput.IsValid, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}"/>
 
             <!-- Stress Level -->
             <StackLayout Orientation="Horizontal"
@@ -32,7 +35,6 @@
                 <Label Text="Stress Level:" HorizontalOptions="Start" />
                 <Label Text="{Binding SelectedStressLevel}" HorizontalOptions="End"/>
             </StackLayout>
-
             <controls:IntegerSlider MinimumTrackColor="{DynamicResource OnSurface}" 
                                     MaximumTrackColor="{DynamicResource OnSurface}"
                                     Maximum="7" 

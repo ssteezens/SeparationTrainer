@@ -11,6 +11,8 @@ namespace SeparationTrainer.Services
     {
         Task<bool> ShowAlert(string title, string message, string accept = "Yes", string cancel = "No");
 
+        Task ShowError(string title, string message, string confirm = "No");
+
         Task<string> DisplayPrompt(string title, string message, string accept = "Ok", string cancel = "Cancel",
             string placeholder = "",
             int maxLength = -1, Keyboard keyboard = null, string initialValue = "");
