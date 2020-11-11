@@ -19,6 +19,25 @@ namespace SeparationTrainer.ViewModels
             GoToAddActivityCommand = new Command(async () => await GoToAddActivity());
             GoToEditActivityCommand = new Command<ActivityModel>(async (activity) => await GoToEditActivity(activity));
             DeleteActivityCommand = new Command<ActivityModel>(async (activity) => await DeleteActivity(activity));
+
+            MessagingCenter.Subscribe<EditActivityViewModel, ActivityModel>(this, "EditActivity", OnEditActivityMessageReceived);
+        }
+
+        private void OnEditActivityMessageReceived(EditActivityViewModel sender, ActivityModel model)
+        {
+            foreach (var session in Sessions)
+            {
+                var activityToEdit = session.Activities.FirstOrDefault(i => i.Id == model.Id);
+
+                if (activityToEdit != null)
+                {
+                    activityToEdit.AnxietyLevel = model.AnxietyLevel;
+                    activityToEdit.ElapsedTime = model.ElapsedTime;
+                    activityToEdit.Tags = model.Tags;
+                    break;
+                }
+            }
+
         }
 
         public async Task OnAppearing()
