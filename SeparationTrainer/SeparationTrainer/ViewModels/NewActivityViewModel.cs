@@ -27,6 +27,7 @@ namespace SeparationTrainer.ViewModels
             CancelCommand = new Command(async() => await Cancel());
             SaveActivityCommand = new Command(async () => await SaveActivity(), () => CanSaveActivity);
             AddNewTagCommand = new Command(async () => await  AddNewTag());
+            RemoveTagCommand = new Command<TagModel>(RemoveTag);
             ShowMoreTagsCommand = new Command(async () => await ShowMoreTags());
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
@@ -103,6 +104,18 @@ namespace SeparationTrainer.ViewModels
         public Command AddNewTagCommand { get; }
 
         public Command ShowMoreTagsCommand { get; }
+
+        public Command<TagModel> RemoveTagCommand { get; }
+
+        private void RemoveTag(TagModel tagToRemove)
+        {
+            var activityTagToRemove = AppliedTags.SingleOrDefault(tag => tag.TagModel == tagToRemove);
+
+            if (activityTagToRemove != null)
+            {
+                AppliedTags.Remove(activityTagToRemove);
+            }
+        }
 
         private void StartStopStopWatch()
         {

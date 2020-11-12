@@ -4,6 +4,7 @@
              xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Views.NewActivityPage"
+             x:Name="NewActivityContentPage"
              Visual="Material"
              Title="Record Activity"
              BackgroundColor="{DynamicResource Surface}">
@@ -89,17 +90,8 @@
                                  Spacing="2">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <Frame BorderColor="{DynamicResource OnSurface}"
-                                           BackgroundColor="{DynamicResource Transparent}"
-                                           VerticalOptions="Center"
-                                           Padding="2"
-                                           Margin="0,2,4,0"
-                                           HorizontalOptions="Start">
-                                        <Label Text="{Binding TagModel.Name}" 
-                                               Padding="4,0"/>
-                                    </Frame>
-                                </Grid>
+                                <controls:TagControl TagModel="{Binding TagModel}"
+                                                     RemoveTagCommand="{Binding Source={x:Reference NewActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
