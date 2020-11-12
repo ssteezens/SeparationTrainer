@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SeparationTrainer.Extensions;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SeparationTrainer.Extensions;
 
 namespace SeparationTrainer.Models
 {
     public class SessionModel : ObservableObject
     {
-        private List<ActivityModel> _activities = new List<ActivityModel>();
+        private ObservableCollection<ActivityModel> _activities = new ObservableCollection<ActivityModel>();
 
         public int Id { get; set; }
 
@@ -19,7 +17,7 @@ namespace SeparationTrainer.Models
 
         public DateTime Created { get; set; }
 
-        public List<ActivityModel> Activities
+        public ObservableCollection<ActivityModel> Activities
         {
             get => _activities;
             set

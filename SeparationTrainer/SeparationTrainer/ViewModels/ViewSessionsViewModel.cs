@@ -96,9 +96,9 @@ namespace SeparationTrainer.ViewModels
                 var activitiesForDay = new List<ActivityModel>();
 
                 if (activityGroups.SingleOrDefault(group => group.Key == session.Created.Date) != null)
-                    activitiesForDay = activityGroups?.SingleOrDefault(group => group.Key == session.Created.Date)?.ToList();
+                    activitiesForDay = activityGroups?.SingleOrDefault(group => group.Key == session.Created.Date)?.ToList() ?? new List<ActivityModel>();
 
-                session.Activities = activitiesForDay;
+                session.Activities = new ObservableCollection<ActivityModel>(activitiesForDay);
             }
         }
 
@@ -107,7 +107,8 @@ namespace SeparationTrainer.ViewModels
             var activitiesForDay = await ActivityService.GetForDayAsync(CurrentSession.Created.Date);
             var newActivities = activitiesForDay.Where(activity => !CurrentSession.Activities.Select(i => i.Id).Contains(activity.Id));
 
-            CurrentSession.Activities.AddRange(newActivities);
+            foreach(var activity in newActivities)
+                CurrentSession.Activities.Add(activity);
         }
 
         public ObservableCollection<SessionModel> Sessions

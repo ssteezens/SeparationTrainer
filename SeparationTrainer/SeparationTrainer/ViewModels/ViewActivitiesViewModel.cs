@@ -38,7 +38,7 @@ namespace SeparationTrainer.ViewModels
                 var session = new SessionModel()
                 {
                     Created = group.Key,
-                    Activities = group.Select(i => i).ToList(),
+                    Activities = new ObservableCollection<ActivityModel>(@group.Select(i => i).ToList()),
                     Title = group.Key.ToString("D"),
                     Description = $"Activities for {@group.Key:D}"
                 };
