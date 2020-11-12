@@ -16,18 +16,16 @@ namespace SeparationTrainer.ViewModels
     {
         private ActivityModel _activityToEdit = new ActivityModel();
         private string _selectedStressLevel = "1";
-        private string _hoursText;
-        private string _minutesText;
-        private string _secondsText;
         private ValidatableObject<string> _hoursTextInput = new ValidatableObject<string> { Value = "01" };
         private ValidatableObject<string> _minutesTextInput;
         private ValidatableObject<string> _secondsTextInput;
 
         public EditActivityViewModel()
         {
-            UpdateActivityCommand = new Command(async () => await UpdateActivity());
+            UpdateActivityCommand = new Command(async () => await UpdateActivity(), () => CanUpdateActivity);
             CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
+            AddNewTagCommand = new Command(async () => await AddNewTag());
 
             HoursTextInput = new ValidatableObject<string>() { Value = "00" };
             HoursTextInput.Validations.Add(new HourTextIsValidRule<string>("Hours must be a number between 0 and 24"));
@@ -38,6 +36,8 @@ namespace SeparationTrainer.ViewModels
             SecondsTextInput = new ValidatableObject<string>() { Value = "00" };
             SecondsTextInput.Validations.Add(new SecondsTextIsValidRule<string>("Seconds must be a number between 0 and 59"));
         }
+
+        private bool CanUpdateActivity => HoursTextInput.IsValid && MinutesTextInput.IsValid && SecondsTextInput.IsValid;
 
         public override async Task LoadData()
         {
@@ -91,6 +91,34 @@ namespace SeparationTrainer.ViewModels
 
         public Command<TagModel> RemoveTagCommand { get; }
 
+        public Command AddNewTagCommand { get; }
+
+        private async Task AddNewTag()
+        {
+            var result = await DialogService.DisplayPrompt("Add Tag",
+                "Enter a new tag for this activity",
+                "Ok",
+                "Cancel",
+                "New Tag Here",
+                100);
+
+            if (result == null)
+                return;
+
+            var tagModel = new TagModel { Name = result };
+            var returnedTagModel = await TagService.AddAsync(tagModel);
+
+            tagModel.Id = returnedTagModel.Id;
+
+            var activityTag = new ActivityTagModel()
+            {
+                TagModel = tagModel,
+                AppliedOn = DateTime.Now
+            };
+
+            ActivityToEdit.Tags.Add(activityTag);
+        }
+
         private void RemoveTag(TagModel tagToRemove)
         {
             var activityTagToRemove = ActivityToEdit.Tags.SingleOrDefault(tag => tag.TagModel == tagToRemove);
@@ -105,6 +133,10 @@ namespace SeparationTrainer.ViewModels
 
         private async Task Cancel()
         {
+            var result = await DialogService.ShowAlert("Cancel?", "Are you sure you would like to cancel this activity?");
+            if (!result)
+                return;
+
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
         }

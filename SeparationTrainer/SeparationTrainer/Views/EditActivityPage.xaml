@@ -5,7 +5,8 @@
              x:Class="SeparationTrainer.Views.EditActivityPage"
              x:Name="EditActivityContentPage"
              BackgroundColor="{DynamicResource Surface}"
-             Title="Edit Activity">
+             Title="Edit Activity"
+             Shell.BackgroundColor="{DynamicResource Primary}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
@@ -42,7 +43,7 @@
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="Fill">
                 <Label Text="Stress Level:" HorizontalOptions="Start" />
-                <Label Text="{Binding SelectedStressLevel}" HorizontalOptions="End"/>
+                <Label Text="{Binding ActivityToEdit.AnxietyLevel}" HorizontalOptions="End"/>
             </StackLayout>
             <controls:IntegerSlider MinimumTrackColor="{DynamicResource OnSurface}" 
                                     MaximumTrackColor="{DynamicResource OnSurface}"
