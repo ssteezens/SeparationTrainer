@@ -141,7 +141,13 @@ namespace SeparationTrainer.ViewModels
 
         public async Task DeleteActivity(ActivityModel activity)
         {
+            var result = await DialogService.ShowAlert("Cancel?", "Are you sure you would like to cancel this activity?");
+            if (!result)
+                return;
 
+            await ActivityService.DeleteAsync(activity.Id);
+
+            CurrentSession.Activities.Remove(activity);
         }
     }
 }

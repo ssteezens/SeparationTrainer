@@ -90,6 +90,15 @@ namespace SeparationTrainer.Services.Data
             return model;
         }
 
+        public async Task<ActivityModel> DeleteAsync(int id)
+        {
+            var entity = await _activityRepository.GetAsync(id);
+            var returnedEntity = await _activityRepository.DeleteAsync(entity);
+            var model = _mapper.Map<ActivityModel>(returnedEntity);
+
+            return model;
+        }
+
         public IEnumerable<ActivityModel> GetAll()
         {
             var activityEntities = _activityRepository.GetAllAsync();
