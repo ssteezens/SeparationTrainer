@@ -17,5 +17,7 @@
         <converters:BoolToStartStopGlyphConverter x:Key="BoolToStartStopGlyphConverter" />
         <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter"/>
+        <converters:AbbreviationConverter x:Key="AbbreviationConverter"/>
     </Application.Resources>
 </Application>

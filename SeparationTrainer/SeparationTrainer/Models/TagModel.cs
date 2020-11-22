@@ -16,5 +16,10 @@ namespace SeparationTrainer.Models
             get => _name;
             set => SetProperty(ref _name, value, nameof(Name));
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name}";
+        }
     }
 }

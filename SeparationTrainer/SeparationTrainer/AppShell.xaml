@@ -119,6 +119,9 @@
     <FlyoutItem Title="View Sessions">
         <ShellContent Route="ViewSessionsPage" ContentTemplate="{DataTemplate local:ViewSessionsPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="View Statistics">
+        <ShellContent Route="ViewStatisticsPage" ContentTemplate="{DataTemplate local:ViewStatisticsPage}" />
+    </FlyoutItem>
 
     <ShellContent Route="EditActivityPage" ContentTemplate="{DataTemplate local:EditActivityPage}"/>
     <!--<FlyoutItem Title="View Activities">

@@ -64,7 +64,7 @@
                                             <!-- Elapsed Time -->
                                             <StackLayout Orientation="Horizontal">
                                                 <Label Text="Elapsed Time:" />
-                                                <Label Text="{Binding ElapsedTime, StringFormat=\{0:hh\\:mm\\:ss\\.ff\}}" />
+                                                <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
                                             </StackLayout>
                                             <!-- Notes -->
                                             <StackLayout Orientation="Horizontal">

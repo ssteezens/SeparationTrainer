@@ -10,14 +10,6 @@
     <ContentView.Content>
         <Grid HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand">
-
-            <Frame HeightRequest="300"
-                   WidthRequest="300"
-                   CornerRadius="150"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand"
-                   BackgroundColor="Transparent"
-                   BorderColor="{DynamicResource Primary}"/>
             
             <!-- Timer Text -->
             <StackLayout HorizontalOptions="CenterAndExpand"
@@ -26,12 +18,13 @@
                          android:VisualElement.Elevation="10"
                          Orientation="Horizontal">
 
-                <Label FontSize="Large" Text="{Binding TimerText, Mode=OneWay, Source={x:Reference TimerButtonContentView}}" />
+                <Label FontSize="54" 
+                       Text="{Binding TimerText, Mode=OneWay, Source={x:Reference TimerButtonContentView}}" />
             </StackLayout>
 
-            <Button CornerRadius="150"
-                    HeightRequest="300"
-                    WidthRequest="300"
+            <Button CornerRadius="125"
+                    HeightRequest="250"
+                    WidthRequest="250"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     BorderColor="{DynamicResource Primary}"

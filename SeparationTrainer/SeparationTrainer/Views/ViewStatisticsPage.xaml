@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeparationTrainer.Views.ViewStatisticsPage"
+             BackgroundColor="{DynamicResource Surface}"
+             Title="View Statistics">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Column 1 -->
+            <StackLayout Spacing="10"
+                         Margin="20,20,10,0">
+                <!-- Longest Activity -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Longest Activity"
+                               TextColor="{DynamicResource OnSurface}"/>
+
+                        <Label Grid.Row="1" 
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               FontSize="22"
+                               Text="{Binding LongestActivityTime, Converter={StaticResource TimeSpanToStringConverter}}"
+                               TextColor="{DynamicResource OnSurface}"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Average Stress Level -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Average Stress Level"
+                               TextColor="{DynamicResource OnSurface}"
+                               VerticalOptions="Start"/>
+
+                        <Label Grid.Row="1" 
+                               Text="{Binding AvgStressLevel}"
+                               TextColor="{DynamicResource OnSurface}"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <!-- Total Activities -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Total Activities"
+                               TextColor="{DynamicResource OnSurface}"
+                               VerticalOptions="Start"/>
+
+                        <Label Grid.Row="1" 
+                               Text="{Binding TotalActivities}"
+                               TextColor="{DynamicResource OnSurface}"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+            </StackLayout>
+
+            <!-- Column 2 -->
+            <StackLayout Grid.Column="1"
+                         Spacing="10"
+                         Margin="10,20,20,0">
+                <!-- Day Averages -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start"
+                       >
+                    <StackLayout Spacing="0">
+                        <Label Text="Averages By Day"
+                               TextColor="{DynamicResource OnSurface}"/>
+                        <Label FontSize="10" 
+                               Text="(Last Two Weeks)"
+                               Margin="0,0,0,2"/>
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding DayAverages}"
+                                     Spacing="0">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding Key, Converter={StaticResource AbbreviationConverter}}" 
+                                               TextColor="{DynamicResource OnSurface}"/>
+
+                                        <Label Grid.Column="1"
+                                               TextColor="{DynamicResource OnSurface}"
+                                               Text="{Binding Value, Converter={StaticResource TimeSpanToStringConverter}}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Most Used Tags -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Most Used Tags"
+                               TextColor="{DynamicResource OnSurface}"/>
+
+                        <StackLayout BindableLayout.ItemsSource="{Binding MostUsedTags}"
+                                     Spacing="0"
+                                     Grid.Row="1"
+                                     VerticalOptions="Center">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding Key.Name}" 
+                                               TextColor="{DynamicResource OnSurface}"/>
+
+                                        <Label Grid.Column="1"
+                                               TextColor="{DynamicResource OnSurface}"
+                                               Text="{Binding Value}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Total Days -->
+                <Frame BorderColor="{DynamicResource Primary}"
+                       BackgroundColor="{DynamicResource Surface}"
+                       WidthRequest="200"
+                       HeightRequest="150"
+                       VerticalOptions="Start"
+                       HorizontalOptions="Start">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Total Days"
+                               TextColor="{DynamicResource OnSurface}"
+                               VerticalOptions="Start"/>
+
+                        <Label Grid.Row="1" 
+                               Text="{Binding TotalDays}"
+                               TextColor="{DynamicResource OnSurface}"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
