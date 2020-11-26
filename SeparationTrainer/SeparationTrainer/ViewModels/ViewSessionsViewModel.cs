@@ -17,6 +17,7 @@ namespace SeparationTrainer.ViewModels
         public ViewSessionsViewModel()
         {
             GoToAddActivityCommand = new Command(async () => await GoToAddActivity());
+            GoToAddManualActivityCommand = new Command(async () => await GoToAddManualActivity());
             GoToEditActivityCommand = new Command<ActivityModel>(async (activity) => await GoToEditActivity(activity));
             DeleteActivityCommand = new Command<ActivityModel>(async (activity) => await DeleteActivity(activity));
 
@@ -125,6 +126,8 @@ namespace SeparationTrainer.ViewModels
 
         public Command GoToAddActivityCommand { get; }
 
+        public Command GoToAddManualActivityCommand { get; }
+
         public Command<ActivityModel> GoToEditActivityCommand { get; }
 
         public Command<ActivityModel> DeleteActivityCommand { get; }
@@ -132,6 +135,12 @@ namespace SeparationTrainer.ViewModels
         public async Task GoToAddActivity()
         {
             await Shell.Current.GoToAsync($"//{nameof(NewActivityPage)}");
+        }
+
+        public async Task GoToAddManualActivity()
+        {
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+            await Shell.Current.GoToAsync($"//{nameof(NewManualActivityPage)}");
         }
 
         public async Task GoToEditActivity(ActivityModel activity)

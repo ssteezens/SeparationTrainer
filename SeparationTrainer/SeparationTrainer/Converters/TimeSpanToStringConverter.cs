@@ -15,9 +15,9 @@ namespace SeparationTrainer.Converters
             if (!(value is TimeSpan timeSpanValue))
                 throw new ArgumentException("Value passed to converter must be a TimeSpan");
 
-            var hoursText = timeSpanValue.Hours > 0 ? $"{timeSpanValue.Hours} h " : "";
-            var minutesText = timeSpanValue.Minutes > 0 ? $"{timeSpanValue.Minutes} m " : "";
-            var secondsText = timeSpanValue.Seconds > 0 ? $"{timeSpanValue.Seconds} s" : "";
+            var hoursText = timeSpanValue.Hours > 0 ? $"{timeSpanValue.Hours}h " : "";
+            var minutesText = timeSpanValue.Minutes > 0 ? $"{timeSpanValue.Minutes}m " : "";
+            var secondsText = timeSpanValue.Seconds > 0 ? $"{timeSpanValue.Seconds}s" : "";
 
             var stringValue = $"{hoursText}{minutesText}{secondsText}";
 

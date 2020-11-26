@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SeparationTrainer.ViewModels;
+﻿using SeparationTrainer.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,11 +10,11 @@ namespace SeparationTrainer.Views
         public NewManualActivityPage()
         {
             InitializeComponent();
-            ViewModel = new NewActivityViewModel();
+            ViewModel = new NewManualActivityViewModel();
 
             this.BindingContext = ViewModel;
         }
 
-        public NewActivityViewModel ViewModel { get; set; }
+        public NewManualActivityViewModel ViewModel { get; set; }
     }
 }

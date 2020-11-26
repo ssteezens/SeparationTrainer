@@ -2,7 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
-             x:Class="SeparationTrainer.Views.NewManualActivityPage">
+             x:Class="SeparationTrainer.Views.NewManualActivityPage"
+             x:Name="NewManualActivityContentPage"
+             BackgroundColor="{DynamicResource Surface}"
+             Shell.BackgroundColor="{DynamicResource Primary}"
+             Title="New Activity">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
@@ -11,20 +15,44 @@
             <StackLayout Padding="15">
 
                 <!-- Elapsed Time -->
-                <TimePicker Time="{Binding ElapsedTime}" />
+                <Label Text="Elapsed Time (hh:mm:ss)" />
+                <StackLayout Spacing="0" 
+                         HorizontalOptions="StartAndExpand"
+                         Orientation="Horizontal">
+                    <!-- Hours Text -->
+                    <controls:AutoSelectEntry Text="{Binding HoursTextInput.Value, Mode=TwoWay}" MinimumWidthRequest="40" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                    <Label Text=":" VerticalOptions="Center"/>
+                    <!-- Minutes Text -->
+                    <controls:AutoSelectEntry Text="{Binding MinutesTextInput.Value}" MinimumWidthRequest="25" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                    <Label Text=":" VerticalOptions="Center"/>
+                    <!-- Seconds Text -->
+                    <controls:AutoSelectEntry Text="{Binding SecondsTextInput.Value}" MinimumWidthRequest="25" TextColor="{DynamicResource OnSurface}" Keyboard="Numeric" VerticalOptions="Center"/>
+                </StackLayout>
+                <!-- Hours Text Input Error -->
+                <Label TextColor="{DynamicResource Error}" 
+                       Text="{Binding HoursTextInput.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       IsVisible="{Binding HoursTextInput.IsValid, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}"/>
+                <!-- Minutes Text Input Error -->
+                <Label TextColor="{DynamicResource Error}" 
+                       Text="{Binding MinutesTextInput.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       IsVisible="{Binding MinutesTextInput.IsValid, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}"/>
+                <!-- Seconds Text Input Error -->
+                <Label TextColor="{DynamicResource Error}" 
+                       Text="{Binding SecondsTextInput.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       IsVisible="{Binding SecondsTextInput.IsValid, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}"/>
 
                 <!-- Stress Level -->
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="Fill">
                     <Label Text="Stress Level:" HorizontalOptions="Start" />
-                    <Label Text="{Binding SelectedStressLevel}" HorizontalOptions="End"/>
+                    <Label Text="{Binding AnxietyLevel}" HorizontalOptions="End"/>
                 </StackLayout>
 
                 <controls:IntegerSlider MinimumTrackColor="{DynamicResource OnSurface}" 
                                         MaximumTrackColor="{DynamicResource OnSurface}"
                                         Maximum="7" 
                                         Minimum="1" 
-                                        Value="{Binding SelectedStressLevel}" />
+                                        Value="{Binding AnxietyLevel}" />
 
                 <!-- Tags -->
                 <Label Text="Tags"/>
@@ -45,26 +73,17 @@
                             BorderWidth="0"
                             VerticalOptions="Center" />
 
-                    <CollectionView ItemsSource="{Binding AppliedTags}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
+                    <!-- Applied Tags -->
+                    <StackLayout BindableLayout.ItemsSource="{Binding AppliedTags}" 
+                                 Orientation="Horizontal"
+                                 Spacing="2">
+                        <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
-                                    <Frame BorderColor="{DynamicResource OnSurface}"
-                                           BackgroundColor="{DynamicResource Transparent}"
-                                           VerticalOptions="Center"
-                                           Padding="2"
-                                           Margin="0,2,4,0"
-                                           HorizontalOptions="Start">
-                                        <Label Text="{Binding TagModel.Name}" 
-                                               Padding="4,0"/>
-                                    </Frame>
-                                </Grid>
+                                <controls:TagControl TagModel="{Binding TagModel}"
+                                                     RemoveTagCommand="{Binding Source={x:Reference NewManualActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
                 </StackLayout>
 
                 <!-- Notes -->

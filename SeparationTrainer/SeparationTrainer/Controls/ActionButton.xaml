@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
+             xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="SeparationTrainer.Controls.ActionButton">
+  <ContentView.Content>
+      <Grid HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+
+          <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <Frame HorizontalOptions="End"
+                 IsVisible="False"
+                 Opacity="0"
+                 BackgroundColor="Transparent"
+                 x:Name="ActionButtonContainer">
+          </Frame>
+
+          <ImageButton Grid.Row="1" 
+                       BackgroundColor="{DynamicResource Primary}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       HorizontalOptions="End"
+                       CornerRadius="25"
+                       androidSpecific:Button.UseDefaultShadow="true"
+                       Clicked="ImageButton_OnClicked">
+              <ImageButton.Source>
+                  <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                   Size="14"
+                                   Glyph="{x:Static helpers:IconFont.Plus}"/>
+              </ImageButton.Source>
+          </ImageButton>
+      </Grid>
+  </ContentView.Content>
+</ContentView>

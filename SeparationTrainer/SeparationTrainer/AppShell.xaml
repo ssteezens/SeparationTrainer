@@ -124,6 +124,7 @@
     </FlyoutItem>
 
     <ShellContent Route="EditActivityPage" ContentTemplate="{DataTemplate local:EditActivityPage}"/>
+    <ShellContent Route="NewManualActivityPage" ContentTemplate="{DataTemplate local:NewManualActivityPage}"/>
     <!--<FlyoutItem Title="View Activities">
         <ShellContent Route="ViewActivitiesPage" ContentTemplate="{DataTemplate local:ViewActivitiesPage}" />
     </FlyoutItem>-->
