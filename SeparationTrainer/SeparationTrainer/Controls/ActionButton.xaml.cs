@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -41,9 +42,13 @@ namespace SeparationTrainer.Controls
             ActionButtonContainer.IsVisible = !ActionButtonContainer.IsVisible;
 
             if(ActionButtonContainer.IsVisible)
+            {
                 await ActionButtonContainer.FadeTo(1.0, 500);
+            }
             else
+            {
                 await ActionButtonContainer.FadeTo(0, 500);
+            }
         }
     }
 }

@@ -9,23 +9,26 @@
             VerticalOptions="FillAndExpand">
 
           <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
           </Grid.RowDefinitions>
 
           <Frame HorizontalOptions="End"
-                 IsVisible="False"
-                 Opacity="0"
+                 Padding="0"
+                 IsVisible="True"
+                 Margin="0,0,0,0"
                  BackgroundColor="Transparent"
                  x:Name="ActionButtonContainer">
           </Frame>
 
           <ImageButton Grid.Row="1" 
+                       x:Name="ActionImageButton"
                        BackgroundColor="{DynamicResource Primary}"
                        HeightRequest="50"
                        WidthRequest="50"
                        HorizontalOptions="End"
                        CornerRadius="25"
+                       Margin="20,0,20,20"
                        androidSpecific:Button.UseDefaultShadow="true"
                        Clicked="ImageButton_OnClicked">
               <ImageButton.Source>

@@ -104,9 +104,11 @@
 
                         <controls:ActionButton HorizontalOptions="End"
                                                VerticalOptions="End" 
-                                               Margin="20">
+                                               Margin="0">
                             <StackLayout BackgroundColor="Transparent"
-                                         HorizontalOptions="End">
+                                         HorizontalOptions="End"
+                                         Spacing="0"
+                                         VerticalOptions="End">
                                 <Button Text="Record Activity"
                                         HorizontalOptions="End"
                                         Command="{Binding BindingContext.GoToAddActivityCommand, Source={x:Reference ViewSessionContentPage}}"
