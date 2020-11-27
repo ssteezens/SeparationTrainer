@@ -15,7 +15,7 @@
 
           <Frame HorizontalOptions="End"
                  Padding="0"
-                 IsVisible="True"
+                 IsVisible="False"
                  Margin="0,0,0,0"
                  BackgroundColor="Transparent"
                  x:Name="ActionButtonContainer">

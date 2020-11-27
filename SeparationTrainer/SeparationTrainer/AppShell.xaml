@@ -86,10 +86,9 @@
                 <Label Text="Separation Trainer" 
                        FontAttributes="Bold"
                        FontSize="Large"
-                       HorizontalOptions="Start"
+                       HorizontalOptions="Center"
                        VerticalOptions="Center"
-                       TextColor="{DynamicResource OnPrimary}"
-                       Margin="10"/>
+                       TextColor="{DynamicResource OnPrimary}"/>
                 <ImageButton HorizontalOptions="End" 
                              VerticalOptions="End"
                              HeightRequest="25"
