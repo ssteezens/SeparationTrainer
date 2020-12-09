@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
+             xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Views.ViewSessionsPage"
              x:Name="ViewSessionContentPage"
              IsBusy="{Binding IsBusy}"
@@ -107,20 +108,44 @@
                                                Margin="0">
                             <StackLayout BackgroundColor="Transparent"
                                          HorizontalOptions="End"
-                                         Spacing="0"
+                                         Spacing="10"
+                                         Margin="20,0,25,5"
                                          VerticalOptions="End">
 
-                                <Button Text="Record Activity"
-                                        HorizontalOptions="End"
-                                        Command="{Binding BindingContext.GoToAddActivityCommand, Source={x:Reference ViewSessionContentPage}}"
-                                        BackgroundColor="{DynamicResource Surface}"
-                                        TextColor="{DynamicResource OnSurface}"/>
+                                <StackLayout Orientation="Horizontal">
 
-                                <Button Text="Manual Activity"
-                                        HorizontalOptions="End"
-                                        Command="{Binding BindingContext.GoToAddManualActivityCommand, Source={x:Reference ViewSessionContentPage}}"
-                                        BackgroundColor="{DynamicResource Surface}"
-                                        TextColor="{DynamicResource OnSurface}"/>
+                                    <Label Text="Record Activity" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+
+                                    <Button HeightRequest="40"
+                                            WidthRequest="40"
+                                            CornerRadius="20"
+                                            VerticalOptions="Center"
+                                            FontSize="28"
+                                            Padding="0"
+                                            FontFamily="{StaticResource MaterialFontFamily}" 
+                                            Text="{x:Static helpers:IconFont.Record}"
+                                            Command="{Binding BindingContext.GoToAddActivityCommand, Source={x:Reference ViewSessionContentPage}}"/>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+
+                                    <Label Text="Manual Activity" 
+                                           FontFamily="{DynamicResource MaterialFontFamily}"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"/>
+
+                                    <Button HeightRequest="40"
+                                            WidthRequest="40"
+                                            CornerRadius="20"
+                                            VerticalOptions="Center"
+                                            FontSize="28"
+                                            Padding="0"
+                                            FontFamily="{StaticResource MaterialFontFamily}" 
+                                            Text="{x:Static helpers:IconFont.FountainPenTip}"
+                                            Command="{Binding BindingContext.GoToAddManualActivityCommand, Source={x:Reference ViewSessionContentPage}}"/>
+                                </StackLayout>
                             </StackLayout>
                         </controls:ActionButton>
                     </Grid>

@@ -21,22 +21,20 @@
                  x:Name="ActionButtonContainer">
           </Frame>
 
-          <ImageButton Grid.Row="1" 
-                       x:Name="ActionImageButton"
-                       BackgroundColor="{DynamicResource Primary}"
-                       HeightRequest="50"
-                       WidthRequest="50"
-                       HorizontalOptions="End"
-                       CornerRadius="25"
-                       Margin="20,0,20,20"
-                       androidSpecific:Button.UseDefaultShadow="true"
-                       Clicked="ImageButton_OnClicked">
-              <ImageButton.Source>
-                  <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                   Size="14"
-                                   Glyph="{x:Static helpers:IconFont.Plus}"/>
-              </ImageButton.Source>
-          </ImageButton>
+          <Button Grid.Row="1" 
+                  x:Name="ActionImageButton"
+                  HeightRequest="50"
+                  WidthRequest="50"
+                  CornerRadius="25"
+                  Margin="20,0,20,20"
+                  HorizontalOptions="End"
+                  Padding="0"
+                  androidSpecific:Button.UseDefaultShadow="true"
+                  Clicked="ImageButton_OnClicked"
+                  FontSize="28"
+                  FontFamily="{StaticResource MaterialFontFamily}"
+                  Text="{x:Static helpers:IconFont.Plus}"/>
+
       </Grid>
   </ContentView.Content>
 </ContentView>

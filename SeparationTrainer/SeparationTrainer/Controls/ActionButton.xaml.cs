@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using SeparationTrainer.Helpers;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -43,10 +43,12 @@ namespace SeparationTrainer.Controls
 
             if(ActionButtonContainer.IsVisible)
             {
+                ActionImageButton.Text = IconFont.Minus;
                 await ActionButtonContainer.FadeTo(1.0, 500);
             }
             else
             {
+                ActionImageButton.Text = IconFont.Plus;
                 await ActionButtonContainer.FadeTo(0, 500);
             }
         }

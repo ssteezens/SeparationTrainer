@@ -25,6 +25,8 @@
     <Color x:Key="OnSurface">#FFFFFF</Color>
     <Color x:Key="OnError">#FFFFFF</Color>
 
+    <Color x:Key="OnPrimaryText">#808080</Color>
+
     <Color x:Key="Transparent">Transparent</Color>
     
     <Color x:Key="Error">#B00020</Color>

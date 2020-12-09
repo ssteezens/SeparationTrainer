@@ -112,11 +112,11 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="Record Activity">
-        <ShellContent Route="NewActivityPage" ContentTemplate="{DataTemplate local:NewActivityPage}" />
-    </FlyoutItem>
     <FlyoutItem Title="View Sessions">
         <ShellContent Route="ViewSessionsPage" ContentTemplate="{DataTemplate local:ViewSessionsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Record Activity">
+        <ShellContent Route="NewActivityPage" ContentTemplate="{DataTemplate local:NewActivityPage}" />
     </FlyoutItem>
     <FlyoutItem Title="View Statistics">
         <ShellContent Route="ViewStatisticsPage" ContentTemplate="{DataTemplate local:ViewStatisticsPage}" />
