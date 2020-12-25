@@ -21,8 +21,8 @@
 
     <Color x:Key="OnPrimary">#FFFFFF</Color>
     <Color x:Key="OnSecondary">#000000</Color>
-    <Color x:Key="OnBackground">#000000</Color>
-    <Color x:Key="OnSurface">#000000</Color>
+    <Color x:Key="OnBackground">#262626</Color>
+    <Color x:Key="OnSurface">#262626</Color>
     <Color x:Key="OnError">#FFFFFF</Color>
 
     <Color x:Key="Transparent">Transparent</Color>

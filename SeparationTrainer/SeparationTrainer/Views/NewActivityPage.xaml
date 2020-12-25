@@ -46,21 +46,18 @@
                                 IsVisible="{Binding ResetTimerIsEnabled}"
                                 VerticalOptions="Center" />
 
-                        <ImageButton Grid.Column="1"
-                                     HeightRequest="50"
-                                     WidthRequest="50"
-                                     CornerRadius="25"
-                                     Padding="4"
-                                     VerticalOptions="Center"
-                                     BackgroundColor="{DynamicResource Primary}"
-                                     Command="{Binding StartStopStopWatchCommand}"
-                                     HorizontalOptions="Center">
-                            <ImageButton.Source>
-                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Size="Small"
-                                                 Glyph="{Binding StopWatchIsRunning, Converter={StaticResource BoolToStartStopGlyphConverter}}" />
-                            </ImageButton.Source>
-                        </ImageButton>
+                        <Button Grid.Column="1"
+                                HeightRequest="50"
+                                WidthRequest="50"
+                                CornerRadius="25"
+                                Padding="4"
+                                VerticalOptions="Center"
+                                BackgroundColor="{DynamicResource Primary}"
+                                Command="{Binding StartStopStopWatchCommand}"
+                                HorizontalOptions="Center"
+                                FontFamily="{StaticResource MaterialFontFamily}"
+                                FontSize="28"
+                                Text="{x:Static helpers:IconFont.Play}"/>
                     </Grid>
 
                 </Grid>
@@ -114,6 +111,7 @@
                 <Label Text="Notes:" />
                 <Editor Text="{Binding Notes}"
                         AutoSize="TextChanges"
+                        PlaceholderColor="#808080"
                         Placeholder="Add Notes Here"/>
 
                 <Button Text="Save" Command="{Binding SaveActivityCommand}" />
