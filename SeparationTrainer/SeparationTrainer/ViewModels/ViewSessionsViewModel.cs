@@ -67,11 +67,10 @@ namespace SeparationTrainer.ViewModels
 
         public void LoadSessions()
         {
-            var currentYear = DateTime.Now.Year;
-            var yearStart = new DateTime(currentYear, 1, 1);
+            var startDate = DateTime.Today.AddDays(-365);
             var today = DateTime.Now.Date;
 
-            for (var currentDay = yearStart; currentDay.Date <= today.Date; currentDay = currentDay.AddDays(1))
+            for (var currentDay = startDate; currentDay.Date <= today.Date; currentDay = currentDay.AddDays(1))
             {
                 var session = new SessionModel()
                 {

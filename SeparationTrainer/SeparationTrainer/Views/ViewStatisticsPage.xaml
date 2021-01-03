@@ -103,7 +103,8 @@
                        HorizontalOptions="Start"
                        >
                     <StackLayout Spacing="0">
-                        <Label Text="Averages By Day"
+                        <Label Text="Average Total Activities"
+                               FontSize="13"
                                TextColor="{DynamicResource OnSurface}"/>
                         <Label FontSize="10" 
                                Text="(Last Two Weeks)"
