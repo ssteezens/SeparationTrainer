@@ -1,5 +1,4 @@
-﻿using SeparationTrainer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,12 +8,14 @@ using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Services;
 using SeparationTrainer.Services.Data;
 using Xamarin.Forms;
-using ActivityRepository = SeparationTrainer.Data.Repositories.ActivityRepository;
 
 namespace SeparationTrainer.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private bool isBusy;
+
+        private string title = string.Empty;
         public IMapper Mapper => DependencyService.Get<IMapper>();
 
         public ActivityRepository ActivityRepository => DependencyService.Get<ActivityRepository>();
@@ -24,26 +25,23 @@ namespace SeparationTrainer.ViewModels
         public ActivityService ActivityService => DependencyService.Get<ActivityService>();
 
         public TagService TagService => DependencyService.Get<TagService>();
-        
+
         public IDialogService DialogService => DependencyService.Get<IDialogService>();
 
-        bool isBusy = false;
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
         }
 
-        string title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => title;
+            set => SetProperty(ref title, value);
         }
 
         public virtual async Task LoadData()
         {
-
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,
@@ -60,7 +58,9 @@ namespace SeparationTrainer.ViewModels
         }
 
         #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
@@ -69,6 +69,7 @@ namespace SeparationTrainer.ViewModels
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         #endregion
     }
 }

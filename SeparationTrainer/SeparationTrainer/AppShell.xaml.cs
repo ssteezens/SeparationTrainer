@@ -9,8 +9,6 @@ namespace SeparationTrainer
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-        private Theme _currentTheme = Theme.Dark;
-
         public AppShell()
         {
             InitializeComponent();
@@ -24,22 +22,27 @@ namespace SeparationTrainer
             {
                 mergedDictionaries.Clear();
 
-                switch (CurrentTheme)
+                switch (AppState.CurrentTheme)
                 {
                     case Theme.Dark:
                         mergedDictionaries.Add(new LightTheme());
-                        CurrentTheme = Theme.Light;
+                        AppState.CurrentTheme = Theme.Light;
                         break;
                     case Theme.Light:
                     default:
                         mergedDictionaries.Add(new DarkTheme());
-                        CurrentTheme = Theme.Dark;
+                        AppState.CurrentTheme = Theme.Dark;
                         break;
                 }
             }
         }
+    }
 
-        public Theme CurrentTheme
+    public static class AppState
+    {
+        private static Theme _currentTheme = Theme.Dark;
+
+        public static Theme CurrentTheme
         {
             get => _currentTheme;
             set => _currentTheme = value;
