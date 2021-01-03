@@ -20,6 +20,7 @@ namespace SeparationTrainer.ViewModels
             GoToAddManualActivityCommand = new Command(async () => await GoToAddManualActivity());
             GoToEditActivityCommand = new Command<ActivityModel>(async (activity) => await GoToEditActivity(activity));
             DeleteActivityCommand = new Command<ActivityModel>(async (activity) => await DeleteActivity(activity));
+            GoToTodayCommand = new Command(GoToToday);
 
             MessagingCenter.Subscribe<EditActivityViewModel, ActivityModel>(this, "EditActivity", OnEditActivityMessageReceived);
         }
@@ -130,6 +131,13 @@ namespace SeparationTrainer.ViewModels
         public Command<ActivityModel> GoToEditActivityCommand { get; }
 
         public Command<ActivityModel> DeleteActivityCommand { get; }
+
+        public Command GoToTodayCommand { get; }
+
+        public void GoToToday()
+        {
+            CurrentSession = Sessions.Single(i => i.Created.Date == DateTime.Today);
+        }
 
         public async Task GoToAddActivity()
         {

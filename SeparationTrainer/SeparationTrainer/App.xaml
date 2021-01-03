@@ -19,6 +19,7 @@
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter"/>
         <converters:AbbreviationConverter x:Key="AbbreviationConverter"/>
+        <converters:CurrentSessionToVisibilityConverter x:Key="CurrentSessionToVisibilityConverter"/>
 
         <!-- Material Fonts -->
         <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
