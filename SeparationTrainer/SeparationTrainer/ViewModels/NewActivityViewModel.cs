@@ -41,6 +41,7 @@ namespace SeparationTrainer.ViewModels
             ResetTimer();
             SelectedStressLevel = 1;
             Notes = string.Empty;
+            NotificationManager.ClearNotification(0);
         }
 
         #region Properties

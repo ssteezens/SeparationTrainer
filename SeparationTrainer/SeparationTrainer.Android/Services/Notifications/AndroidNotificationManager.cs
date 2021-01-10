@@ -54,6 +54,22 @@ namespace SeparationTrainer.Droid.Services.Notifications
             NotificationReceived?.Invoke(null, args);
         }
 
+        public void ClearNotification(int messageId)
+        {
+            if (!_channelInitialized)
+                return;
+
+            _manager.Cancel(messageId);
+        }
+
+        public void ClearAllNotifications()
+        {
+            if (!_channelInitialized)
+                return;
+
+            _manager.CancelAll();
+        }
+
         public void Show(string title, string message, int? messageId)
         {
             var intent = new Intent(AndroidApp.Context, typeof(MainActivity));
@@ -74,7 +90,6 @@ namespace SeparationTrainer.Droid.Services.Notifications
                 .SetDefaults((int)NotificationDefaults.Vibrate);
 
             var notification = builder.Build();
-            //_manager.Notify(_messageId++, notification);
             var id = messageId ?? _messageId;
             _manager.Notify(id, notification);
         }
