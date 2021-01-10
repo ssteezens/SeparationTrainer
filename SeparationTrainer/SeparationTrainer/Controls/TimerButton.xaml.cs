@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SeparationTrainer.Extensions;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -49,21 +45,7 @@ namespace SeparationTrainer.Controls
         {
             var codeBehind = (TimerButton) bindableObject;
 
-            var hoursText = codeBehind.ElapsedTime.Hours > 0 ?
-                $"{codeBehind.ElapsedTime.Hours.ToString().PadLeft(2, '0')}:"
-                : string.Empty;
-            var minutesText = codeBehind.ElapsedTime.Minutes > 0 ?
-                $"{codeBehind.ElapsedTime.Minutes.ToString().PadLeft(2, '0')}:"
-                : string.Empty;
-            var secondsText = codeBehind.ElapsedTime.Seconds > 0 ?
-                $"{codeBehind.ElapsedTime.Seconds.ToString().PadLeft(2, '0')}:"
-                : "00:";
-            var hundredths = (int)Math.Round((double)codeBehind.ElapsedTime.Milliseconds / 10, 2);
-            var millisecondsText = codeBehind.ElapsedTime.Milliseconds > 0 ? 
-                hundredths.ToString().PadLeft(2, '0')
-                : "00";
-
-            codeBehind.TimerText = $"{hoursText}{minutesText}{secondsText}{millisecondsText}";
+            codeBehind.TimerText = codeBehind.ElapsedTime.ToStopwatchForm();
         }
 
         public string TimerText

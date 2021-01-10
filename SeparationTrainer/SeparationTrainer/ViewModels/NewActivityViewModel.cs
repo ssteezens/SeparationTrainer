@@ -1,10 +1,11 @@
-﻿using SeparationTrainer.Views;
+﻿using SeparationTrainer.Extensions;
+using SeparationTrainer.Models;
+using SeparationTrainer.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using SeparationTrainer.Models;
 using Xamarin.Forms;
 using ActivityModel = SeparationTrainer.Models.ActivityModel;
 using ActivityTagModel = SeparationTrainer.Models.ActivityTagModel;
@@ -14,6 +15,7 @@ namespace SeparationTrainer.ViewModels
     public class NewActivityViewModel : BaseViewModel
     {
         private bool _stopWatchIsRunning;
+        private int _lastNotificationSecond = 0;
         private string _notes;
         private int _selectedStressLevel = 1;
         private TimeSpan _elapsedTime = TimeSpan.MinValue;
@@ -146,6 +148,7 @@ namespace SeparationTrainer.ViewModels
             OnPropertyChanged(nameof(ResetTimerIsEnabled));
             OnPropertyChanged(nameof(StartStopButtonText));
             SaveActivityCommand.ChangeCanExecute();
+            _lastNotificationSecond = 0;
         }
 
         private async Task Cancel()
@@ -212,6 +215,15 @@ namespace SeparationTrainer.ViewModels
         private void OnStopWatchTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
             ElapsedTime = e.SignalTime - TimerStart;
+
+            // update notification every second
+            if ((int)ElapsedTime.TotalSeconds > _lastNotificationSecond)
+            {
+                var timerText = ElapsedTime.ToShortStopwatchForm();
+
+                NotificationManager.SendNotification("Activity Started", timerText, messageId: 0);
+                _lastNotificationSecond = (int)ElapsedTime.TotalSeconds;
+            }
         }
 
         #endregion

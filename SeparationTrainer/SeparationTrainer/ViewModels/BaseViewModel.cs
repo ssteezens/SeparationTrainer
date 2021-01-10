@@ -7,6 +7,7 @@ using AutoMapper;
 using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Services;
 using SeparationTrainer.Services.Data;
+using SeparationTrainer.Services.Notifications;
 using Xamarin.Forms;
 
 namespace SeparationTrainer.ViewModels
@@ -27,6 +28,8 @@ namespace SeparationTrainer.ViewModels
         public TagService TagService => DependencyService.Get<TagService>();
 
         public IDialogService DialogService => DependencyService.Get<IDialogService>();
+
+        public INotificationManager NotificationManager => DependencyService.Get<INotificationManager>();
 
         public bool IsBusy
         {
