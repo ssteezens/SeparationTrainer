@@ -9,7 +9,6 @@ using Xamarin.Forms;
 using AndroidApp = Android.App.Application;
 
 [assembly: Dependency(typeof(SeparationTrainer.Droid.Services.Notifications.AndroidNotificationManager))]
-
 namespace SeparationTrainer.Droid.Services.Notifications
 {
     public class AndroidNotificationManager : INotificationManager
