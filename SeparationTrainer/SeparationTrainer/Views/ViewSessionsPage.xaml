@@ -60,7 +60,8 @@
                                   SelectedItem="{Binding SelectedActivity}"
                                   SelectionMode="Single"
                                   HasUnevenRows="True"
-                                  Margin="0,0">
+                                  Margin="0,0"
+                                  SeparatorVisibility="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
@@ -142,12 +143,12 @@
                                            VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>
 
-                                    <Button HeightRequest="40"
-                                            WidthRequest="40"
-                                            CornerRadius="20"
+                                    <Button HeightRequest="50"
+                                            WidthRequest="50"
+                                            CornerRadius="25"
                                             VerticalOptions="Center"
                                             FontSize="28"
-                                            Padding="0"
+                                            Padding="4"
                                             FontFamily="{StaticResource MaterialFontFamily}" 
                                             Text="{x:Static helpers:IconFont.Record}"
                                             Command="{Binding BindingContext.GoToAddActivityCommand, Source={x:Reference ViewSessionContentPage}}"/>
@@ -160,12 +161,12 @@
                                            VerticalOptions="Center" 
                                            HorizontalOptions="Center"/>
 
-                                    <Button HeightRequest="40"
-                                            WidthRequest="40"
-                                            CornerRadius="20"
+                                    <Button HeightRequest="50"
+                                            WidthRequest="50"
+                                            CornerRadius="25"
                                             VerticalOptions="Center"
                                             FontSize="28"
-                                            Padding="0"
+                                            Padding="4"
                                             FontFamily="{StaticResource MaterialFontFamily}" 
                                             Text="{x:Static helpers:IconFont.FountainPenTip}"
                                             Command="{Binding BindingContext.GoToAddManualActivityCommand, Source={x:Reference ViewSessionContentPage}}"/>
