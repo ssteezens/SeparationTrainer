@@ -22,7 +22,7 @@ namespace SeparationTrainer.ViewModels
         private ObservableCollection<TagModel> _availableTags = new ObservableCollection<TagModel>();
         private ObservableCollection<ActivityTagModel> _appliedTags = new ObservableCollection<ActivityTagModel>();
 
-        public NewActivityViewModel()
+        public NewActivityViewModel() 
         {
             StartStopStopWatchCommand = new Command(StartStopStopWatch);
             ResetTimerCommand = new Command(ResetTimer);
@@ -42,6 +42,31 @@ namespace SeparationTrainer.ViewModels
             SelectedStressLevel = 1;
             Notes = string.Empty;
             NotificationManager.ClearNotification(0);
+        }
+
+        protected override void OnSleep()
+        {
+            Application.Current.Properties["StopWatchIsRunning"] = StopWatchIsRunning;
+            Application.Current.Properties["ElapsedTime"] = ElapsedTime;
+            Application.Current.Properties["SelectedStressLevel"] = SelectedStressLevel;
+            Application.Current.Properties["Notes"] = Notes;
+            Application.Current.Properties["TimerStart"] = TimerStart;
+            Application.Current.Properties["AppliedTags"] = AppliedTags;
+
+            StopWatchTimer.Elapsed -= OnStopWatchTimerOnElapsed;
+        }
+
+        protected override void OnResume()
+        {
+            StopWatchIsRunning = (bool) Application.Current.Properties["StopWatchIsRunning"];
+            ElapsedTime = (TimeSpan) Application.Current.Properties["ElapsedTime"];
+            SelectedStressLevel = (int) Application.Current.Properties["SelectedStressLevel"];
+            Notes = (string) Application.Current.Properties["Notes"];
+            TimerStart = (DateTime) Application.Current.Properties["TimerStart"];
+            AppliedTags = (ObservableCollection<ActivityTagModel>) Application.Current.Properties["AppliedTags"];
+
+            StopWatchTimer = new Timer(100) { Enabled = StopWatchIsRunning };
+            StopWatchTimer.Elapsed += OnStopWatchTimerOnElapsed;
         }
 
         #region Properties
@@ -126,6 +151,12 @@ namespace SeparationTrainer.ViewModels
             if (TimerStart == DateTime.MinValue)
                 TimerStart = DateTime.Now;
 
+            // todo: flesh out running the timer from a foreground service
+            //if (StopWatchIsRunning)
+            //    ServiceManager.Start();
+            //else
+            //    ServiceManager.Stop();
+
             StopWatchIsRunning = !StopWatchIsRunning;
             StopWatchTimer.Enabled = StopWatchIsRunning;
 
@@ -162,6 +193,8 @@ namespace SeparationTrainer.ViewModels
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
 
             ResetPage();
+
+            ServiceManager.Stop();
         }
 
         private async Task SaveActivity()

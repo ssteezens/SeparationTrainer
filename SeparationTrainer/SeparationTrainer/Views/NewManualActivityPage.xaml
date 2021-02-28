@@ -88,9 +88,11 @@
 
                 <!-- Notes -->
                 <Label Text="Notes:" />
-                <Editor Text="{Binding Notes}"
-                        AutoSize="TextChanges"
-                        Placeholder="Add Notes Here"/>
+                <controls:ThemeEditor Text="{Binding Notes}"
+                                      AutoSize="TextChanges"
+                                      PlaceholderColor="#808080"
+                                      BottomLineColor="{DynamicResource EditorUnderline}"
+                                      Placeholder="Add Notes Here"/>
 
                 <Button Text="Save" Command="{Binding SaveActivityCommand}" />
             </StackLayout>

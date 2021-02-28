@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
              x:Class="SeparationTrainer.Resources.DefaultControlStyles">
     <!--  Default Button Style -->
     <Style TargetType="Button">
@@ -35,6 +36,11 @@
     </Style>
 
     <Style TargetType="Editor">
+        <Setter Property="PlaceholderColor" Value="{DynamicResource OnBackground}"/>
+        <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
+    </Style>
+
+    <Style TargetType="controls:ThemeEditor">
         <Setter Property="PlaceholderColor" Value="{DynamicResource OnBackground}"/>
         <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
     </Style>

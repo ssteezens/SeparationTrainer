@@ -64,9 +64,13 @@
 
                 <!-- Stress Level -->
                 <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="Fill">
-                    <Label Text="Stress Level:" HorizontalOptions="Start" />
-                    <Label Text="{Binding SelectedStressLevel}" HorizontalOptions="End"/>
+                             HorizontalOptions="FillAndExpand">
+                    <Label Text="Stress Level:" 
+                           FontSize="18"
+                           HorizontalOptions="Start" />
+                    <Label Text="{Binding SelectedStressLevel}" 
+                           FontSize="18"
+                           HorizontalOptions="End"/>
                 </StackLayout>
                 
                 <controls:IntegerSlider MinimumTrackColor="{DynamicResource OnSurface}" 
@@ -76,10 +80,23 @@
                                         Value="{Binding SelectedStressLevel}" />
 
                 <!-- Tags -->
-                <Label Text="Tags"/>
+                <Label Text="Tags" FontSize="18"/>
                 <StackLayout HorizontalOptions="StartAndExpand" 
                              Orientation="Horizontal"
                              HeightRequest="25">
+
+                    <!-- Add New Tag -->
+                    <Button Text="New"
+                            FontSize="14"
+                            HorizontalOptions="End"
+                            Padding="0"
+                            WidthRequest="50"
+                            BackgroundColor="{DynamicResource Primary}"
+                            TextColor="{DynamicResource OnPrimary}"
+                            Command="{Binding AddNewTagCommand}"
+                            BorderColor="{DynamicResource OnSurface}"
+                            BorderWidth="0"
+                            VerticalOptions="Center" />
 
                     <!-- Applied Tags -->
                     <StackLayout BindableLayout.ItemsSource="{Binding AppliedTags}" 
@@ -92,23 +109,11 @@
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
-
-                    <!-- Add New Tag -->
-                    <Button Text="New"
-                            FontSize="Small"
-                            HorizontalOptions="End"
-                            Padding="0"
-                            WidthRequest="50"
-                            BackgroundColor="{DynamicResource Primary}"
-                            TextColor="{DynamicResource OnPrimary}"
-                            Command="{Binding AddNewTagCommand}"
-                            BorderColor="{DynamicResource OnSurface}"
-                            BorderWidth="0"
-                            VerticalOptions="Center" />
                 </StackLayout>
 
                 <!-- Notes -->
-                <Label Text="Notes:" />
+                <Label Text="Notes:" 
+                       FontSize="18"/>
                 <controls:ThemeEditor Text="{Binding Notes}"
                                       AutoSize="TextChanges"
                                       PlaceholderColor="#808080"

@@ -27,7 +27,7 @@
 
     <Color x:Key="Transparent">Transparent</Color>
 
-    <Color x:Key="EditorUnderline">#C7C7C7</Color>
+    <Color x:Key="EditorUnderline">#C2C2C2</Color>
 
     <Color x:Key="Error">#B00020</Color>
 

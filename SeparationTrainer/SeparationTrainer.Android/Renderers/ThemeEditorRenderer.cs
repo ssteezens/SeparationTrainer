@@ -41,13 +41,12 @@ namespace SeparationTrainer.Droid.Renderers
 
         private void SetUnderlineColor(ThemeEditor themeEditor)
         {
-            var thing = themeEditor.BottomLineColor.ToAndroid();
+            var underlineColor = themeEditor.BottomLineColor.ToAndroid();
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-                Control.BackgroundTintList = ColorStateList.ValueOf(thing);
+                Control.BackgroundTintList = ColorStateList.ValueOf(underlineColor);
             else
-                Control.Background.SetColorFilter(thing, PorterDuff.Mode.SrcAtop);
-            
+                Control.Background.SetColorFilter(underlineColor, PorterDuff.Mode.SrcAtop);
         }
     }
 }
