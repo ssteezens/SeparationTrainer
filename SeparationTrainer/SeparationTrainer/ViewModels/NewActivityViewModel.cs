@@ -209,6 +209,7 @@ namespace SeparationTrainer.ViewModels
 
             ResetPage();
 
+            // todo: flesh out running the timer from a foreground service
             //ServiceManager.Stop();
         }
 
