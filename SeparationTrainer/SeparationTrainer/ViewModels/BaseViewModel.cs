@@ -22,6 +22,10 @@ namespace SeparationTrainer.ViewModels
 
         public void SubscribeToAppLifeCycleEvents()
         {
+            MessagingCenter.Subscribe<App>(this, "OnStart", (sender) =>
+            {
+                OnStart();
+            });
             MessagingCenter.Subscribe<App>(this, "OnSleep", (sender) =>
             {
                 OnSleep();
@@ -30,6 +34,11 @@ namespace SeparationTrainer.ViewModels
             {
                 OnResume();
             });
+        }
+
+        protected virtual void OnStart()
+        {
+
         }
 
         protected virtual void OnSleep()

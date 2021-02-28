@@ -44,7 +44,27 @@ namespace SeparationTrainer.ViewModels
             NotificationManager.ClearNotification(0);
         }
 
+        protected override void OnStart()
+        {
+            SavePropertiesToDisk();
+        }
+
         protected override void OnSleep()
+        {
+            SavePropertiesToDisk();
+
+            StopWatchTimer.Elapsed -= OnStopWatchTimerOnElapsed;
+        }
+
+        protected override void OnResume()
+        {
+            SetPropertiesFromDisk();
+
+            StopWatchTimer = new Timer(100) { Enabled = StopWatchIsRunning };
+            StopWatchTimer.Elapsed += OnStopWatchTimerOnElapsed;
+        }
+
+        private void SavePropertiesToDisk()
         {
             Application.Current.Properties["StopWatchIsRunning"] = StopWatchIsRunning;
             Application.Current.Properties["ElapsedTime"] = ElapsedTime;
@@ -52,21 +72,16 @@ namespace SeparationTrainer.ViewModels
             Application.Current.Properties["Notes"] = Notes;
             Application.Current.Properties["TimerStart"] = TimerStart;
             Application.Current.Properties["AppliedTags"] = AppliedTags;
-
-            StopWatchTimer.Elapsed -= OnStopWatchTimerOnElapsed;
         }
 
-        protected override void OnResume()
+        private void SetPropertiesFromDisk()
         {
-            StopWatchIsRunning = (bool) Application.Current.Properties["StopWatchIsRunning"];
-            ElapsedTime = (TimeSpan) Application.Current.Properties["ElapsedTime"];
-            SelectedStressLevel = (int) Application.Current.Properties["SelectedStressLevel"];
-            Notes = (string) Application.Current.Properties["Notes"];
-            TimerStart = (DateTime) Application.Current.Properties["TimerStart"];
-            AppliedTags = (ObservableCollection<ActivityTagModel>) Application.Current.Properties["AppliedTags"];
-
-            StopWatchTimer = new Timer(100) { Enabled = StopWatchIsRunning };
-            StopWatchTimer.Elapsed += OnStopWatchTimerOnElapsed;
+            StopWatchIsRunning = (bool)Application.Current.Properties["StopWatchIsRunning"];
+            ElapsedTime = (TimeSpan)Application.Current.Properties["ElapsedTime"];
+            SelectedStressLevel = (int)Application.Current.Properties["SelectedStressLevel"];
+            Notes = (string)Application.Current.Properties["Notes"];
+            TimerStart = (DateTime)Application.Current.Properties["TimerStart"];
+            AppliedTags = (ObservableCollection<ActivityTagModel>)Application.Current.Properties["AppliedTags"];
         }
 
         #region Properties
@@ -194,7 +209,7 @@ namespace SeparationTrainer.ViewModels
 
             ResetPage();
 
-            ServiceManager.Stop();
+            //ServiceManager.Stop();
         }
 
         private async Task SaveActivity()

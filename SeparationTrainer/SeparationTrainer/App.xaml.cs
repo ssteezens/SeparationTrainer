@@ -62,16 +62,17 @@ namespace SeparationTrainer
 
         protected override void OnStart()
         {
+            MessagingCenter.Send(this, "OnStart");
         }
 
         protected override void OnSleep()
         {
-            MessagingCenter.Send<App>(this, "OnSleep");
+            MessagingCenter.Send(this, "OnSleep");
         }
 
         protected override void OnResume()
         {
-            MessagingCenter.Send<App>(this, "OnResume");
+            MessagingCenter.Send(this, "OnResume");
         }
     }
 }
