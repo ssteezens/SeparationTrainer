@@ -82,8 +82,8 @@ namespace SeparationTrainer.Droid.Services.Notifications
                 .SetContentTitle(title)
                 .SetContentText(message)
                 .SetLargeIcon(
-                    BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.xamarin_logo))
-                .SetSmallIcon(Resource.Drawable.xamarin_logo)
+                    BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.notification_large))
+                .SetSmallIcon(Resource.Drawable.notification_small)
                 .SetPriority((int)NotificationPriority.Low)
                 .SetSound(null)
                 .SetDefaults((int)NotificationDefaults.Vibrate);
