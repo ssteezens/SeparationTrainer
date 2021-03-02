@@ -57,7 +57,7 @@
                                 HorizontalOptions="Center"
                                 FontFamily="{StaticResource MaterialFontFamily}"
                                 FontSize="28"
-                                Text="{x:Static helpers:IconFont.Play}"/>
+                                Text="{Binding StopWatchIsRunning, Converter={StaticResource BoolToStartStopGlyphConverter}}"/>
                     </Grid>
 
                 </Grid>
