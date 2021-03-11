@@ -94,22 +94,24 @@
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="End" 
                              VerticalOptions="End"
+                             Margin="5"
                              Spacing="0">
                     <Label TextColor="{DynamicResource OnPrimary}" 
                            VerticalOptions="Center"
+                           FontSize="20"
                            FontFamily="{DynamicResource MaterialFontFamily}"
                            Text="{x:Static helpers:IconFont.WeatherSunny}"/>
 
                     <Switch HorizontalOptions="End" 
                             VerticalOptions="End"
                             HeightRequest="25"
-                            Margin="10"
                             x:Name="ThemeToggleSwitch"
                             IsToggled="{Binding DarkThemeIsToggled, Source={x:Reference TheAppShell}}">
                     </Switch>
 
                     <Label TextColor="{DynamicResource OnPrimary}" 
                            VerticalOptions="Center"
+                           FontSize="20"
                            FontFamily="{DynamicResource MaterialFontFamily}"
                            Text="{x:Static helpers:IconFont.WeatherNight}"/>
                 </StackLayout>
