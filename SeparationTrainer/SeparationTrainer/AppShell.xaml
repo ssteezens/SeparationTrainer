@@ -5,6 +5,7 @@
        xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
        Title="SeparationTrainer"
        x:Class="SeparationTrainer.AppShell"
+       x:Name="TheAppShell"
        FlyoutBackgroundColor="{DynamicResource Surface}"
        BackgroundColor="{DynamicResource Surface}">
 
@@ -89,20 +90,29 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        TextColor="{DynamicResource OnPrimary}"/>
-                <ImageButton HorizontalOptions="End" 
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="End" 
                              VerticalOptions="End"
-                             HeightRequest="25"
-                             WidthRequest="25"
-                             Margin="10"
-                             Clicked="OnToggleTheme"
-                             BackgroundColor="{DynamicResource PrimaryDark}">
-                    <ImageButton.Source>
-                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                         Size="Medium"
-                                         Color="{DynamicResource OnPrimary}"
-                                         Glyph="{x:Static helpers:IconFont.WeatherNight}"/>
-                    </ImageButton.Source>
-                </ImageButton>
+                             Spacing="0">
+                    <Label TextColor="{DynamicResource OnPrimary}" 
+                           VerticalOptions="Center"
+                           FontFamily="{DynamicResource MaterialFontFamily}"
+                           Text="{x:Static helpers:IconFont.WeatherSunny}"/>
+
+                    <Switch HorizontalOptions="End" 
+                            VerticalOptions="End"
+                            HeightRequest="25"
+                            Margin="10"
+                            x:Name="ThemeToggleSwitch"
+                            IsToggled="{Binding DarkThemeIsToggled, Source={x:Reference TheAppShell}}">
+                    </Switch>
+
+                    <Label TextColor="{DynamicResource OnPrimary}" 
+                           VerticalOptions="Center"
+                           FontFamily="{DynamicResource MaterialFontFamily}"
+                           Text="{x:Static helpers:IconFont.WeatherNight}"/>
+                </StackLayout>
             </Grid>
         </ContentView>
     </Shell.FlyoutHeader>

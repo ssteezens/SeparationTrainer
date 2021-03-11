@@ -12,9 +12,24 @@ namespace SeparationTrainer
         public AppShell()
         {
             InitializeComponent();
+
+            if (!Application.Current.Properties.ContainsKey("CurrentTheme"))
+            {
+                Application.Current.Properties["CurrentTheme"] = AppState.CurrentTheme;
+            }
+
+            var currentTheme = Application.Current.Properties["CurrentTheme"];
+
+            if (currentTheme == null)
+                AppState.CurrentTheme = Theme.Light;
+            else
+                AppState.CurrentTheme = (Theme)currentTheme;
+
+            SaveThemeToDisk();
+            LoadThemeStyleSheet();
         }
 
-        private void OnToggleTheme(object sender, EventArgs e)
+        private void LoadThemeStyleSheet()
         {
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
 
@@ -25,16 +40,33 @@ namespace SeparationTrainer
                 switch (AppState.CurrentTheme)
                 {
                     case Theme.Dark:
-                        mergedDictionaries.Add(new LightTheme());
-                        AppState.CurrentTheme = Theme.Light;
+                        mergedDictionaries.Add(new DarkTheme());
                         break;
                     case Theme.Light:
                     default:
-                        mergedDictionaries.Add(new DarkTheme());
-                        AppState.CurrentTheme = Theme.Dark;
+                        mergedDictionaries.Add(new LightTheme());
                         break;
                 }
             }
+        }
+
+        public bool DarkThemeIsToggled
+        {
+            get => AppState.CurrentTheme == Theme.Dark;
+            set
+            {
+                AppState.CurrentTheme = value 
+                    ? Theme.Dark 
+                    : Theme.Light;
+                SaveThemeToDisk();
+                LoadThemeStyleSheet();
+                ThemeToggleSwitch.IsToggled = DarkThemeIsToggled;
+            }
+        }
+
+        private void SaveThemeToDisk()
+        {
+            Application.Current.Properties["CurrentTheme"] = AppState.CurrentTheme;
         }
     }
 
