@@ -91,6 +91,7 @@
                 <controls:ThemeEditor Text="{Binding Notes}"
                                       AutoSize="TextChanges"
                                       PlaceholderColor="#808080"
+                                      Keyboard="Text"
                                       BottomLineColor="{DynamicResource EditorUnderline}"
                                       Placeholder="Add Notes Here"/>
 

@@ -92,10 +92,15 @@
                                                     <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
                                                 </StackLayout>
                                                 <!-- Notes -->
-                                                <StackLayout Orientation="Horizontal">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
                                                     <Label Text="Notes:" />
-                                                    <Label Text="{Binding Notes}" />
-                                                </StackLayout>
+                                                    <Label Grid.Column="1" 
+                                                           Text="{Binding Notes}" />
+                                                </Grid>
                                                 <!-- Tags -->
                                                 <CollectionView ItemsSource="{Binding Tags}"
                                                         IsVisible="{Binding HasTags}"
