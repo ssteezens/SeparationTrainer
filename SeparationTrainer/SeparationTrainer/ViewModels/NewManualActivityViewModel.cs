@@ -68,6 +68,8 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _appliedTags, value, nameof(AppliedTags));
         }
 
+        public DateTime SelectedDate { get; set; } = DateTime.Now;
+
         public string Notes { get; set; }
 
         #endregion
@@ -94,7 +96,7 @@ namespace SeparationTrainer.ViewModels
                 var activity = new ActivityModel
                 {
                     AnxietyLevel = AnxietyLevel,
-                    Created = DateTime.Now,
+                    Created = SelectedDate,
                     ElapsedTime = elapsedTime,
                     Notes = Notes,
                     Tags = AppliedTags
@@ -108,7 +110,19 @@ namespace SeparationTrainer.ViewModels
             }
 
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+
+            ResetPage();
+
             await Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}");
+        }
+
+        private void ResetPage()
+        {
+            HoursTextInput.Value = "00";
+            MinutesTextInput.Value = "00";
+            SecondsTextInput.Value = "00";
+            AnxietyLevel = 1;
+            Notes = string.Empty;
         }
 
         private async Task AddNewTag()

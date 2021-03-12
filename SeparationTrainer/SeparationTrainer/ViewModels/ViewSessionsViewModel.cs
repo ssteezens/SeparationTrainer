@@ -147,7 +147,7 @@ namespace SeparationTrainer.ViewModels
         public async Task GoToAddManualActivity()
         {
             Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
-            await Shell.Current.GoToAsync($"//{nameof(NewManualActivityPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(NewManualActivityPage)}?selectedDate={CurrentSession.Created:d}");
         }
 
         public async Task GoToEditActivity(ActivityModel activity)
