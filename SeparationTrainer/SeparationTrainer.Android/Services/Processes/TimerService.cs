@@ -123,7 +123,6 @@ namespace SeparationTrainer.Droid.Services.Processes
                 ShowNotification("Activity Started", timerText, 0);
                 // send message that time is updated
                 _lastNotificationSecond = (int)ElapsedTime.TotalSeconds;
-                MessagingCenter.Send(this, timerText);
             }
         }
 
@@ -161,8 +160,8 @@ namespace SeparationTrainer.Droid.Services.Processes
                 .SetContentTitle(title)
                 .SetContentText(message)
                 .SetLargeIcon(
-                    BitmapFactory.DecodeResource(Application.Context.Resources, Resource.Drawable.xamarin_logo))
-                .SetSmallIcon(Resource.Drawable.xamarin_logo)
+                    BitmapFactory.DecodeResource(Application.Context.Resources, Resource.Drawable.notification_large))
+                .SetSmallIcon(Resource.Drawable.notification_small)
                 .SetPriority((int)NotificationPriority.Low)
                 .SetSound(null)
                 .SetDefaults((int)NotificationDefaults.Vibrate);

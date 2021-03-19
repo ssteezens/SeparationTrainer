@@ -167,10 +167,10 @@ namespace SeparationTrainer.ViewModels
                 TimerStart = DateTime.Now;
 
             // todo: flesh out running the timer from a foreground service
-            //if (StopWatchIsRunning)
-            //    ServiceManager.Start();
-            //else
-            //    ServiceManager.Stop();
+            if (!StopWatchIsRunning)
+                ServiceManager.Start();
+            else
+                ServiceManager.Stop();
 
             StopWatchIsRunning = !StopWatchIsRunning;
             StopWatchTimer.Enabled = StopWatchIsRunning;
@@ -210,7 +210,7 @@ namespace SeparationTrainer.ViewModels
             ResetPage();
 
             // todo: flesh out running the timer from a foreground service
-            //ServiceManager.Stop();
+            ServiceManager.Stop();
         }
 
         private async Task SaveActivity()
@@ -271,7 +271,7 @@ namespace SeparationTrainer.ViewModels
             {
                 var timerText = ElapsedTime.ToShortStopwatchForm();
 
-                NotificationManager.SendNotification("Activity Started", timerText, messageId: 0);
+                //NotificationManager.SendNotification("Activity Started", timerText, messageId: 0);
                 _lastNotificationSecond = (int)ElapsedTime.TotalSeconds;
             }
         }
