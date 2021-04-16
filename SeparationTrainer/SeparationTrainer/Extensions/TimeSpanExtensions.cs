@@ -39,7 +39,7 @@ namespace SeparationTrainer.Extensions
                 $"{time.Seconds.ToString().PadLeft(2, '0')}:"
                 : "00:";
             var hundredths = (int)Math.Round((double)time.Milliseconds / 10, 2);
-            var millisecondsText = time.Milliseconds > 0 ?
+            var millisecondsText = (time.Milliseconds > 0 && time.Hours == 0) ?
                 hundredths.ToString().PadLeft(2, '0')
                 : "00";
 
