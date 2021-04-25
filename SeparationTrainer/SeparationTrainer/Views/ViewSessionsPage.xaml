@@ -34,11 +34,11 @@
                                        VerticalOptions="CenterAndExpand" />
 
                                 <StackLayout Orientation="Horizontal"
-                                         Margin="4,0"
-                                         Grid.Row="1"
-                                         Grid.Column="0">
-                                    <Label Text="Total Activity Time: "/>
-                                    <Label Text="{Binding TotalTimeDisplay}"/>
+                                             Margin="4,0"
+                                             Grid.Row="1"
+                                             Grid.Column="0">
+                                    <Label Text="Total Activity Time: " Opacity=".87"/>
+                                    <Label Text="{Binding TotalTimeDisplay}" Opacity=".87"/>
                                 </StackLayout>
 
                                 <Button Grid.Row="0" 
@@ -54,14 +54,18 @@
                                         Text="Go To Today"/>
                             </Grid>
 
-                            <BoxView HorizontalOptions="Fill" BackgroundColor=" #cccccc" HeightRequest="1" Margin="2"/>
+                            <BoxView HorizontalOptions="Fill" 
+                                     BackgroundColor="#cccccc" 
+                                     Opacity="0.6"
+                                     HeightRequest="1" 
+                                     Margin="2"/>
 
                             <ListView ItemsSource="{Binding Activities}"
-                                  SelectedItem="{Binding SelectedActivity}"
-                                  SelectionMode="Single"
-                                  HasUnevenRows="True"
-                                  Margin="0,0"
-                                  SeparatorVisibility="None">
+                                      SelectedItem="{Binding SelectedActivity}"
+                                      SelectionMode="Single"
+                                      HasUnevenRows="True"
+                                      Margin="0,0"
+                                      SeparatorVisibility="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
@@ -131,6 +135,8 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+
+                            
                         </StackLayout>
 
                         <controls:ActionButton HorizontalOptions="End"
@@ -178,6 +184,14 @@
                                 </StackLayout>
                             </StackLayout>
                         </controls:ActionButton>
+
+                        <!-- Empty List Placeholder -->
+                        <Label IsVisible="{Binding CurrentSession.Activities.Count, Converter={StaticResource IntegerToVisibilityConverter}}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontSize="28"
+                               Opacity=".60"
+                               Text="Nothing here yet"/>
                     </Grid>
                 </DataTemplate>
             </CarouselView.ItemTemplate>

@@ -5,7 +5,7 @@
              x:Class="SeparationTrainer.Resources.DefaultControlStyles">
     <!--  Default Button Style -->
     <Style TargetType="Button">
-        <Setter Property="TextColor" Value="{DynamicResource OnSurface}" />
+        <Setter Property="TextColor" Value="{DynamicResource OnPrimary}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -16,7 +16,8 @@
                     </VisualState>
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryDisabled}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                            <Setter Property="Opacity" Value=".38"></Setter>
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -27,6 +28,7 @@
     <!-- Default Label Style -->
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource OnBackground}"/>
+        <Setter Property="Opacity" Value=".87" />
     </Style>
 
     <!-- Default Entry Style -->

@@ -121,7 +121,9 @@
                                       BottomLineColor="{DynamicResource EditorUnderline}"
                                       Placeholder="Add Notes Here"/>
 
-                <Button Text="Save" Command="{Binding SaveActivityCommand}" />
+                <Button Text="Save" 
+                        BackgroundColor="{DynamicResource Primary}"
+                        Command="{Binding SaveActivityCommand}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
