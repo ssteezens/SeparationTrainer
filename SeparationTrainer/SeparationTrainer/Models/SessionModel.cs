@@ -26,8 +26,11 @@ namespace SeparationTrainer.Models
 
                 OnPropertyChanged(nameof(TotalActivityTime));
                 OnPropertyChanged(nameof(TotalTimeDisplay));
+                OnPropertyChanged(nameof(HasActivities));
             }
         }
+
+        public bool HasActivities => Activities.Count > 0;
 
         public string TotalTimeDisplay => TotalActivityTime.ToShortForm();
 

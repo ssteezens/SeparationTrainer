@@ -186,7 +186,7 @@
                         </controls:ActionButton>
 
                         <!-- Empty List Placeholder -->
-                        <Label IsVisible="{Binding CurrentSession.Activities.Count, Converter={StaticResource IntegerToVisibilityConverter}}"
+                        <Label IsVisible="{Binding HasActivities, Converter={StaticResource InverseBoolConverter}}"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                FontSize="28"

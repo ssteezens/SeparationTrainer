@@ -110,6 +110,8 @@ namespace SeparationTrainer.ViewModels
 
             foreach(var activity in newActivities)
                 CurrentSession.Activities.Add(activity);
+
+            CurrentSession.OnPropertyChanged(nameof(CurrentSession.HasActivities));
         }
 
         public ObservableCollection<SessionModel> Sessions
@@ -165,6 +167,7 @@ namespace SeparationTrainer.ViewModels
             await ActivityService.DeleteAsync(activity.Id);
 
             CurrentSession.Activities.Remove(activity);
+            CurrentSession.OnPropertyChanged(nameof(CurrentSession.HasActivities));
         }
     }
 }
