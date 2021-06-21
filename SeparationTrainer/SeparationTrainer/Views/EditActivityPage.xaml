@@ -84,8 +84,11 @@
             </StackLayout>
 
             <Label Text="Notes"/>
-            <Editor Text="{Binding ActivityToEdit.Notes}" 
-                    Placeholder="Add Notes Here"/>
+            <controls:ThemeEditor Text="{Binding ActivityToEdit.Notes}" 
+                                  Placeholder="Add Notes Here"
+                                  Keyboard="Text"
+                                  PlaceholderColor="#808080"
+                                  BottomLineColor="{DynamicResource EditorUnderline}"/>
 
             <Button Text="Save" Command="{Binding UpdateActivityCommand}" />
         </StackLayout>
