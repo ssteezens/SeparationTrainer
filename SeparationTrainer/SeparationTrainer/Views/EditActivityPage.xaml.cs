@@ -21,6 +21,13 @@ namespace SeparationTrainer.Views
             InitializeComponent();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            ViewModel.CancelCommand.Execute(null);
+
+            return true;
+        }
+
         protected override async void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
