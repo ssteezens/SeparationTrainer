@@ -32,6 +32,13 @@ namespace SeparationTrainer.Views
             }
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            ViewModel.CancelCommand.Execute(null);
+
+            return true;
+        }
+
         public NewManualActivityViewModel ViewModel
         {
             get => _viewModel;

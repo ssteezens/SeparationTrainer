@@ -269,9 +269,6 @@ namespace SeparationTrainer.ViewModels
             // update notification every second
             if ((int)ElapsedTime.TotalSeconds > _lastNotificationSecond)
             {
-                var timerText = ElapsedTime.ToShortStopwatchForm();
-
-                //NotificationManager.SendNotification("Activity Started", timerText, messageId: 0);
                 _lastNotificationSecond = (int)ElapsedTime.TotalSeconds;
             }
         }

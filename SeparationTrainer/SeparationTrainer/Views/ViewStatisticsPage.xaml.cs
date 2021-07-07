@@ -25,6 +25,13 @@ namespace SeparationTrainer.Views
             await ViewModel.OnAppearing();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            Shell.Current.GoToAsync($"//{nameof(ViewSessionsPage)}").Wait();
+
+            return true;
+        }
+
         public ViewStatisticsViewModel ViewModel { get; set; }
     }
 }

@@ -20,6 +20,13 @@ namespace SeparationTrainer.Views
             this.BindingContext = ViewModel;
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            ViewModel.CancelCommand.Execute(null);
+
+            return true;
+        }
+
         public NewActivityViewModel ViewModel { get; set; }
     }
 }
