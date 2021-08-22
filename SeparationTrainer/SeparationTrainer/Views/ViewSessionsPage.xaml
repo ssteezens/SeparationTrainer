@@ -118,13 +118,14 @@
                                                         <DataTemplate>
                                                             <Grid>
                                                                 <Frame BorderColor="{DynamicResource OnSurface}"
-                                                               BackgroundColor="{DynamicResource Transparent}"
-                                                               VerticalOptions="Center"
-                                                               Padding="2"
-                                                               Margin="0,2,4,0"
-                                                               HorizontalOptions="Start">
+                                                                       BackgroundColor="{DynamicResource Transparent}"
+                                                                       VerticalOptions="Center"
+                                                                       Padding="2"
+                                                                       Margin="0,2,4,0"
+                                                                       CornerRadius="0"
+                                                                       HorizontalOptions="Start">
                                                                     <Label Text="{Binding TagModel.Name}" 
-                                                                   Padding="4,0"/>
+                                                                           Padding="4,0"/>
                                                                 </Frame>
                                                             </Grid>
                                                         </DataTemplate>
