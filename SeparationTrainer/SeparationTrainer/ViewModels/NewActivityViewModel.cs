@@ -238,7 +238,8 @@ namespace SeparationTrainer.ViewModels
                 "Ok",
                 "Cancel", 
                 "New Tag Here", 
-                100);
+                100,
+                Keyboard.Text);
 
             if (result == null)
                 return;

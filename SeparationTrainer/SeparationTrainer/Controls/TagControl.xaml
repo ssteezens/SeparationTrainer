@@ -6,32 +6,34 @@
              x:Name="TagControlContentView">
     <ContentView.Content>
         <Grid>
-            <Frame BorderColor="{DynamicResource OnSurface}"
+            <Frame BorderColor="{DynamicResource Primary}"
                    BackgroundColor="{DynamicResource Transparent}"
                    VerticalOptions="Center"
-                   Padding="2"
-                   Margin="0,2,4,0"
+                   Padding="0"
+                   Margin="0"
+                   CornerRadius="0"
                    HorizontalOptions="Start">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="{Binding TagModel.Name}" 
-                           Padding="4,0"/>
+                           Padding="4,2"/>
 
-                    <ImageButton Grid.Column="1" 
-                                 BackgroundColor="{DynamicResource Primary}"
-                                 VerticalOptions="Center"
-                                 Command="{Binding RemoveTagCommand, Source={x:Reference TagControlContentView}}"
-                                 CommandParameter="{Binding TagModel}"
-                                 Margin="0,2,2,2">
-                        <ImageButton.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Size="Small"
-                                             Glyph="{x:Static helpers:IconFont.Close}" />
-                        </ImageButton.Source>
-                    </ImageButton>
+                    <Button Grid.Column="1"
+                            BackgroundColor="{DynamicResource Primary}"
+                            FontSize="18"
+                            VerticalOptions="Center"
+                            FontFamily="{StaticResource MaterialFontFamily}"
+                            Command="{Binding RemoveTagCommand, Source={x:Reference TagControlContentView}}"
+                            CommandParameter="{Binding TagModel}"
+                            Margin="0"
+                            Padding="2"
+                            CornerRadius="0"
+                            WidthRequest="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static helpers:IconFont.Close}"/>
                 </Grid>
             </Frame>
         </Grid>
