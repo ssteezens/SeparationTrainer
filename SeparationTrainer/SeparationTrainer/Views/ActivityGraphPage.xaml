@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             x:Class="SeparationTrainer.Views.ActivityGraphPage"
+             IsBusy="{Binding IsBusy}"
+             Visual="Material"
+             Title="Activity Graph"
+             BackgroundColor="{DynamicResource Surface}">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Start Date:"
+                       VerticalOptions="Center" />
+                <DatePicker Date="{Binding StartDate}"
+                            TextColor="{DynamicResource OnSurface}"/>
+
+                <Label Text="End Date:"
+                       VerticalOptions="Center" />
+                <DatePicker Date="{Binding EndDate}"
+                            TextColor="{DynamicResource OnSurface}"/>
+
+                <Picker ItemsSource="{Binding Tags}"
+                        Title="Tag"
+                        TextColor="{DynamicResource OnSurface}"
+                        ItemDisplayBinding="{Binding Name}"/>
+            </StackLayout>
+            
+            <forms:ChartView x:Name="ChartView" 
+                             BackgroundColor="{DynamicResource Surface}"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand"
+                             Chart="{Binding Chart}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
