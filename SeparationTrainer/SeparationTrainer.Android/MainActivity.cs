@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using OxyPlot.Xamarin.Forms.Platform.Android;
 using SeparationTrainer.Droid.Services.Notifications;
 using SeparationTrainer.Services.Notifications;
 using Xamarin.Forms;
@@ -25,6 +26,7 @@ namespace SeparationTrainer.Droid
 
             LoadApplication(new App());
             CreateNotificationFromIntent(Intent);
+            PlotViewRenderer.Init();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

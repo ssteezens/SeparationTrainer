@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microcharts;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.Xamarin.Forms;
 using SeparationTrainer.Extensions;
 using SeparationTrainer.Models;
 using SeparationTrainer.Themes;
@@ -18,6 +23,9 @@ namespace SeparationTrainer.ViewModels
         private DateTime _endDate;
         private List<TagModel> _tags;
         private TagModel _selectedTag;
+        private ObservableCollection<string> _yAxisLabels = new ObservableCollection<string>();
+        private ObservableCollection<string> _xAxisLabels = new ObservableCollection<string>();
+        private PlotModel _model;
 
         public async Task OnAppearing()
         {
@@ -38,8 +46,55 @@ namespace SeparationTrainer.ViewModels
                 .ToList();
 
             SetupChart();
+            SetupOxyPlot();
 
             IsBusy = false;
+        }
+
+        public void SetupOxyPlot()
+        {
+            var activitiesInRange = Activities?
+                .Where(i => i.Created >= StartDate && i.Created <= EndDate)?
+                .OrderBy(i => i.Created)
+                .ToList();
+
+            if (activitiesInRange == null)
+                return;
+            
+            var series = new LineSeries();
+
+            var minYSeconds = 0.0;
+            var maxYSeconds = activitiesInRange.Any() 
+                ? activitiesInRange.Max(i => i.ElapsedTime).TotalSeconds
+                : 1;
+            
+            foreach (var activity in activitiesInRange)
+            {
+                var xPoint = activitiesInRange.IndexOf(activity);
+                var yPoint = (activity.ElapsedTime.TotalSeconds / maxYSeconds) * 100;
+                var dataPoint = new DataPoint(xPoint, yPoint);
+
+                series.Points.Add(dataPoint);
+            }
+
+            Model = new PlotModel()
+            {
+                Series = { series }
+            };
+
+            Model.Axes.Add(new TimeSpanAxis()
+            {
+                Title = "Elapsed Time",
+                AbsoluteMinimum = 0.0,
+                AbsoluteMaximum = maxYSeconds,
+                Position = AxisPosition.Left
+            });
+            Model.Axes.Add(new DateTimeAxis()
+            {
+                Title = "Activity Date",
+                AbsoluteMinimum = activitiesInRange.Min(i => i.Created).Ticks,
+                AbsoluteMaximum = activitiesInRange.Max(i => i.Created).Ticks
+            });
         }
 
         public void SetupChart()
@@ -65,19 +120,41 @@ namespace SeparationTrainer.ViewModels
 
             var labelIndexes = new int[] { 0, activitiesInRange.Count / 4, activitiesInRange.Count / 2, activitiesInRange.Count / 4 * 3, activitiesInRange.Count - 1 };
 
+            var minYLabel = "0s";
+            var maxYLabel = activitiesInRange.Any() 
+                ? activitiesInRange.Max(i => i.ElapsedTime).ToShortForm()
+                : "0";
+
+            YAxisLabels = new ObservableCollection<string>()
+            {
+                maxYLabel,
+                minYLabel
+            };
+
+            var minXLabel = StartDate.ToShortDateString();
+            var maxXLabel = EndDate.ToShortDateString();
+
+            XAxisLabels = new ObservableCollection<string>()
+            {
+                minXLabel,
+                maxXLabel
+            };
+
             foreach (var activity in activitiesInRange)
             {
                 var valueLabel = "";
 
                 if (labelIndexes.Contains(activitiesInRange.IndexOf(activity)))
+                {
                     valueLabel = activity.ElapsedTime.ToShortForm();
+                }
 
                 var entry = new ChartEntry((float)activity.ElapsedTime.TotalMinutes)
                 {
-                    Label = activity.Created.ToShortDateString(),
-                    ValueLabel = valueLabel,
+                    //Label = activity.Created.ToShortDateString(),
+                    //ValueLabel = valueLabel,
                     Color = SKColor.Parse("#77d065"),
-                    ValueLabelColor = onSurfaceColor
+                    //ValueLabelColor = onSurfaceColor
                 };
 
                 entries.Add(entry);
@@ -89,10 +166,32 @@ namespace SeparationTrainer.ViewModels
                 LabelTextSize = 28,
                 LabelOrientation = Orientation.Horizontal,
                 ValueLabelOrientation = Orientation.Horizontal,
-                BackgroundColor = backgroundColor
+                BackgroundColor = backgroundColor,
+            };
+            var thing = new PointChart()
+            {
+                
             };
 
             Chart = chart;
+        }
+
+        public PlotModel Model
+        {
+            get => _model;
+            set => SetProperty(ref _model, value, nameof(Model));
+        }
+
+        public ObservableCollection<string> YAxisLabels
+        {
+            get => _yAxisLabels;
+            set => SetProperty(ref _yAxisLabels, value, nameof(YAxisLabels));
+        }
+
+        public ObservableCollection<string> XAxisLabels
+        {
+            get => _xAxisLabels;
+            set => SetProperty(ref _xAxisLabels, value, nameof(XAxisLabels));
         }
 
         public LineChart Chart
@@ -104,13 +203,13 @@ namespace SeparationTrainer.ViewModels
         public DateTime StartDate
         {
             get => _startDate;
-            set => SetProperty(ref _startDate, value, nameof(StartDate), SetupChart);
+            set => SetProperty(ref _startDate, value, nameof(StartDate), SetupOxyPlot);
         }
 
         public DateTime EndDate
         {
             get => _endDate;
-            set => SetProperty(ref _endDate, value, nameof(EndDate), SetupChart);
+            set => SetProperty(ref _endDate, value, nameof(EndDate), SetupOxyPlot);
         }
 
         public List<ActivityModel> Activities { get; set; }

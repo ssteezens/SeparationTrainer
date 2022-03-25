@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\ThemeEditorRenderer.cs" />
+    <Compile Include="Services\Processes\iOSServiceManager.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,5 +144,8 @@
       <Project>{07B15261-C107-4611-8EB8-60673D385961}</Project>
       <Name>SeparationTrainer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\Notifications" />
   </ItemGroup>
 </Project>

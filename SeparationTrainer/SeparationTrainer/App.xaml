@@ -21,6 +21,8 @@
         <converters:AbbreviationConverter x:Key="AbbreviationConverter"/>
         <converters:CurrentSessionToVisibilityConverter x:Key="CurrentSessionToVisibilityConverter"/>
         <converters:IntegerToVisibilityConverter x:Key="IntegerToVisibilityConverter"/>
+        <converters:XAxisLabelHorizontalOptionsConverter x:Key="XAxisLabelHorizontalOptionsConverter" />
+        <converters:YAxisLabelVerticalOptionsConverter x:Key="YAxisLabelVerticalOptionsConverter" />
 
         <!-- Material Fonts -->
         <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">

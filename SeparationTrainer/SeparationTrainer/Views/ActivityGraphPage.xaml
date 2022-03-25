@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              x:Class="SeparationTrainer.Views.ActivityGraphPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:forms1="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
              IsBusy="{Binding IsBusy}"
              Visual="Material"
              Title="Activity Graph"
+             x:Name="ActivityGraphContentPage"
              BackgroundColor="{DynamicResource Surface}">
     <ContentPage.Content>
         <StackLayout>
@@ -25,12 +28,68 @@
                         TextColor="{DynamicResource OnSurface}"
                         ItemDisplayBinding="{Binding Name}"/>
             </StackLayout>
-            
-            <forms:ChartView x:Name="ChartView" 
-                             BackgroundColor="{DynamicResource Surface}"
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Y Axis Labels -->
+                <StackLayout VerticalOptions="FillAndExpand" 
+                             HorizontalOptions="Start"
+                             Padding="0"
+                             android:VisualElement.Elevation="10"
+                             BindableLayout.ItemsSource="{Binding YAxisLabels}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label VerticalOptions="{Binding Path=., Converter={StaticResource YAxisLabelVerticalOptionsConverter}, ConverterParameter={x:Reference ActivityGraphContentPage}}" 
+                                   Text="{Binding}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <!-- Chart -->
+                <Frame Margin="0"
+                       BackgroundColor="White"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Padding="0">
+                    <!-- <forms:ChartView x:Name="ChartView"  -->
+                    <!--                  Grid.Row="0" -->
+                    <!--                  Grid.Column="1" -->
+                    <!--                  Margin="0" -->
+                    <!--                  EnableTouchEvents="True" -->
+                    <!--                  BackgroundColor="{DynamicResource Surface}" -->
+                    <!--                  HorizontalOptions="FillAndExpand" -->
+                    <!--                  VerticalOptions="FillAndExpand" -->
+                    <!--                  Chart="{Binding Chart}"/> -->
+                    <forms1:PlotView Model="{Binding Model}"
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+
+                <!-- X Axis Labels -->
+                <StackLayout Grid.Row="1"
+                             Grid.Column="1"
+                             Orientation="Horizontal"
                              HorizontalOptions="FillAndExpand"
-                             VerticalOptions="FillAndExpand"
-                             Chart="{Binding Chart}"/>
+                             x:Name="XAxisLabelLayout"
+                             BindableLayout.ItemsSource="{Binding XAxisLabels}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Label HorizontalOptions="{Binding Path=., Converter={StaticResource XAxisLabelHorizontalOptionsConverter}, ConverterParameter={x:Reference ActivityGraphContentPage}}" 
+                                   Text="{Binding}"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Grid>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
