@@ -27,7 +27,8 @@ namespace SeparationTrainer
         public void RegisterServices()
         {
             var mapperInstance = CreateMapper();
-            var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
+            //var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "mydb.db3");
+            var databasePath = GetIosPath();
             var activityRepository = new ActivityRepository(databasePath);
             var activityTagRepository = new ActivityTagRepository(databasePath);
             var tagRepository = new TagRepository(databasePath);
@@ -45,6 +46,17 @@ namespace SeparationTrainer
             DependencyService.Register<IDialogService, DialogService>();
             // register activity service
             DependencyService.RegisterSingleton(activityService);
+        }
+
+
+        public string GetIosPath()
+        {
+            var dbName = "mydb.db3";
+            var documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Personal); // Documents folder
+            var libraryPath = Path.Combine (documentsPath, "..", "Library"); 
+            var path = Path.Combine(libraryPath, dbName);
+
+            return path;
         }
 
         public static IMapper CreateMapper()

@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -110,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SeparationTrainer\SeparationTrainer.csproj">
-      <Project>{07B15261-C107-4611-8EB8-60673D385961}</Project>
+      <Project>{BC79B0C0-C095-4BB2-ACA1-F18A4B714AF1}</Project>
       <Name>SeparationTrainer</Name>
     </ProjectReference>
   </ItemGroup>

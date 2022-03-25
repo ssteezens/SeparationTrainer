@@ -41,7 +41,7 @@ namespace SeparationTrainer.ViewModels
             ResetTimer();
             SelectedStressLevel = 1;
             Notes = string.Empty;
-            NotificationManager.ClearNotification(0);
+            //NotificationManager.ClearNotification(0);
         }
 
         protected override void OnStart()
