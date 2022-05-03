@@ -133,6 +133,9 @@
     <FlyoutItem Title="View Statistics">
         <ShellContent Route="ViewStatisticsPage" ContentTemplate="{DataTemplate local:ViewStatisticsPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Settings">
+        <ShellContent Route="UserSettingsPage" ContentTemplate="{DataTemplate local:UserSettingsPage}" />
+    </FlyoutItem>
 
     <ShellContent Route="EditActivityPage" ContentTemplate="{DataTemplate local:EditActivityPage}"/>
     <ShellContent Route="NewManualActivityPage" ContentTemplate="{DataTemplate local:NewManualActivityPage}"/>

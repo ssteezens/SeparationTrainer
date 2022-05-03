@@ -2,6 +2,7 @@
 using SeparationTrainer.Data.Repositories;
 using SeparationTrainer.Services;
 using SeparationTrainer.Services.Data;
+using SeparationTrainer.Services.IO;
 using SeparationTrainer.Services.Notifications;
 using SeparationTrainer.Services.PlatformProcesses;
 using System;
@@ -67,6 +68,8 @@ namespace SeparationTrainer.ViewModels
         public IDialogService DialogService => DependencyService.Get<IDialogService>();
 
         public INotificationManager NotificationManager => DependencyService.Get<INotificationManager>();
+
+        public IFilePathService FilePathService => DependencyService.Get<IFilePathService>();
 
         public IServiceManager ServiceManager => DependencyService.Get<IServiceManager>();
 

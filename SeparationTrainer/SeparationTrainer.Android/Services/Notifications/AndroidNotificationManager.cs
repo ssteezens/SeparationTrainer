@@ -22,7 +22,9 @@ namespace SeparationTrainer.Droid.Services.Notifications
 
         private bool _channelInitialized;
         private int _messageId = 0;
+        private int _downloadMessageId = 0;
         private int _pendingIntentId = 0;
+        private int _pendingDownloadIntentId = int.MaxValue;
         private NotificationManager _manager;
 
         public event EventHandler NotificationReceived;
@@ -35,12 +37,15 @@ namespace SeparationTrainer.Droid.Services.Notifications
             Instance = this;
         }
 
-        public void SendNotification(string title, string message, DateTime? notifyTime = null, int? messageId = null)
+        public void SendNotification(string title, string message, DateTime? notifyTime = null, int? messageId = null, NotificationType notificationType = NotificationType.Message)
         {
             if(!_channelInitialized)
                 CreateNotificationChannel();
 
-            Show(title, message, messageId);
+            if (notificationType == NotificationType.Message)
+                Show(title, message, messageId);
+            else
+                ShowDownload(title, message, messageId);
         }
 
         public void ReceiveNotification(string title, string message)
@@ -90,6 +95,30 @@ namespace SeparationTrainer.Droid.Services.Notifications
 
             var notification = builder.Build();
             var id = messageId ?? _messageId;
+            _manager.Notify(id, notification);
+        }
+
+        public void ShowDownload(string title, string message, int? messageId)
+        {
+            var intent = new Intent(DownloadManager.ActionViewDownloads);
+            intent.PutExtra(TitleKey, title);
+            intent.PutExtra(MessageKey, message);
+
+            var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, _pendingDownloadIntentId--, intent, PendingIntentFlags.OneShot);
+
+            var builder = new NotificationCompat.Builder(AndroidApp.Context, _channelId)
+                .SetContentIntent(pendingIntent)
+                .SetContentTitle(title)
+                .SetContentText(message)
+                .SetLargeIcon(
+                    BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.notification_large))
+                .SetSmallIcon(Resource.Drawable.notification_small)
+                .SetPriority((int)NotificationPriority.Low)
+                .SetSound(null)
+                .SetDefaults((int)NotificationDefaults.Vibrate);
+
+            var notification = builder.Build();
+            var id = messageId ?? _downloadMessageId;
             _manager.Notify(id, notification);
         }
 

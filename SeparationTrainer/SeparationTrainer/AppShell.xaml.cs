@@ -1,13 +1,9 @@
-﻿using SeparationTrainer.ViewModels;
-using SeparationTrainer.Views;
-using System;
-using System.Collections.Generic;
-using SeparationTrainer.Themes;
+﻿using SeparationTrainer.Themes;
 using Xamarin.Forms;
 
 namespace SeparationTrainer
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Shell
     {
         public AppShell()
         {
