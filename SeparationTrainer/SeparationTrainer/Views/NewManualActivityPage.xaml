@@ -58,7 +58,7 @@
                 <Label Text="Tags"/>
                 <StackLayout HorizontalOptions="StartAndExpand" 
                              Orientation="Horizontal"
-                             HeightRequest="25">
+                             HeightRequest="40">
 
                     <!-- Add New Tag -->
                     <Button Text="New"
@@ -66,6 +66,7 @@
                             HorizontalOptions="End"
                             Padding="0"
                             WidthRequest="50"
+                            Margin="4"
                             BackgroundColor="{DynamicResource Primary}"
                             TextColor="{DynamicResource OnPrimary}"
                             Command="{Binding AddNewTagCommand}"

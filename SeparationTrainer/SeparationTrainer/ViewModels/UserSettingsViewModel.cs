@@ -1,4 +1,5 @@
-﻿using SeparationTrainer.Services.IO;
+﻿using SeparationTrainer.Exceptions;
+using SeparationTrainer.Services.IO;
 using SeparationTrainer.Services.Notifications;
 using System;
 using System.IO;
@@ -20,11 +21,25 @@ namespace SeparationTrainer.ViewModels
         private async Task ExportData()
         {
             var data = (await ActivityService.GetAllAsync()).ToList();
-            var filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"seperation_trainer_data_{DateTime.Now.Day}{DateTime.Now.Month}{DateTime.Now.Year}_{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}");
+            
+            try
+            {
+                var downloadsFolder = await FilePathService.GetDownloadsDirectory();
 
-            ExcelService.CreateCSV(data, filepath);
+                var filepath = Path.Combine(downloadsFolder, $"seperation_trainer_data_{DateTime.Now.Day}{DateTime.Now.Month}{DateTime.Now.Year}_{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.csv");
 
-            NotificationManager.SendNotification("File Created", $"Data has been exported to file: {filepath}", notificationType: NotificationType.Download);
+                ExcelService.CreateCSV(data, filepath);
+
+                NotificationManager.SendNotification("File Created", $"Data has been exported to file: {filepath}", notificationType: NotificationType.Download);
+            }
+            catch(DeniedPermissionException)
+            {
+                await DialogService.ShowError("Export Error", "Permissions for creating export file were denied.");
+            }
+            catch (Exception ex)
+            {
+                await DialogService.ShowError("Export Error", $"Unkown error when exporting data: {ex.Message}");
+            }
         }
     }
 }

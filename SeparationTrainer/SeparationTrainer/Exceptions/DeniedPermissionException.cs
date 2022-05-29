@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeparationTrainer.Services.IO
+namespace SeparationTrainer.Exceptions
 {
-    public interface IFilePathService
+    public class DeniedPermissionException : Exception
     {
-        Task<string> GetDownloadsDirectory();
+
     }
 }

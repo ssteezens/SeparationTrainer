@@ -83,7 +83,7 @@
                 <Label Text="Tags" FontSize="18"/>
                 <StackLayout HorizontalOptions="StartAndExpand" 
                              Orientation="Horizontal"
-                             HeightRequest="25">
+                             HeightRequest="40">
 
                     <!-- Add New Tag -->
                     <Button Text="New"
@@ -91,6 +91,7 @@
                             HorizontalOptions="End"
                             Padding="0"
                             WidthRequest="50"
+                            Margin="4"
                             BackgroundColor="{DynamicResource Primary}"
                             TextColor="{DynamicResource OnPrimary}"
                             Command="{Binding AddNewTagCommand}"
@@ -105,6 +106,7 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <controls:TagControl TagModel="{Binding TagModel}"
+                                                     Margin="4,0,0,0"
                                                      RemoveTagCommand="{Binding Source={x:Reference NewActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
