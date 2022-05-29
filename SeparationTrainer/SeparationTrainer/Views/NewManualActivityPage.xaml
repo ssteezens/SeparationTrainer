@@ -15,7 +15,8 @@
             <StackLayout Padding="15">
 
                 <!-- Elapsed Time -->
-                <Label Text="Elapsed Time (hh:mm:ss)" />
+                <Label Text="Elapsed Time (hh:mm:ss)"
+                       FontSize="18"/>
                 <StackLayout Spacing="0" 
                          HorizontalOptions="StartAndExpand"
                          Orientation="Horizontal">
@@ -44,7 +45,7 @@
                 <!-- Stress Level -->
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="Fill">
-                    <Label Text="Stress Level:" HorizontalOptions="Start" />
+                    <Label Text="Stress Level:" FontSize="18" HorizontalOptions="Start" />
                     <Label Text="{Binding AnxietyLevel}" HorizontalOptions="End"/>
                 </StackLayout>
 
@@ -55,7 +56,7 @@
                                         Value="{Binding AnxietyLevel}" />
 
                 <!-- Tags -->
-                <Label Text="Tags"/>
+                <Label Text="Tags" FontSize="18"/>
                 <StackLayout HorizontalOptions="StartAndExpand" 
                              Orientation="Horizontal"
                              HeightRequest="40">
@@ -88,7 +89,7 @@
                 </StackLayout>
 
                 <!-- Notes -->
-                <Label Text="Notes:" />
+                <Label Text="Notes:" FontSize="18" />
                 <controls:ThemeEditor Text="{Binding Notes}"
                                       AutoSize="TextChanges"
                                       PlaceholderColor="#808080"
