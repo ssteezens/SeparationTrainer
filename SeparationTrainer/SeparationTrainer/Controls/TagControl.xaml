@@ -11,7 +11,7 @@
                    VerticalOptions="Center"
                    Padding="0"
                    Margin="0"
-                   CornerRadius="0"
+                   CornerRadius="20"
                    HorizontalOptions="Start">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -19,7 +19,8 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="{Binding TagModel.Name}" 
-                           Padding="4,2"/>
+                           VerticalOptions="Center"
+                           Padding="10,0,0,0"/>
 
                     <Button Grid.Column="1"
                             BackgroundColor="{DynamicResource Primary}"
@@ -31,7 +32,7 @@
                             Margin="0"
                             Padding="2"
                             CornerRadius="0"
-                            WidthRequest="20"
+                            WidthRequest="30"
                             HorizontalOptions="Center"
                             Text="{x:Static helpers:IconFont.Close}"/>
                 </Grid>
