@@ -1,5 +1,4 @@
-﻿using SeparationTrainer.Extensions;
-using SeparationTrainer.Models;
+﻿using SeparationTrainer.Models;
 using SeparationTrainer.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -21,6 +20,7 @@ namespace SeparationTrainer.ViewModels
         private TimeSpan _elapsedTime = TimeSpan.MinValue;
         private ObservableCollection<TagModel> _availableTags = new ObservableCollection<TagModel>();
         private ObservableCollection<ActivityTagModel> _appliedTags = new ObservableCollection<ActivityTagModel>();
+        private ObservableCollection<object> _tagCollection = new ObservableCollection<object>();
 
         public NewActivityViewModel() 
         {
@@ -31,6 +31,11 @@ namespace SeparationTrainer.ViewModels
             AddNewTagCommand = new Command(async () => await  AddNewTag());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
             ShowMoreTagsCommand = new Command(async () => await ShowMoreTags());
+            AddButtonModel = new AddButtonModel()
+            {
+                DisplayText = "Add New",
+                ClickCommand = AddNewTagCommand
+            };
 
             StopWatchTimer = new Timer(100) { Enabled = false }; 
             StopWatchTimer.Elapsed +=  OnStopWatchTimerOnElapsed;
@@ -129,8 +134,27 @@ namespace SeparationTrainer.ViewModels
         public ObservableCollection<ActivityTagModel> AppliedTags
         {
             get => _appliedTags;
-            set => SetProperty(ref _appliedTags, value, nameof(AppliedTags));
+            set
+            {
+                SetProperty(ref _appliedTags, value, nameof(AppliedTags));
+                OnPropertyChanged(nameof(TagCollection));
+            }
         }
+
+        public ObservableCollection<object> TagCollection
+        {
+            get
+            {
+                if(AppliedTags != null)
+                    return new ObservableCollection<object>(AppliedTags.Union(new ObservableCollection<object>() { AddButtonModel }));
+                else 
+                    return new ObservableCollection<object>() { AddButtonModel };
+
+            }
+        } 
+            
+
+        public AddButtonModel AddButtonModel { get; set; }
 
         #endregion
 
@@ -157,6 +181,7 @@ namespace SeparationTrainer.ViewModels
             if (activityTagToRemove != null)
             {
                 AppliedTags.Remove(activityTagToRemove);
+                OnPropertyChanged(nameof(TagCollection));
             }
         }
 
@@ -252,10 +277,12 @@ namespace SeparationTrainer.ViewModels
             var activityTag = new ActivityTagModel()
             {
                 TagModel = tagModel,
-                AppliedOn = DateTime.Now
+                AppliedOn = DateTime.Now,
+                RemoveTagCommand = RemoveTagCommand
             };
 
             AppliedTags.Add(activityTag);
+            OnPropertyChanged(nameof(TagCollection));
         }
 
         private async Task ShowMoreTags()

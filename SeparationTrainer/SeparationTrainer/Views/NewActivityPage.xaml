@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:helpers="clr-namespace:SeparationTrainer.Helpers;assembly=SeparationTrainer"
              xmlns:controls="clr-namespace:SeparationTrainer.Controls;assembly=SeparationTrainer"
+             xmlns:converters="clr-namespace:SeparationTrainer.Converters"
              x:Class="SeparationTrainer.Views.NewActivityPage"
              x:Name="NewActivityContentPage"
              Visual="Material"
@@ -11,6 +11,34 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
     </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="TagDataTemplate">
+            <controls:TagControl TagModel="{Binding TagModel}"
+                                 Margin="4,4,0,0"
+                                 HeightRequest="40"
+                                 RemoveTagCommand="{Binding Source={x:Reference NewActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="AddButtonTemplate">
+            <!-- Add New Tag -->
+            <Button Text="{Binding DisplayText}"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        HeightRequest="40"
+                        Padding="4"
+                        Margin="4"
+                        BackgroundColor="{DynamicResource Surface}"
+                        TextColor="{DynamicResource OnPrimary}"
+                        Command="{Binding ClickCommand}"
+                        BorderColor="{DynamicResource Primary}"
+                        BorderWidth="1"
+                        CornerRadius="20"
+                        VerticalOptions="Center" />
+        </DataTemplate>
+
+        <converters:TagTemplateSelector AddButtonTemplate="{StaticResource AddButtonTemplate}"
+                                        TagTemplate="{StaticResource TagDataTemplate}" 
+                                        x:Key="TagTemplateSelector"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="15">
@@ -81,37 +109,14 @@
 
                 <!-- Tags -->
                 <Label Text="Tags" FontSize="18"/>
-                <StackLayout HorizontalOptions="StartAndExpand" 
-                             Orientation="Horizontal"
-                             HeightRequest="40">
-
-                    <!-- Add New Tag -->
-                    <Button Text="New"
-                            FontSize="14"
-                            HorizontalOptions="End"
-                            Padding="0"
-                            WidthRequest="50"
-                            Margin="4"
-                            BackgroundColor="{DynamicResource Primary}"
-                            TextColor="{DynamicResource OnPrimary}"
-                            Command="{Binding AddNewTagCommand}"
-                            BorderColor="{DynamicResource OnSurface}"
-                            BorderWidth="0"
-                            VerticalOptions="Center" />
-
-                    <!-- Applied Tags -->
-                    <StackLayout BindableLayout.ItemsSource="{Binding AppliedTags}" 
-                                 Orientation="Horizontal"
-                                 Spacing="2">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <controls:TagControl TagModel="{Binding TagModel}"
-                                                     Margin="4,0,0,0"
-                                                     RemoveTagCommand="{Binding Source={x:Reference NewActivityContentPage}, Path=BindingContext.RemoveTagCommand}"/>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </StackLayout>
+                <FlexLayout Direction="Row"
+                                Wrap="Wrap"
+                                JustifyContent="Start"
+                                HorizontalOptions="StartAndExpand"
+                                VerticalOptions="Start"
+                                BindableLayout.ItemTemplateSelector="{StaticResource TagTemplateSelector}"
+                                BindableLayout.ItemsSource="{Binding TagCollection}">
+                </FlexLayout>
 
                 <!-- Notes -->
                 <Label Text="Notes:" 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace SeparationTrainer.Models
 {
@@ -24,5 +21,7 @@ namespace SeparationTrainer.Models
             get => _appliedOn;
             set => SetProperty(ref _appliedOn, value, nameof(AppliedOn));
         }
+
+        public Command RemoveTagCommand { get; set; }
     }
 }
