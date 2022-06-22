@@ -110,12 +110,12 @@
                 <!-- Tags -->
                 <Label Text="Tags" FontSize="18"/>
                 <FlexLayout Direction="Row"
-                                Wrap="Wrap"
-                                JustifyContent="Start"
-                                HorizontalOptions="StartAndExpand"
-                                VerticalOptions="Start"
-                                BindableLayout.ItemTemplateSelector="{StaticResource TagTemplateSelector}"
-                                BindableLayout.ItemsSource="{Binding TagCollection}">
+                            Wrap="Wrap"
+                            JustifyContent="Start"
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="Start"
+                            BindableLayout.ItemTemplateSelector="{StaticResource TagTemplateSelector}"
+                            BindableLayout.ItemsSource="{Binding TagCollection}">
                 </FlexLayout>
 
                 <!-- Notes -->

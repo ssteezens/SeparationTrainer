@@ -25,6 +25,11 @@ namespace SeparationTrainer.ViewModels
             SaveActivityCommand = new Command(async () => await SaveActivity());
             CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
+            AddButtonModel = new AddButtonModel()
+            {
+                DisplayText = "Add New",
+                ClickCommand = AddNewTagCommand
+            };
 
             HoursTextInput = new ValidatableObject<string>() { Value = "00" };
             HoursTextInput.Validations.Add(new HourTextIsValidRule<string>("Hours must be a number between 0 and 24"));
@@ -71,6 +76,20 @@ namespace SeparationTrainer.ViewModels
         public DateTime SelectedDate { get; set; } = DateTime.Now;
 
         public string Notes { get; set; }
+
+        public ObservableCollection<object> TagCollection
+        {
+            get
+            {
+                if (AppliedTags != null)
+                    return new ObservableCollection<object>(AppliedTags.Union(new ObservableCollection<object>() { AddButtonModel }));
+                else
+                    return new ObservableCollection<object>() { AddButtonModel };
+
+            }
+        }
+
+        public AddButtonModel AddButtonModel { get; set; }
 
         #endregion
 
@@ -150,6 +169,7 @@ namespace SeparationTrainer.ViewModels
             };
 
             AppliedTags.Add(activityTag);
+            OnPropertyChanged(nameof(TagCollection));
         }
 
         private async Task Cancel()
@@ -169,6 +189,7 @@ namespace SeparationTrainer.ViewModels
             if (activityTagToRemove != null)
             {
                 AppliedTags.Remove(activityTagToRemove);
+                OnPropertyChanged(nameof(TagCollection));
             }
         }
 

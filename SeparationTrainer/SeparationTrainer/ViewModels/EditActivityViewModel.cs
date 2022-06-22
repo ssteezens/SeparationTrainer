@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SeparationTrainer.Data.Repositories;
-using SeparationTrainer.Models;
+﻿using SeparationTrainer.Models;
 using SeparationTrainer.Models.Validation;
 using SeparationTrainer.Views;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SeparationTrainer.ViewModels
@@ -26,6 +23,11 @@ namespace SeparationTrainer.ViewModels
             CancelCommand = new Command(async () => await Cancel());
             RemoveTagCommand = new Command<TagModel>(RemoveTag);
             AddNewTagCommand = new Command(async () => await AddNewTag());
+            AddButtonModel = new AddButtonModel()
+            {
+                DisplayText = "Add New",
+                ClickCommand = AddNewTagCommand
+            };
 
             HoursTextInput = new ValidatableObject<string>() { Value = "00" };
             HoursTextInput.Validations.Add(new HourTextIsValidRule<string>("Hours must be a number between 0 and 24"));
@@ -85,6 +87,20 @@ namespace SeparationTrainer.ViewModels
             set => SetProperty(ref _activityToEdit, value, nameof(ActivityToEdit));
         }
 
+        public ObservableCollection<object> TagCollection
+        {
+            get
+            {
+                if (ActivityToEdit.Tags != null)
+                    return new ObservableCollection<object>(ActivityToEdit.Tags.Union(new ObservableCollection<object>() { AddButtonModel }));
+                else
+                    return new ObservableCollection<object>() { AddButtonModel };
+
+            }
+        }
+
+        public AddButtonModel AddButtonModel { get; set; }
+
         public Command UpdateActivityCommand { get; }
 
         public Command CancelCommand { get; }
@@ -126,6 +142,7 @@ namespace SeparationTrainer.ViewModels
             if(activityTagToRemove != null)
             {
                 ActivityToEdit.Tags.Remove(activityTagToRemove);
+                OnPropertyChanged(nameof(TagCollection));
             }
 
             ActivityToEdit.OnPropertyChanged(nameof(ActivityToEdit.Tags));
