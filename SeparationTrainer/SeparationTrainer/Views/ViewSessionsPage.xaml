@@ -77,29 +77,57 @@
                                                       Command="{Binding Source={x:Reference ViewSessionContentPage}, Path=BindingContext.DeleteActivityCommand}"
                                                       CommandParameter="{Binding .}"/>
                                             </ViewCell.ContextActions>
-                                            <StackLayout Padding="4"
+                                            <Frame BorderColor="{DynamicResource Primary}"
+                                                   BackgroundColor="{DynamicResource Transparent}"
+                                                   Margin="8,4,8,4"
+                                                   CornerRadius="2">
+                                                <StackLayout Padding="4"
                                                          Margin="8,0"
                                                          Spacing="0"
                                                          HorizontalOptions="StartAndExpand">
-                                                <!-- Created Time stamp -->
-                                                <Label FontAttributes="Bold"
+                                                    <!-- Created Time stamp -->
+                                                    <Label FontAttributes="Bold"
                                                        Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
 
-                                                <StackLayout Orientation="Horizontal"
+                                                    <StackLayout Orientation="Horizontal"
                                                              HorizontalOptions="StartAndExpand">
-                                                    <!-- Anxiety Level -->
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <Label Text="Stress Level: " />
-                                                        <Label Text="{Binding AnxietyLevel}" />
+                                                        <!-- Anxiety Level -->
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="Stress Level:" />
+                                                            <Label Text="{Binding AnxietyLevel}" />
+                                                        </StackLayout>
+                                                        <!-- Elapsed Time -->
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="Elapsed Time:" />
+                                                            <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
+                                                        </StackLayout>
                                                     </StackLayout>
-                                                    <!-- Elapsed Time -->
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <Label Text="Elapsed Time:" />
-                                                        <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
-                                                    </StackLayout>
-                                                </StackLayout>
-                                                <!-- Tags -->
-                                                <FlexLayout BindableLayout.ItemsSource="{Binding Tags}"
+
+                                                    <Grid HorizontalOptions="StartAndExpand" 
+                                                          Margin="0,4"
+                                                          IsVisible="{Binding HasNotes}">
+                                                        <BoxView HorizontalOptions="FillAndExpand" 
+                                                                 BackgroundColor="#cccccc" 
+                                                                 Opacity="0.6"
+                                                                 HeightRequest="1" 
+                                                                 Margin="2"/>
+                                                    </Grid>
+
+                                                    <!-- Notes -->
+                                                    <Label Text="{Binding Notes}" IsVisible="{Binding HasNotes}" />
+
+                                                    <Grid HorizontalOptions="StartAndExpand" 
+                                                          Margin="0,4"
+                                                          IsVisible="{Binding HasTags}">
+                                                        <BoxView HorizontalOptions="FillAndExpand" 
+                                                                 BackgroundColor="#cccccc" 
+                                                                 Opacity="0.6"
+                                                                 HeightRequest="1" 
+                                                                 Margin="2"/>
+                                                    </Grid>
+                                                    
+                                                    <!-- Tags -->
+                                                    <FlexLayout BindableLayout.ItemsSource="{Binding Tags}"
                                                             IsVisible="{Binding HasTags}"
                                                             Direction="Row"
                                                             Wrap="Wrap"
@@ -107,9 +135,9 @@
                                                             HorizontalOptions="StartAndExpand"
                                                             VerticalOptions="Start"
                                                             Margin="0,4,0,4">
-                                                    <BindableLayout.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <Frame BorderColor="{DynamicResource OnSurface}"
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Frame BorderColor="{DynamicResource OnSurface}"
                                                                    BackgroundColor="{DynamicResource Transparent}"
                                                                    VerticalOptions="Center"
                                                                    Padding="2"
@@ -117,25 +145,15 @@
                                                                    CornerRadius="10"
                                                                    HeightRequest="25"
                                                                    HorizontalOptions="Start">
-                                                                <Label Text="{Binding TagModel.Name}" 
-                                                                       VerticalOptions="Center"
-                                                                       Padding="4,0"/>
-                                                            </Frame>
-                                                        </DataTemplate>
-                                                    </BindableLayout.ItemTemplate>
-                                                </FlexLayout>
-
-                                                <!-- Notes -->
-                                                <Grid HorizontalOptions="StartAndExpand">
-                                                    <BoxView HorizontalOptions="FillAndExpand" 
-                                                             BackgroundColor="#cccccc" 
-                                                             Opacity="0.6"
-                                                             HeightRequest="1" 
-                                                             Margin="2"/>
-                                                </Grid>
-                                                <Label Text="{Binding Notes}" />
-                                                
-                                            </StackLayout>
+                                                                    <Label Text="{Binding TagModel.Name}" 
+                                                                           VerticalOptions="Center"
+                                                                           Padding="4,0"/>
+                                                                </Frame>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </FlexLayout>
+                                                </StackLayout>
+                                            </Frame>
                                         </ViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

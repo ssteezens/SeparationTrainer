@@ -27,7 +27,7 @@
                         Padding="4"
                         Margin="4"
                         BackgroundColor="{DynamicResource Surface}"
-                        TextColor="{DynamicResource OnPrimary}"
+                        TextColor="{DynamicResource OnSurface}"
                         Command="{Binding ClickCommand}"
                         BorderColor="{DynamicResource Primary}"
                         BorderWidth="1"

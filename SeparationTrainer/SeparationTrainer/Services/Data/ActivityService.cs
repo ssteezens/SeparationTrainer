@@ -62,8 +62,14 @@ namespace SeparationTrainer.Services.Data
 
             foreach (var tag in activity.Tags)
             {
-                var tagEntity = _mapper.Map<ActivityTags>(tag);
-                await _activityTagRepository.AddAsync(tagEntity);
+                var activityTag = new ActivityTags()
+                {
+                    TagId = tag.TagModel.Id,
+                    ActivityId = activity.Id,
+                    AppliedOn = tag.AppliedOn
+                };
+
+                await _activityTagRepository.AddAsync(activityTag);
             }
 
             return activity;

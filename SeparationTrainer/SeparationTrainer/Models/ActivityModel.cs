@@ -44,5 +44,7 @@ namespace SeparationTrainer.Models
         }
 
         public bool HasTags => Tags != null && Tags.Count > 0;
+
+        public bool HasNotes => !string.IsNullOrWhiteSpace(Notes);
     }
 }

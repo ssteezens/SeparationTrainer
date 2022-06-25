@@ -20,18 +20,18 @@
         <DataTemplate x:Key="AddButtonTemplate">
             <!-- Add New Tag -->
             <Button Text="{Binding DisplayText}"
-                        FontSize="12"
-                        HorizontalOptions="End"
-                        HeightRequest="40"
-                        Padding="4"
-                        Margin="4"
-                        BackgroundColor="{DynamicResource Surface}"
-                        TextColor="{DynamicResource OnPrimary}"
-                        Command="{Binding ClickCommand}"
-                        BorderColor="{DynamicResource Primary}"
-                        BorderWidth="1"
-                        CornerRadius="20"
-                        VerticalOptions="Center" />
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    HeightRequest="40"
+                    Padding="4"
+                    Margin="4"
+                    BackgroundColor="{DynamicResource Surface}"
+                    TextColor="{DynamicResource OnSurface}"
+                    Command="{Binding ClickCommand}"
+                    BorderColor="{DynamicResource Primary}"
+                    BorderWidth="1"
+                    CornerRadius="20"
+                    VerticalOptions="Center" />
         </DataTemplate>
 
         <converters:TagTemplateSelector AddButtonTemplate="{StaticResource AddButtonTemplate}"

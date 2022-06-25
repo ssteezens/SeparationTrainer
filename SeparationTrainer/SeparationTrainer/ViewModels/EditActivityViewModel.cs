@@ -48,6 +48,7 @@ namespace SeparationTrainer.ViewModels
                 var activity = await ActivityService.GetAsync(ActivityToEditId);
 
                 ActivityToEdit = activity;
+                OnPropertyChanged(nameof(TagCollection));
 
                 HoursTextInput.Value = ActivityToEdit.ElapsedTime.Hours.ToString().PadLeft(2, '0') ;
                 MinutesTextInput.Value = ActivityToEdit.ElapsedTime.Minutes.ToString().PadLeft(2, '0');
