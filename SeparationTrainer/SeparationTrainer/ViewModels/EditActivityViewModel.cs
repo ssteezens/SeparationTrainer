@@ -116,7 +116,8 @@ namespace SeparationTrainer.ViewModels
                 "Ok",
                 "Cancel",
                 "New Tag Here",
-                100);
+                100,
+                Keyboard.Text);
 
             if (result == null)
                 return;
@@ -133,6 +134,7 @@ namespace SeparationTrainer.ViewModels
             };
 
             ActivityToEdit.Tags.Add(activityTag);
+            OnPropertyChanged(nameof(TagCollection));
         }
 
         private void RemoveTag(TagModel tagToRemove)
@@ -146,6 +148,7 @@ namespace SeparationTrainer.ViewModels
             }
 
             ActivityToEdit.OnPropertyChanged(nameof(ActivityToEdit.Tags));
+            OnPropertyChanged(nameof(TagCollection));
         }
 
         private async Task Cancel()

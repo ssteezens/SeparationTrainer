@@ -21,6 +21,9 @@ namespace SeparationTrainer.Converters
 
             var stringValue = $"{hoursText}{minutesText}{secondsText}";
 
+            if (string.IsNullOrEmpty(stringValue))
+                stringValue = "0s";
+
             return stringValue;
         }
 

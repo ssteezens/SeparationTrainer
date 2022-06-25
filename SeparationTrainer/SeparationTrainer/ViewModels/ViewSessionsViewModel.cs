@@ -36,6 +36,7 @@ namespace SeparationTrainer.ViewModels
                     activityToEdit.AnxietyLevel = model.AnxietyLevel;
                     activityToEdit.ElapsedTime = model.ElapsedTime;
                     activityToEdit.Tags = model.Tags;
+                    activityToEdit.Notes = model.Notes;
                     break;
                 }
             }

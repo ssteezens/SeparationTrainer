@@ -78,59 +78,63 @@
                                                       CommandParameter="{Binding .}"/>
                                             </ViewCell.ContextActions>
                                             <StackLayout Padding="4"
-                                                 Margin="8,0"
-                                                 Spacing="0"
-                                                 HorizontalOptions="StartAndExpand">
+                                                         Margin="8,0"
+                                                         Spacing="0"
+                                                         HorizontalOptions="StartAndExpand">
                                                 <!-- Created Time stamp -->
                                                 <Label FontAttributes="Bold"
-                                               Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
+                                                       Text="{Binding Created, StringFormat='{0:hh:mm tt}'}" />
 
-                                                <!-- Anxiety Level -->
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="Stress Level: " />
-                                                    <Label Text="{Binding AnxietyLevel}" />
+                                                <StackLayout Orientation="Horizontal"
+                                                             HorizontalOptions="StartAndExpand">
+                                                    <!-- Anxiety Level -->
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label Text="Stress Level: " />
+                                                        <Label Text="{Binding AnxietyLevel}" />
+                                                    </StackLayout>
+                                                    <!-- Elapsed Time -->
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label Text="Elapsed Time:" />
+                                                        <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
+                                                    </StackLayout>
                                                 </StackLayout>
-                                                <!-- Elapsed Time -->
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="Elapsed Time:" />
-                                                    <Label Text="{Binding ElapsedTime, Converter={StaticResource TimeSpanToStringConverter}}" />
-                                                </StackLayout>
-                                                <!-- Notes -->
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Text="Notes:" />
-                                                    <Label Grid.Column="1" 
-                                                           Text="{Binding Notes}" />
-                                                </Grid>
                                                 <!-- Tags -->
-                                                <CollectionView ItemsSource="{Binding Tags}"
-                                                        IsVisible="{Binding HasTags}"
-                                                        HorizontalOptions="StartAndExpand"
-                                                        VerticalOptions="Start"
-                                                        HeightRequest="25">
-                                                    <CollectionView.ItemsLayout>
-                                                        <LinearItemsLayout Orientation="Horizontal"/>
-                                                    </CollectionView.ItemsLayout>
-                                                    <CollectionView.ItemTemplate>
+                                                <FlexLayout BindableLayout.ItemsSource="{Binding Tags}"
+                                                            IsVisible="{Binding HasTags}"
+                                                            Direction="Row"
+                                                            Wrap="Wrap"
+                                                            JustifyContent="Start"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            VerticalOptions="Start"
+                                                            Margin="0,4,0,4">
+                                                    <BindableLayout.ItemTemplate>
                                                         <DataTemplate>
-                                                            <Grid>
-                                                                <Frame BorderColor="{DynamicResource OnSurface}"
-                                                                       BackgroundColor="{DynamicResource Transparent}"
+                                                            <Frame BorderColor="{DynamicResource OnSurface}"
+                                                                   BackgroundColor="{DynamicResource Transparent}"
+                                                                   VerticalOptions="Center"
+                                                                   Padding="2"
+                                                                   Margin="0,2,4,0"     
+                                                                   CornerRadius="10"
+                                                                   HeightRequest="25"
+                                                                   HorizontalOptions="Start">
+                                                                <Label Text="{Binding TagModel.Name}" 
                                                                        VerticalOptions="Center"
-                                                                       Padding="2"
-                                                                       Margin="0,2,4,0"
-                                                                       CornerRadius="0"
-                                                                       HorizontalOptions="Start">
-                                                                    <Label Text="{Binding TagModel.Name}" 
-                                                                           Padding="4,0"/>
-                                                                </Frame>
-                                                            </Grid>
+                                                                       Padding="4,0"/>
+                                                            </Frame>
                                                         </DataTemplate>
-                                                    </CollectionView.ItemTemplate>
-                                                </CollectionView>
+                                                    </BindableLayout.ItemTemplate>
+                                                </FlexLayout>
+
+                                                <!-- Notes -->
+                                                <Grid HorizontalOptions="StartAndExpand">
+                                                    <BoxView HorizontalOptions="FillAndExpand" 
+                                                             BackgroundColor="#cccccc" 
+                                                             Opacity="0.6"
+                                                             HeightRequest="1" 
+                                                             Margin="2"/>
+                                                </Grid>
+                                                <Label Text="{Binding Notes}" />
+                                                
                                             </StackLayout>
                                         </ViewCell>
                                     </DataTemplate>
