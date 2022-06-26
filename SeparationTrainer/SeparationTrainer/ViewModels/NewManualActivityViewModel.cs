@@ -115,7 +115,7 @@ namespace SeparationTrainer.ViewModels
                 var activity = new ActivityModel
                 {
                     AnxietyLevel = AnxietyLevel,
-                    Created = SelectedDate,
+                    Created = DateTime.Now,
                     ElapsedTime = elapsedTime,
                     Notes = Notes,
                     Tags = AppliedTags
