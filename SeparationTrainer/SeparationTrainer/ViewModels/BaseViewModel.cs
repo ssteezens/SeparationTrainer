@@ -4,6 +4,7 @@ using SeparationTrainer.Services;
 using SeparationTrainer.Services.Data;
 using SeparationTrainer.Services.Notifications;
 using SeparationTrainer.Services.PlatformProcesses;
+using SeparationTrainer.Services.Theme;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,6 +70,8 @@ namespace SeparationTrainer.ViewModels
         public INotificationManager NotificationManager => DependencyService.Get<INotificationManager>();
 
         public IServiceManager ServiceManager => DependencyService.Get<IServiceManager>();
+
+        public IThemeService ThemeService => DependencyService.Get<IThemeService>();
 
         public bool IsBusy
         {

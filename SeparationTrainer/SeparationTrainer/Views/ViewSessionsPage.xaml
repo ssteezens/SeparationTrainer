@@ -68,7 +68,7 @@
                                       SeparatorVisibility="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <ViewCell>
+                                        <ViewCell Tapped="ViewCell_Tapped">
                                             <ViewCell.ContextActions>
                                                 <MenuItem Text="Edit" 
                                                       Command="{Binding Source={x:Reference ViewSessionContentPage}, Path=BindingContext.GoToEditActivityCommand}"

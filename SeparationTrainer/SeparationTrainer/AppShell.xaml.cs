@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using SeparationTrainer.Themes;
 using Xamarin.Forms;
+using SeparationTrainer.Services.Theme;
 
 namespace SeparationTrainer
 {
@@ -31,6 +32,7 @@ namespace SeparationTrainer
 
         private void LoadThemeStyleSheet()
         {
+            var themeService = DependencyService.Get<IThemeService>();
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
 
             if (mergedDictionaries != null)
@@ -41,10 +43,12 @@ namespace SeparationTrainer
                 {
                     case Theme.Dark:
                         mergedDictionaries.Add(new DarkTheme());
+                        themeService.SetTheme(Theme.Dark);
                         break;
                     case Theme.Light:
                     default:
                         mergedDictionaries.Add(new LightTheme());
+                        themeService.SetTheme(Theme.Light);
                         break;
                 }
             }

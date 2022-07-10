@@ -80,6 +80,7 @@
     <Compile Include="Services\Notifications\AndroidNotificationManager.cs" />
     <Compile Include="Services\Processes\AndroidServiceManager.cs" />
     <Compile Include="Services\Processes\TimerService.cs" />
+    <Compile Include="Services\Theme\ThemeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />

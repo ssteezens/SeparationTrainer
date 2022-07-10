@@ -6,4 +6,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorControlNormal">#95FFFFFF</color>
     <color name="unselectedColor">#95FFFFFF</color>
+	<color name="colorActivatedHighlight">#322c3a</color>
+	<color name="colorActivatedHighlightLight">#e6e6e6</color>
+	<color name="actionMenuTextColor">#66fff9</color>
 </resources>
