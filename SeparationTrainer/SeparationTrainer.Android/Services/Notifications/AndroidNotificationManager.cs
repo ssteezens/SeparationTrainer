@@ -72,6 +72,7 @@ namespace SeparationTrainer.Droid.Services.Notifications
 
         public void Show(string title, string message, int? messageId)
         {
+            
             var intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);

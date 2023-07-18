@@ -1,9 +1,12 @@
 ﻿
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using SeparationTrainer.Droid.Services.Notifications;
 using SeparationTrainer.Services.Notifications;
 using Xamarin.Forms;
@@ -28,6 +31,13 @@ namespace SeparationTrainer.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App());
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Tiramisu)
+            {
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.PostNotifications) != (int)Permission.Granted)
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.PostNotifications }, 1);
+                }
+            }
             CreateNotificationFromIntent(Intent);
         }
 
