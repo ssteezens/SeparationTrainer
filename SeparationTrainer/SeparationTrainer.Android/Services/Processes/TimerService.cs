@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
+using AndroidX.Core.App;
 using SeparationTrainer.Extensions;
 using System;
 using System.Timers;
@@ -153,7 +154,10 @@ namespace SeparationTrainer.Droid.Services.Processes
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
 
-            var pendingIntent = PendingIntent.GetActivity(Application.Context, _pendingIntentId++, intent, PendingIntentFlags.UpdateCurrent);
+            var pendingIntentFlags = (Build.VERSION.SdkInt >= BuildVersionCodes.S)
+                ? PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable
+                : PendingIntentFlags.UpdateCurrent;
+            var pendingIntent = PendingIntent.GetActivity(Application.Context, _pendingIntentId++, intent, pendingIntentFlags);
 
             var builder = new NotificationCompat.Builder(Application.Context, _channelId)
                 .SetContentIntent(pendingIntent)
