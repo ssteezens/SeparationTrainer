@@ -9,6 +9,7 @@ using AndroidX.Core.Content;
 using SeparationTrainer.Extensions;
 using System;
 using System.Timers;
+using Android.Content.PM;
 using Xamarin.Forms;
 using Application = Android.App.Application;
 
@@ -175,7 +176,12 @@ namespace SeparationTrainer.Droid.Services.Processes
             var notification = builder.Build();
             var id = messageId ?? _messageId;
 
-            _manager.Notify(id, notification);
+            var hasPermission = Build.VERSION.SdkInt < BuildVersionCodes.Tiramisu 
+                                || Xamarin.Essentials.Platform.AppContext.CheckSelfPermission(Manifest.Permission.PostNotifications) == Permission.Granted;
+            if (hasPermission)
+            {
+                _manager.Notify(id, notification);
+            }
 
             return notification;
         }
