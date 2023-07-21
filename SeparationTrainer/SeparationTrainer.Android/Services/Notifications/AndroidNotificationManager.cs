@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
+using AndroidX.Core.App;
 using SeparationTrainer.Services.Notifications;
 using System;
 using Xamarin.Forms;
@@ -71,11 +72,18 @@ namespace SeparationTrainer.Droid.Services.Notifications
 
         public void Show(string title, string message, int? messageId)
         {
+            
             var intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
 
-            var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, _pendingIntentId++, intent, PendingIntentFlags.UpdateCurrent);
+            var pendingIntentFlags = (Build.VERSION.SdkInt >= BuildVersionCodes.S)
+                ? PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable
+                : PendingIntentFlags.UpdateCurrent;
+            var pendingIntent = PendingIntent.GetActivity(AndroidApp.Context,
+                _pendingIntentId++,
+                intent,
+                pendingIntentFlags);
 
             var builder = new NotificationCompat.Builder(AndroidApp.Context, _channelId)
                 .SetContentIntent(pendingIntent)
