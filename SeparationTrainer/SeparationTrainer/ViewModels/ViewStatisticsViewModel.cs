@@ -30,7 +30,7 @@ namespace SeparationTrainer.ViewModels
 
             var activities = await ActivityService.GetAllAsync();
 
-            Activities = activities.ToList();
+            Activities = activities?.ToList() ?? new List<ActivityModel>();
 
             SetStatistics();
 
@@ -39,6 +39,9 @@ namespace SeparationTrainer.ViewModels
 
         public void SetStatistics()
         {
+            if (Activities == null || Activities.Count == 0)
+                return;
+            
             // longest activity
             LongestActivityTime = Activities.Select(i => i.ElapsedTime).Max();
 
@@ -64,13 +67,13 @@ namespace SeparationTrainer.ViewModels
             var activitiesByDay = lastTwoWeekActivities.GroupBy(i => i.Created.DayOfWeek);
             var dayAverages = new Dictionary<string, TimeSpan>()
             {
-                { "Sunday", new TimeSpan() },
-                { "Monday", new TimeSpan() },
-                { "Tuesday", new TimeSpan() },
-                { "Wednesday", new TimeSpan() },
-                { "Thursday", new TimeSpan() },
-                { "Friday", new TimeSpan() },
-                { "Saturday", new TimeSpan() }
+                { "Sunday", TimeSpan.Zero },
+                { "Monday", TimeSpan.Zero },
+                { "Tuesday", TimeSpan.Zero },
+                { "Wednesday", TimeSpan.Zero },
+                { "Thursday", TimeSpan.Zero },
+                { "Friday", TimeSpan.Zero },
+                { "Saturday", TimeSpan.Zero }
             };
 
             foreach (var group in activitiesByDay)
@@ -106,7 +109,7 @@ namespace SeparationTrainer.ViewModels
             MostUsedTags = mostUsedTags;
         }
 
-        public List<ActivityModel> Activities { get; set; }
+        public List<ActivityModel> Activities { get; set; } = new List<ActivityModel>();
 
         public Dictionary<string, TimeSpan> DayAverages
         {
